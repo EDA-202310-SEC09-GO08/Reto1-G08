@@ -25,6 +25,9 @@ import model
 import time
 import csv
 
+...
+csv.field_size_limit(2147483647)
+
 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
@@ -44,12 +47,36 @@ def new_controller():
 
 # Funciones para la carga de datos
 
+def datos_por_año(datos: list):
+    dic_anios ={}  
+    for dato in datos:
+        if dato['Año'] not in dic_anios:
+            dic_anios[dato['Año']]=[dato]
+
+        else:
+            dic_anios[dato['Año']].append(dato)
+
+    return dic_anios
+
+
+
+
 def load_data(control, filename):
     """
     Carga los datos del reto
     """
+    file = cf.data_dir + filename
+    input_file = csv.DictReader(open(file, encoding='utf-8'))
+    catalog = control['model']
+    for line in input_file:
+        model.add_data(catalog, line)
+
+    catalog_bien = catalog['data']
+    catalog_excelente = catalog_bien['elements']
+    dic_ex = datos_por_año(catalog_excelente)
+    print(model.data_size(catalog))
+    return  dic_ex
     # TODO: Realizar la carga de datos
-    pass
 
 
 # Funciones de ordenamiento

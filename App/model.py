@@ -44,6 +44,8 @@ dos listas, una para los videos, otra para las categorias de los mismos.
 # Construccion de modelos
 
 
+
+
 def new_data_structs():
     """
     Inicializa las estructuras de datos del modelo. Las crea de
@@ -65,7 +67,10 @@ def add_data(data_structs, data):
     """
     Función para agregar nuevos elementos a la lista
     """
-    d = new_data(data["id"], data["info"])
+    d = new_data(data["Año"], data["Código actividad económica"], data["Nombre actividad económica"],
+                data["Código sector económico"],data["Nombre sector económico"],data["Código subsector económico"],
+                data["Nombre subsector económico"],data["Total ingresos netos"],data["Total costos y gastos"], data["Total saldo a pagar"],
+                data['Total saldo a favor'])
     lt.addLast(data_structs["data"], d)
 
     return data_structs
@@ -73,13 +78,22 @@ def add_data(data_structs, data):
 
 # Funciones para creacion de datos
 
-def new_data(id, info):
-    """
-    Crea una nueva estructura para modelar los datos
-    """
-    data = {'id': 0, "info": ""}
-    data["id"] = id
-    data["info"] = info
+def new_data(anio, cod_acti, nom_acti, cod_sector, nom_sector, cod_subsec, nom_subsec, total_netos, total_c_g, total_s_pagar, total_favor):
+    
+    data = {'Año': 0, "Código actividad económica": "","Nombre actividad económica": "","Código sector económico": "","Nombre sector económico": "",
+    "Código subsector económico": "","Nombre subsector económico": "","Total ingresos netos": "","Total costos y gastos": "","Total saldo a pagar": "",
+    "Total saldo a favor": ''}
+    data["Año"] = anio
+    data["Código actividad económica"] = cod_acti
+    data["Nombre actividad económica"] = nom_acti
+    data["Código sector económico"] = cod_sector
+    data["Nombre sector económico"] = nom_sector
+    data["Código subsector económico"] = cod_subsec
+    data["Nombre subsector económico"] = nom_subsec
+    data["Total ingresos netos"] = total_netos
+    data["Total costos y gastos"] = total_c_g
+    data["Total saldo a pagar"] = total_s_pagar
+    data["Total saldo a favor"] = total_favor
 
     return data
 

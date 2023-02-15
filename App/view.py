@@ -48,15 +48,16 @@ def new_controller():
 def print_menu():
     print("Bienvenido")
     print("1- Cargar información")
-    print("2- Ejecutar Requerimiento 1")
-    print("3- Ejecutar Requerimiento 2")
-    print("4- Ejecutar Requerimiento 3")
-    print("5- Ejecutar Requerimiento 4")
-    print("6- Ejecutar Requerimiento 5")
-    print("7- Ejecutar Requerimiento 6")
-    print("8- Ejecutar Requerimiento 7")
-    print("9- Ejecutar Requerimiento 8")
+    print("2- Listar las actividades económicas con mayor total saldo a pagar para todos los años")
+    print("3- Listar las actividades económicas con mayor total saldo a favor para para todos los años")
+    print("4- Encontrar el subsector económico con el menor total de retenciones para todos los años disponibles")
+    print("5- Encontrar el subsector económico con los mayores costos y gastos de nómina para todos los años disponibles")
+    print("6- Encontrar el subsector econmico con los mayores descuentos tributarios para todos los años disponibles")
+    print("7- Encontrar la actividad económica con el mayor total de ingresos netos para cada sector económico en un año específico")
+    print("8- Listar el TOP (N) de las actividades económicas con el menor total de costos y gastos para un periodo de tiempo")
+    print("9-  Listar el TOP (N) de actividades económicas de cada subsector con los mayores totales de impuestos a cargo para un periodo de tiempo ")
     print("10- Obtener dato dado un ID")
+
     print("0- Salir")
 
 
@@ -64,7 +65,12 @@ def load_data(control):
     """
     Carga los datos
     """
-    data = controller.load_data(control, "Ruta")
+    data = controller.load_data(control, 'Salida_agregados_renta_juridicos_AG-small.csv')
+    
+    
+    for annio in data.keys():
+
+        print(annio,data[annio][0], data[annio][1], data[annio][2], data[annio][len(data[annio])-1], data[annio][len(data[annio])-2],data[annio][len(data[annio])-3])
     return data
 
 
@@ -157,6 +163,9 @@ if __name__ == "__main__":
             if int(inputs) == 1:
                 print("Cargando información de los archivos ....\n")
                 data = load_data(control)
+                
+                
+                
             elif int(inputs) == 2:
                 print_req_1(control)
 
