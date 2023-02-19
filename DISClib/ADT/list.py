@@ -30,6 +30,7 @@ from DISClib.Utils import error as error
 assert config
 
 
+
 """
   Este módulo implementa el tipo abstracto de datos (TAD) lista.
   Se puede implementar sobre una estructura de datos encadenada de forma

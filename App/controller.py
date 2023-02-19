@@ -24,7 +24,7 @@ import config as cf
 import model
 import time
 import csv
-
+from DISClib.ADT import list as lt
 ...
 csv.field_size_limit(2147483647)
 
@@ -71,14 +71,17 @@ def load_data(control, filename):
     for line in input_file:
         model.add_data(catalog, line)
 
-    catalog_bien = catalog['data']
-    catalog_excelente = catalog_bien['elements']
-    dic_ex = datos_por_año(catalog_excelente)
-    print(model.data_size(catalog))
-    return  dic_ex
+    
+    
+    return  catalog
+
+def crear_list_iterable(catalog):
+    lista = lt.iterator(catalog)
+    return lista
     # TODO: Realizar la carga de datos
 
-
+def data_size(control):
+    return lt.size(control['model']["data"])
 # Funciones de ordenamiento
 
 def sort(control):
@@ -86,10 +89,10 @@ def sort(control):
     Ordena los datos del modelo
     """
     start_time = get_time()
-    model.sort(control["model"])
+    lista = model.sort(control["model"])
     end_time = get_time()
     delta_t = delta_time(start_time, end_time)
-    return delta_t
+    return lista, delta_t
 
 
 # Funciones de consulta sobre el catálogo

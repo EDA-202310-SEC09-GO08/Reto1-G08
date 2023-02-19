@@ -46,7 +46,7 @@ dos listas, una para los videos, otra para las categorias de los mismos.
 
 
 
-def new_data_structs():
+def new_data_structs(type):
     """
     Inicializa las estructuras de datos del modelo. Las crea de
     manera vacía para posteriormente almacenar la información.
@@ -55,7 +55,7 @@ def new_data_structs():
         "data": None,
     }
 
-    data_structs["data"] = lt.newList(datastructure="ARRAY_LIST",
+    data_structs["data"] = lt.newList(datastructure=type,
                                      cmpfunction=compare)
 
     return data_structs
@@ -198,7 +198,7 @@ def compare(data_1, data_2):
 # Funciones de ordenamiento
 
 
-def sort_criteria(data_1, data_2):
+def sort_criteria(impuesto_1, impuesto_2):
     """sortCriteria criterio de ordenamiento para las funciones de ordenamiento
 
     Args:
@@ -208,11 +208,19 @@ def sort_criteria(data_1, data_2):
     Returns:
         _type_: _description_
     """
-    return data_1["id"] > data_2["id"]
+    if impuesto_1['Año']!= impuesto_2['Año']:
+        return(float(impuesto_1['Año'])> float(impuesto_2['Año']))
+    
+    else:
+        return(float(impuesto_1['Código actividad económica'])>float(impuesto_2['Código actividad económica']))
+    
+
 
 
 def sort(data_structs):
     """
     Función encargada de ordenar la lista con los datos
     """
-    sa.sort(data_structs["data"], sort_criteria)
+    sub_list = lt.subList(data_structs['data'],1,data_size(data_structs))
+    lista =sa.sort(sub_list, sort_criteria)
+    return lista

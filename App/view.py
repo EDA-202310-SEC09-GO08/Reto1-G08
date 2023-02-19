@@ -27,7 +27,10 @@ from DISClib.ADT import list as lt
 from DISClib.ADT import stack as st
 from DISClib.ADT import queue as qu
 assert cf
-#from tabulate import tabulate
+import traceback
+from tabulate import tabulate
+
+
 
 """
 La vista se encarga de la interacción con el usuario
@@ -60,19 +63,42 @@ def print_menu():
 
     print("0- Salir")
 
+def print_3_primeros_y_ultimos(lista, sample=3):
+
+    size = lt.size(lista)
+    lista_1 =lt.iterator(lista)
+
+    
+    if size<= sample*2:
+        print('Los',size,'primeros impuestos son:')
+        for impuesto in lista_1:
+            print(impuesto)
+
+    else:
+        print('Los',sample, 'primeros impuestos son:')
+        i=1
+        while i <=sample:
+            impuesto = lt.getElement(lista, i)
+            print(impuesto)
+            i+=1
+        print('los',sample, 'últimos libros ordenados son:')
+        i= size- sample +1
+        while i <=size:
+            impuesto = lt.getElement(lista, i)
+            print(impuesto)
+            i+=1 
+
+
 
 def load_data(control):
     """
     Carga los datos
     """
-    data = controller.load_data(control, 'Salida_agregados_renta_juridicos_AG-small.csv')
-    
-    
-    for annio in data.keys():
-
-        print(annio,data[annio][0], data[annio][1], data[annio][2], data[annio][len(data[annio])-1], data[annio][len(data[annio])-2],data[annio][len(data[annio])-3])
-    return data
-
+    control_1 =controller.load_data(control, 'Salida_agregados_renta_juridicos_AG-small.csv')
+    return control_1
+def sort_data(control):
+    control_1 = controller.sort(control)
+    return control_1
 
 def print_data(control, id):
     """
@@ -162,9 +188,11 @@ if __name__ == "__main__":
         try:
             if int(inputs) == 1:
                 print("Cargando información de los archivos ....\n")
-                data = load_data(control)
-                
-                
+                load_data(control)
+                sort_data_result =sort_data(control)
+                print_3_primeros_y_ultimos(sort_data_result[0])
+                print(sort_data_result[1])
+            
                 
             elif int(inputs) == 2:
                 print_req_1(control)
@@ -202,4 +230,5 @@ if __name__ == "__main__":
                 print("Opción errónea, vuelva a elegir.\n")
         except ValueError:
             print("Ingrese una opción válida.\n")
+            traceback.print_exc()
     sys.exit(0)
