@@ -34,14 +34,14 @@ El controlador se encarga de mediar entre la vista y el modelo.
 """
 
 
-def new_controller():
+def new_controller(type):
     """
     Crea una instancia del modelo
     """
     control = {
         "model": None
     }
-    control["model"] = model.new_data_structs()
+    control["model"] = model.new_data_structs(type)
     return control
 
 
@@ -84,17 +84,35 @@ def data_size(control):
     return lt.size(control['model']["data"])
 # Funciones de ordenamiento
 
-def sort(control):
+def sort_sa(control):
     """
     Ordena los datos del modelo
     """
     start_time = get_time()
-    lista = model.sort(control["model"])
+    lista = model.sort_sa(control["model"])
     end_time = get_time()
     delta_t = delta_time(start_time, end_time)
     return lista, delta_t
 
+def sort_se(control):
+    """
+    Ordena los datos del modelo
+    """
+    start_time = get_time()
+    lista = model.sort_se(control["model"])
+    end_time = get_time()
+    delta_t = delta_time(start_time, end_time)
+    return lista, delta_t
 
+def sort_ins(control):
+    """
+    Ordena los datos del modelo
+    """
+    start_time = get_time()
+    lista = model.sort_ins(control["model"])
+    end_time = get_time()
+    delta_t = delta_time(start_time, end_time)
+    return lista, delta_t
 # Funciones de consulta sobre el catálogo
 
 def get_data(control, id):

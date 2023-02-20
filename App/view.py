@@ -44,7 +44,7 @@ def new_controller():
     """
         Se crea una instancia del controlador
     """
-    control = controller.new_controller()
+    control = controller.new_controller(input('Que tipo de datos entre ARRAY_LIST y SINGLE_LINKED quiere'))
     return control
 
 
@@ -94,10 +94,20 @@ def load_data(control):
     """
     Carga los datos
     """
-    control_1 =controller.load_data(control, 'Salida_agregados_renta_juridicos_AG-small.csv')
+    control_1 =controller.load_data(control, input('Ingrese nombre del archivo '))
     return control_1
 def sort_data(control):
-    control_1 = controller.sort(control)
+    type = input('Ingrese método de ordenamiento  sa para shell, se para selection o ins para insertion')
+    control_1 = 0
+    if type =='sa':
+     control_1 = controller.sort_sa(control)
+    elif type == 'se':
+        control_1 = controller.sort_se(control)
+    elif type == 'ins':
+        control_1 = controller.sort_ins(control)
+
+    else:
+        print('error')
     return control_1
 
 def print_data(control, id):
@@ -173,7 +183,7 @@ def print_req_8(control):
 
 
 # Se crea el controlador asociado a la vista
-control = new_controller()
+
 
 # main del reto
 if __name__ == "__main__":
@@ -188,6 +198,7 @@ if __name__ == "__main__":
         try:
             if int(inputs) == 1:
                 print("Cargando información de los archivos ....\n")
+                control = new_controller()
                 load_data(control)
                 sort_data_result =sort_data(control)
                 print_3_primeros_y_ultimos(sort_data_result[0])
