@@ -28,7 +28,7 @@ from DISClib.ADT import stack as st
 from DISClib.ADT import queue as qu
 assert cf
 import traceback
-from tabulate import tabulate
+
 
 
 
@@ -40,13 +40,13 @@ operación solicitada
 """
 
 
-def new_controller():
+
+def new_controller(tipo):
     """
         Se crea una instancia del controlador
     """
-    control = controller.new_controller(input('Que tipo de datos entre ARRAY_LIST y SINGLE_LINKED quiere'))
+    control = controller.new_controller(tipo)
     return control
-
 
 def print_menu():
     print("Bienvenido")
@@ -60,6 +60,7 @@ def print_menu():
     print("8- Listar el TOP (N) de las actividades económicas con el menor total de costos y gastos para un periodo de tiempo")
     print("9-  Listar el TOP (N) de actividades económicas de cada subsector con los mayores totales de impuestos a cargo para un periodo de tiempo ")
     print("10- Obtener dato dado un ID")
+    print("11- funcion laboratorio 4")
 
     print("0- Salir")
 
@@ -89,27 +90,107 @@ def print_3_primeros_y_ultimos(lista, sample=3):
             i+=1 
 
 
+def segundo_menu():
+    print("Ahora que tipo de lista deseas ")
+    print("1- ARRAY_LIST")
+    print("2- SINGLE_LINKED")
 
-def load_data(control):
+
+def tercer_menu():
+    print("Ahora que tipo de ordenamiento deseas ")
+    print("1- insertion sort")
+    print("2- selection sort")
+    print("3- shell sort")
+
+
+def cuarto_menu():
+    print("Que porcentage de datos ")
+    print("1-1%")
+    print("2-5%")
+    print("3-10%")
+    print("4-20%")
+    print("5-30%")
+    print("6-50%")
+    print("7-100%")
+
+def menu2():
+     tercer_menu()
+     ordenamiento = input('Seleccione una opción para continuar\n')
+     try: 
+        if int(ordenamiento) == 1:
+            sort = "insertion"
+            return sort
+        elif int(ordenamiento) == 2:
+            sort = "selection"
+            return sort
+        elif int(ordenamiento) == 3:
+            sort = "shell"
+            return sort
+     except ValueError:
+            print("Ingrese  opción válida.\n")
+            traceback.print_exc()
+
+    
+     
+
+def menu3():
+    cuarto_menu()
+    porcentaje = input('Seleccione una opción para continuar\n')
+    try:
+        if int(porcentaje) == 2:
+            
+            size ="Salida_agregados_renta_juridicos_AG-5pct.csv"
+            return size
+        elif int(porcentaje) == 3:
+            size = "Salida_agregados_renta_juridicos_AG-10pct.csv"
+            return size
+        elif int(porcentaje) == 4:
+            size = "Salida_agregados_renta_juridicos_AG-20pct.csv"
+            return size
+        elif int(porcentaje) == 5:
+            size = "Salida_agregados_renta_juridicos_AG-30pct.csv"
+            return size
+        elif int(porcentaje) == 6:
+            size = "Salida_agregados_renta_juridicos_AG-50pct.csv"
+            return size
+        elif int(porcentaje) == 1:
+            size = "Salida_agregados_renta_juridicos_AG-small.csv"
+            return size
+        elif int(porcentaje) == 7:
+            size = "Salida_agregados_renta_juridicos_AG-large.csv"
+            return size
+    except ValueError:
+            print(" una opción válida.\n")
+            traceback.print_exc()
+
+
+def correr_todo(tipo, organizacion, tamaño):
+    if tipo == 1:
+        control = new_controller("ARRAY_LIST")
+    elif tipo == 2:
+        control = new_controller("SINGLE_LINKED")
+
+    load_data(control, tamaño)
+    if organizacion == "insertion":
+        final = controller.sort(control, 1)
+         
+ 
+    elif organizacion == "selection":
+        final = controller.sort(control, 2)
+
+    elif organizacion == "shell":
+        final = controller.sort(control, 3)
+
+    return final
+
+
+def load_data(control, archivo):
     """
     Carga los datos
     """
-    control_1 =controller.load_data(control, input('Ingrese nombre del archivo '))
-    return control_1
-def sort_data(control):
-    type = input('Ingrese método de ordenamiento  sa para shell, se para selection o ins para insertion')
-    control_1 = 0
-    if type =='sa':
-     control_1 = controller.sort_sa(control)
-    elif type == 'se':
-        control_1 = controller.sort_se(control)
-    elif type == 'ins':
-        control_1 = controller.sort_ins(control)
 
-    else:
-        print('error')
+    control_1 =controller.load_data(control, archivo)
     return control_1
-
 def print_data(control, id):
     """
         Función que imprime un dato dado su ID
@@ -198,9 +279,9 @@ if __name__ == "__main__":
         try:
             if int(inputs) == 1:
                 print("Cargando información de los archivos ....\n")
-                control = new_controller()
-                load_data(control)
-                sort_data_result =sort_data(control)
+                control = new_controller("ARRAY_LIST")
+                load_data(control,"Salida_agregados_renta_juridicos_AG-5pct.csv")
+                sort_data_result = controller.sort(control, 1)
                 print_3_primeros_y_ultimos(sort_data_result[0])
                 print(sort_data_result[1])
             
@@ -232,6 +313,34 @@ if __name__ == "__main__":
             elif int(inputs) == 10:
                 id = input("Ingrese un id: ")
                 print_data(control, id)
+            
+            elif int(inputs) == 11:
+                segundo_menu()
+                opcion = input('Seleccione una opción para continuar\n')
+                try:
+                    if int(opcion) == 1:
+                        tipo = 1
+                        orden  = menu2()
+                        tamaño = menu3()
+                        sort_data_result = correr_todo(tipo,orden,tamaño)
+                        print_3_primeros_y_ultimos(sort_data_result[0])
+                        print(sort_data_result[1])
+                    elif int(opcion) == 2:
+                        tipo = 2
+                        orden  = menu2()
+                        tamaño = menu3()
+                        sort_data_result = correr_todo(tipo,orden,tamaño)
+                        print_3_primeros_y_ultimos(sort_data_result[0])
+                        print(sort_data_result[1])
+                    
+                except ValueError:
+                    print("Ingrese una opción válids.\n")
+                    traceback.print_exc()
+
+
+
+
+
 
             elif int(inputs) == 0:
                 working = False

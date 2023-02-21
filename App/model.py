@@ -216,21 +216,17 @@ def sort_criteria(impuesto_1, impuesto_2):
     
 
 
+def sort(data_structs, tipo):
+    if tipo == 1:
+        sub_list = lt.subList(data_structs['data'],1,data_size(data_structs))
+        lista =ins.sort(sub_list, sort_criteria)
 
-def sort_sa(data_structs):
-    """
-    Función encargada de ordenar la lista con los datos
-    """
-    sub_list = lt.subList(data_structs['data'],1,data_size(data_structs))
-    lista =sa.sort(sub_list, sort_criteria)
-    return lista
+    elif tipo == 2:
 
-def sort_ins(data_structs):
-    sub_list = lt.subList(data_structs['data'],1,data_size(data_structs))
-    lista =ins.sort(sub_list, sort_criteria)
-    return lista
-
-def sort_se(data_structs):
-    sub_list = lt.subList(data_structs['data'],1,data_size(data_structs))
-    lista =se.sort(sub_list, sort_criteria)
+        sub_list = lt.subList(data_structs['data'],1,data_size(data_structs))
+        lista =se.sort(sub_list, sort_criteria)
+    elif tipo == 3:
+        sub_list = lt.subList(data_structs['data'],1,data_size(data_structs))
+        lista =sa.sort(sub_list, sort_criteria)
+    
     return lista
