@@ -325,6 +325,7 @@ if __name__ == "__main__":
                         sort_data_result = correr_todo(tipo,orden,tamaño)
                         print_3_primeros_y_ultimos(sort_data_result[0])
                         print(sort_data_result[1])
+                        print(sort_data_result[2])
                     elif int(opcion) == 2:
                         tipo = 2
                         orden  = menu2()
@@ -332,6 +333,7 @@ if __name__ == "__main__":
                         sort_data_result = correr_todo(tipo,orden,tamaño)
                         print_3_primeros_y_ultimos(sort_data_result[0])
                         print(sort_data_result[1])
+                        print(sort_data_result[2])
                     
                 except ValueError:
                     print("Ingrese una opción válids.\n")
