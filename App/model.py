@@ -208,11 +208,16 @@ def sort_criteria(impuesto_1, impuesto_2):
     Returns:
         _type_: _description_
     """
+    
     if impuesto_1['Año']!= impuesto_2['Año']:
+        cod_1 = impuesto_1['Año'].split()[0]
+        cod_2 = impuesto_2['Año'].split()[0]
         return(float(impuesto_1['Año'])> float(impuesto_2['Año']))
     
     else:
-        return(float(impuesto_1['Código actividad económica'])>float(impuesto_2['Código actividad económica']))
+        cod_1 = impuesto_1['Código actividad económica'].split()[0].split('/')[0]
+        cod_2 = impuesto_2['Código actividad económica'].split()[0].split('/')[0]
+        return(float(cod_1)>float(cod_2))
     
 
 
