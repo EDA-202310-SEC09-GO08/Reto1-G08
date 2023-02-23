@@ -28,7 +28,7 @@ from DISClib.ADT import stack as st
 from DISClib.ADT import queue as qu
 assert cf
 import traceback
-
+from tabulate import tabulate
 
 
 
@@ -68,27 +68,27 @@ def print_3_primeros_y_ultimos(lista, sample=3):
 
     size = lt.size(lista)
     lista_1 =lt.iterator(lista)
-
+    losimp =[]
     
     if size<= sample*2:
         print('Los',size,'primeros impuestos son:')
         for impuesto in lista_1:
-            print(impuesto)
+            losimp.append(impuesto)
 
     else:
         print('Los',sample, 'primeros impuestos son:')
         i=1
         while i <=sample:
             impuesto = lt.getElement(lista, i)
-            print(impuesto)
+            losimp.append(impuesto)
             i+=1
         print('los',sample, 'últimos libros ordenados son:')
         i= size- sample +1
         while i <=size:
             impuesto = lt.getElement(lista, i)
-            print(impuesto)
+            losimp.append(impuesto)
             i+=1 
-
+    return losimp 
 
 def segundo_menu():
     print("Ahora que tipo de lista deseas ")
@@ -337,7 +337,8 @@ if __name__ == "__main__":
                         orden  = menu2()
                         tamaño = menu3()
                         sort_data_result = correr_todo(tipo,orden,tamaño)
-                        print_3_primeros_y_ultimos(sort_data_result[0])
+                        ordenado =print_3_primeros_y_ultimos(sort_data_result[0])
+                        print(tabulate(ordenado, headers="keys"))
                         print(sort_data_result[1])
                         print(sort_data_result[2])
                     elif int(opcion) == 2:
@@ -345,7 +346,8 @@ if __name__ == "__main__":
                         orden  = menu2()
                         tamaño = menu3()
                         sort_data_result = correr_todo(tipo,orden,tamaño)
-                        print_3_primeros_y_ultimos(sort_data_result[0])
+                        ordenado =print_3_primeros_y_ultimos(sort_data_result[0])
+                        print(tabulate(ordenado, headers="keys"))
                         print(sort_data_result[1])
                         print(sort_data_result[2])
                     
