@@ -101,6 +101,8 @@ def tercer_menu():
     print("1- insertion sort")
     print("2- selection sort")
     print("3- shell sort")
+    print("4- quick sort")
+    print("5- merge sort")
 
 
 def cuarto_menu():
@@ -125,6 +127,12 @@ def menu2():
             return sort
         elif int(ordenamiento) == 3:
             sort = "shell"
+            return sort
+        elif int(ordenamiento) == 4:
+            sort = "quick"
+            return sort
+        elif int(ordenamiento) == 5:
+            sort = "merge"
             return sort
      except ValueError:
             print("Ingrese  opción válida.\n")
@@ -180,6 +188,12 @@ def correr_todo(tipo, organizacion, tamaño):
 
     elif organizacion == "shell":
         final = controller.sort(control, 3)
+    
+    elif organizacion == "quick":
+        final = controller.sort(control, 4)
+    
+    elif organizacion == "merge":
+        final = controller.sort(control, 5)
 
     return final
 

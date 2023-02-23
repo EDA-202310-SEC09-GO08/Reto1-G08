@@ -234,4 +234,12 @@ def sort(data_structs, tipo):
         sub_list = lt.subList(data_structs['data'],1,data_size(data_structs))
         lista =sa.sort(sub_list, sort_criteria)
     
+    elif tipo == 4:
+        sub_list = lt.subList(data_structs['data'],1,data_size(data_structs))
+        lista =quk.sort(sub_list, sort_criteria)
+    
+    elif tipo == 5:
+        sub_list = lt.subList(data_structs['data'],1,data_size(data_structs))
+        lista =merg.sort(sub_list, sort_criteria)
+    
     return lista
