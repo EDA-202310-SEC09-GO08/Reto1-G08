@@ -125,13 +125,66 @@ def req_1(data_structs):
     # TODO: Realizar el requerimiento 1
     pass
 
+def encontrar_mayor(lista):
+    #encuentra el mayor dentro de una lista
+    i =0
+    tamanio = lt.size(lista)
+    
+    while i < tamanio:
+        exacto = lt.getElement(lista,i)
+        if int(exacto["Total saldo a favor"])>i:
+            respuesta = exacto
+        i+=1
+    return respuesta
 
 def req_2(data_structs):
     """
     Función que soluciona el requerimiento 2
     """
+    tamanio = data_size(data_structs)
+    i =0
+    anios = {}
+    #organiza la informacion en diccionarios con la llave como el año
+    while i < tamanio:
+        variable = lt.getElement(data_structs["data"],i)
+        momento = variable["Año"]
+        if variable["Año"] not in anios.keys():
+            anios[momento] = lt.newList(datastructure="SINGLE_LINKED")
+            lt.addLast(anios[momento], variable )
+        elif variable["Año"] in anios.keys():
+            lt.addLast(anios[momento], variable  )
+        
+        i +=1
+    # crea una lista con el mayor de cada año
+    mayor = lt.newList(datastructure="ARRAY_LIST")
+    for fecha in anios.keys():
+        alto = encontrar_mayor(anios[fecha])
+        lt.addLast(mayor, alto)
+    
+    #organiza por años de menor a mayor
+    respuesta = lt.newList("ARRAY_LIST")
+    for x in range( lt.size(mayor)):
+
+        superior = 0
+        a = 0
+        elim = 0
+        while a < lt.size(mayor):
+            pos = lt.getElement(mayor,a)
+            if  int(pos["Año"])>superior:
+                superior = int(pos["Año"])
+                elim = a
+                dict = pos
+            a+=1
+        lt.addFirst(respuesta, dict)
+        lt.deleteElement(mayor, elim)
+    return respuesta
+
+
+    
+    
+
     # TODO: Realizar el requerimiento 2
-    pass
+    
 
 
 def req_3(data_structs):

@@ -115,6 +115,7 @@ def cuarto_menu():
     print("6-50%")
     print("7-100%")
 
+#los tipos de ordenamiento 
 def menu2():
      tercer_menu()
      ordenamiento = input('Seleccione una opción para continuar\n')
@@ -140,7 +141,7 @@ def menu2():
 
     
      
-
+# los nombres de los datos
 def menu3():
     cuarto_menu()
     porcentaje = input('Seleccione una opción para continuar\n')
