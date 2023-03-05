@@ -224,13 +224,13 @@ def req_2(data_structs):
 
     # TODO: Realizar el requerimiento 2
     
-    
+     ### Crea lista TAD ARRAY de subsectores por año
 def crear_lista_subsectores_por_anio(lista_actividades):
-    ### Crea lista TAD ARRAY de subsectores por año
+   
     dic_subsecs ={}
-    
-    lista_actividades = lt.iterator(lista_actividades)
     ## primero crea diccionario
+    lista_actividades = lt.iterator(lista_actividades)
+    
     for impuesto in lista_actividades:
         llave_subsector_dado =impuesto['Código subsector económico']
         if llave_subsector_dado not in dic_subsecs.keys():
@@ -300,6 +300,15 @@ def req_3(data_structs):
     """
     tamanio_data_structs = data_size(data_structs)
     dic_anios = crear_diccionario_anios(data_structs, "data","Año", tamanio_data_structs)
+    for lista_actividades_un_anio_dado in dic_anios:
+        lista_subsects_un_anio_dado = crear_lista_subsectores_por_anio(lista_actividades_un_anio_dado)
+
+        ##encuentra menor subsect por retenciones
+        menor = encontrar_menor(lista_subsects_un_anio_dado, 'Total retenciones')
+        
+
+
+
    
     
     
@@ -475,7 +484,7 @@ def encontrar_menor(lista, criterio):
     tamanio = lt.size(lista)
     respuesta ={}
     menor = 9999999999999
-    while i < tamanio:
+    while i <= tamanio:
         exacto = lt.getElement(lista,i)
         if exacto[criterio]<menor:
             respuesta = exacto
