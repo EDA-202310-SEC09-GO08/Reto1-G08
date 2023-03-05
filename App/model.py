@@ -224,13 +224,13 @@ def req_2(data_structs):
 
     # TODO: Realizar el requerimiento 2
     
-    
+     ### Crea lista TAD ARRAY de subsectores por año
 def crear_lista_subsectores_por_anio(lista_actividades):
-    ### Crea lista TAD ARRAY de subsectores por año
+   
     dic_subsecs ={}
-    
-    lista_actividades = lt.iterator(lista_actividades)
     ## primero crea diccionario
+    lista_actividades = lt.iterator(lista_actividades)
+    
     for impuesto in lista_actividades:
         llave_subsector_dado =impuesto['Código subsector económico']
         if llave_subsector_dado not in dic_subsecs.keys():
@@ -271,14 +271,14 @@ def agregar_lista_de_6_a_subsector(subsector, lista_de_actividades_un_anio):
         
         
         
-        lista_6_activ_por_anio = lt.newList(datastructure='ARRAY_LIST')
+        lista_6_activ_por_anio = []
         
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,1))
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,2))
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,3))
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,(tamanio-2)))
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,(tamanio-1)))
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,(tamanio)))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,1))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,2))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,3))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,(tamanio-2)))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,(tamanio-1)))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,(tamanio)))
 
         subsector['Primeras y últimas 3 actividades en contribuir']= lista_6_activ_por_anio
         return subsector
@@ -298,9 +298,30 @@ def req_3(data_structs):
     """
     Función que soluciona el requerimiento 3
     """
+    lista_dicts_menores_anios =[]
+    tamanio_data_structs = data_size(data_structs)
+    dic_anios = crear_diccionario_anios(data_structs, "data","Año", tamanio_data_structs)
+    for lista_actividades_un_anio_dado in dic_anios:
+
+        ###ordena lista actividades un anio dado por retenciones
+        quk.sort(lista_actividades_un_anio_dado,sort_criteria_retenciones)
+
+        ####crea lista subsectkores patra el año dado
+        lista_subsects_un_anio_dado = crear_lista_subsectores_por_anio(lista_actividades_un_anio_dado)
+
+        ##encuentra menor subsect por retenciones
+        menor = encontrar_menor(lista_subsects_un_anio_dado, 'Total retenciones')
+        agregar_lista_de_6_a_subsector(menor,lista_actividades_un_anio_dado)
+        lista_dicts_menores_anios.append(menor)
+
+    quk.sort(lista_dicts_menores_anios,sort_criteria)
+    return lista_dicts_menores_anios
+        
+
+
+
    
-   
-    # TODO: Realizar el requerimiento 3
+    
     
 
 
@@ -423,6 +444,14 @@ def sort_criteria(impuesto_1, impuesto_2):
     
 
 
+##### sort criteria para req 3
+def sort_criteria_retenciones(a,b):
+
+        cod_1 = a['Total retenciones'].split()[0].split('/')[0]
+        cod_2 = b['Total retenciones'].split()[0].split('/')[0]
+        return(float(cod_1)<float(cod_2))
+
+
 def sort(data_structs, tipo):
     if tipo == 1:
         sub_list = lt.subList(data_structs['data'],1,data_size(data_structs))
@@ -460,14 +489,14 @@ def encontrar_mayor(lista, criterio):
         i+=1
     return respuesta
 
-#### encontrar menor
+#### encontrar menor en TAD lista de diccionarios
 def encontrar_menor(lista, criterio):
     
     i =0
     tamanio = lt.size(lista)
     respuesta ={}
     menor = 9999999999999
-    while i < tamanio:
+    while i <= tamanio:
         exacto = lt.getElement(lista,i)
         if exacto[criterio]<menor:
             respuesta = exacto
