@@ -447,14 +447,27 @@ def sort(data_structs, tipo):
     return lista
 
 #encontrar el mayor en una lista 
-def encontrar_mayor(lista, nommbre):
+def encontrar_mayor(lista, criterio):
     
     i =0
     tamanio = lt.size(lista)
     
     while i < tamanio:
         exacto = lt.getElement(lista,i)
-        if int(exacto[nommbre])>i:
+        if int(exacto[criterio])>i:
+            respuesta = exacto
+        i+=1
+    return respuesta
+
+#### encontrar menor
+def encontrar_menor(lista, criterio):
+    
+    i =0
+    tamanio = lt.size(lista)
+    
+    while i < tamanio:
+        exacto = lt.getElement(lista,i)
+        if int(exacto[criterio])>i:
             respuesta = exacto
         i+=1
     return respuesta
