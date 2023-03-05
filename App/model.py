@@ -298,13 +298,24 @@ def req_3(data_structs):
     """
     Función que soluciona el requerimiento 3
     """
+    lista_dicts_menores_anios =[]
     tamanio_data_structs = data_size(data_structs)
     dic_anios = crear_diccionario_anios(data_structs, "data","Año", tamanio_data_structs)
     for lista_actividades_un_anio_dado in dic_anios:
+
+        ###ordena lista actividades un anio dado por retenciones
+        quk.sort(lista_actividades_un_anio_dado,sort_criteria_retenciones)
+
+        ####crea lista subsectkores patra el año dado
         lista_subsects_un_anio_dado = crear_lista_subsectores_por_anio(lista_actividades_un_anio_dado)
 
         ##encuentra menor subsect por retenciones
         menor = encontrar_menor(lista_subsects_un_anio_dado, 'Total retenciones')
+        agregar_lista_de_6_a_subsector(menor,lista_actividades_un_anio_dado)
+        lista_dicts_menores_anios.append(menor)
+
+    quk.sort(lista_dicts_menores_anios,sort_criteria)
+    return lista_dicts_menores_anios
         
 
 
