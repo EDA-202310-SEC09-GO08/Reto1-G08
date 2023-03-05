@@ -195,8 +195,9 @@ def print_req_1(control):
     """
         Función que imprime la solución del Requerimiento 1 en consola
     """
-    # TODO: Imprimir el resultado del requerimiento 1
-    print(controller.req_1(control))
+    # TODO: Imprimir el re1sultado del requerimiento 1
+    respuesta = (controller.req_1(control))
+    print(tabulate(respuesta, headers="keys", tablefmt= "grid"))
 
 
 def print_req_2(control):
