@@ -195,40 +195,50 @@ def req_1(data_structs):
     # TODO: Realizar el requerimiento 1
     pass
 
-def encontrar_mayor(lista):
-    #encuentra el mayor dentro de una lista
+#encuentra el mayor dentro de una lista
+def encontrar_mayor(lista, nommbre):
+    
     i =0
     tamanio = lt.size(lista)
     
     while i < tamanio:
         exacto = lt.getElement(lista,i)
-        if int(exacto["Total saldo a favor"])>i:
+        if int(exacto[nommbre])>i:
             respuesta = exacto
         i+=1
     return respuesta
+
+#organiza la informacion en diccionarios con la llave como el año
+def organizar_anio (data_structs, categoria):
+    tamanio = data_size(data_structs)
+    i =0
+    anios = {}
+    while i < tamanio:
+        variable = lt.getElement(data_structs["data"],i)
+        momento = variable[categoria]
+        if variable[categoria] not in anios.keys():
+            anios[momento] = lt.newList(datastructure="SINGLE_LINKED")
+            lt.addLast(anios[momento], variable )
+        elif variable[categoria] in anios.keys():
+            lt.addLast(anios[momento], variable  )
+        
+        i +=1
+    return anios
+
 
 def req_2(data_structs):
     """
     Función que soluciona el requerimiento 2
     """
-    tamanio = data_size(data_structs)
-    i =0
-    anios = {}
-    #organiza la informacion en diccionarios con la llave como el año
-    while i < tamanio:
-        variable = lt.getElement(data_structs["data"],i)
-        momento = variable["Año"]
-        if variable["Año"] not in anios.keys():
-            anios[momento] = lt.newList(datastructure="SINGLE_LINKED")
-            lt.addLast(anios[momento], variable )
-        elif variable["Año"] in anios.keys():
-            lt.addLast(anios[momento], variable  )
-        
-        i +=1
+    anios = organizar_anio(data_structs, "Año")
+    
+   
     # crea una lista con el mayor de cada año
+    busca = "Total saldo a favor"
+    
     mayor = lt.newList(datastructure="ARRAY_LIST")
     for fecha in anios.keys():
-        alto = encontrar_mayor(anios[fecha])
+        alto = encontrar_mayor(anios[fecha], busca)
         lt.addLast(mayor, alto)
     
     #organiza por años de menor a mayor
