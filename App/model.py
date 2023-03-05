@@ -269,21 +269,26 @@ def agregar_lista_de_6_a_subsector(subsector, lista_de_actividades_un_anio):
         
         codigo_subsect = subsector['Código subsector económico']
         #### Crear sublista del año solo de 1 subsector
-        lista_acotada_anio_y_subsector =[]
+        lista_acotada_de_ACTIVIDADES_anio_y_subsector =[]
+
+        ### Agrega a la lista acotada los elementos filtrados por subsector
         for actividad in lista_de_actividades_un_anio:
+            if codigo_subsect == actividad['Código subsector económico']:
+                lista_acotada_de_ACTIVIDADES_anio_y_subsector.append(actividad)
 
+        ### Ordena lista acotada por RETENCION
+        quk.sort(lista_acotada_de_ACTIVIDADES_anio_y_subsector,sort_criteria_retenciones)
 
-
-        tamanio = lt.size(lista_de_actividades_un_anio)
+        tamanio = len(lista_acotada_de_ACTIVIDADES_anio_y_subsector)
         
         
-        
+        #### Crea lista de 6 actividades relevantes
         lista_6_activ_por_anio = []
         
-        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,1))
-        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,2))
-        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,3))
-        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,(tamanio-2)))
+        lista_6_activ_por_anio.append(lista_acotada_de_ACTIVIDADES_anio_y_subsector[0])
+        lista_6_activ_por_anio.append(lista_acotada_de_ACTIVIDADES_anio_y_subsector[1])
+        lista_6_activ_por_anio.append(lista_acotada_de_ACTIVIDADES_anio_y_subsector[2])
+        lista_6_activ_por_anio.append(lista_acotada_de_ACTIVIDADES_anio_y_subsector[tamanio])
         lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,(tamanio-1)))
         lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,(tamanio)))
 
