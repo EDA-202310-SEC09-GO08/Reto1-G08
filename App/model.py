@@ -284,6 +284,7 @@ def req_5(data_struct):
 
                 
     print (organizado)
+    
 
     # TODO: Realizar el requerimiento 5
     pass

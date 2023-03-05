@@ -31,12 +31,13 @@ This repository is part of the data structure and algorithms (#EDA) teaching fra
 ## Members
 
 The students edit this section to add their names, Uniandes emails, and specify which project functionality of the project they will implement.
-
-1. **Req No 3**, Alejandro Narváez Arias
-<a.narvaeza@uniandes.edu.co>, 202123110
-1. **Req No 4**, Samuel Peña
+3. **Req No 3**, Samuel Peña
 <ss.pena@uniandes.edu.co>, 202028273
-1. **Req No 5**, Tomas Diaz
+
+4. **Req No 4**, Alejandro Narváez Arias
+<a.narvaeza@uniandes.edu.co>, 202123110
+
+5. **Req No 5**, Tomas Diaz
 <t.diazv@uniandes.edu.co>, 202220658
 
 [Back to top](#challenge-template)
