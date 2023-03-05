@@ -464,10 +464,11 @@ def encontrar_menor(lista, criterio):
     
     i =0
     tamanio = lt.size(lista)
-    
+    respuesta ={}
+    menor = 9999999999999
     while i < tamanio:
         exacto = lt.getElement(lista,i)
-        if int(exacto[criterio])>i:
+        if exacto[criterio]<menor:
             respuesta = exacto
         i+=1
     return respuesta
