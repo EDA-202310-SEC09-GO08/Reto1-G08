@@ -207,10 +207,12 @@ def print_req_2(control):
     """
     # TODO: Imprimir el resultado del requerimiento 2
     respuesta = (controller.req_2(control))
-    print(tabulate(respuesta, headers="keys", tablefmt= "grid"))
-#,"Año", "Código actividad económica", "Nombre actividad económica", "Código sector económico", "Nombre sector económico", 
-# "Código subsector económico", "Nombre subsector económico", "Total ingresos netos","Total costos y gastos", "Total saldo a pagar", 
-# 'Total saldo a favor'
+    df = pd.DataFrame(respuesta)
+    df_fil = df[['Año',"Código actividad económica", "Nombre actividad económica", "Código sector económico","Nombre sector económico",
+                 "Código subsector económico", 'Nombre subsector económico', "Total ingresos netos", "Total costos y gastos",
+                 "Total saldo a pagar", "Total saldo a favor"]]
+    print(df_fil)
+
 
 
 def print_req_3(control):
@@ -238,6 +240,7 @@ def print_req_5(control):
     """
     # TODO: Imprimir el resultado del requerimiento 5
     print(controller.req_5(control))
+    
 
 
 def print_req_6(control):
@@ -245,7 +248,10 @@ def print_req_6(control):
         Función que imprime la solución del Requerimiento 6 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 6
-    print(controller.req_6(control))
+    respuesta = (controller.req_6(control))
+    df = pd.DataFrame(respuesta)
+    df_fil = df[['Año','Nombre subsector económico','Total retenciones']]
+    print(df_fil)
 
 
 def print_req_7(control):
