@@ -423,6 +423,14 @@ def sort_criteria(impuesto_1, impuesto_2):
     
 
 
+##### sort criteria para req 3
+def sort_criteria_retenciones(a,b):
+
+        cod_1 = a['Total retenciones'].split()[0].split('/')[0]
+        cod_2 = b['Total retenciones'].split()[0].split('/')[0]
+        return(float(cod_1)<float(cod_2))
+
+
 def sort(data_structs, tipo):
     if tipo == 1:
         sub_list = lt.subList(data_structs['data'],1,data_size(data_structs))
@@ -459,7 +467,7 @@ def encontrar_mayor(lista, criterio):
         i+=1
     return respuesta
 
-#### encontrar menor
+#### encontrar menor en TAD lista de diccionarios
 def encontrar_menor(lista, criterio):
     
     i =0
