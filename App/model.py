@@ -451,10 +451,11 @@ def encontrar_mayor(lista, criterio):
     
     i =0
     tamanio = lt.size(lista)
-    respuesta = 0
+    alto = 0
     while i < tamanio:
         exacto = lt.getElement(lista,i)
-        if int(exacto[criterio])>respuesta:
+        if int(exacto[criterio])>int(alto):
+            alto = exacto[criterio]
             respuesta = exacto
         i+=1
     return respuesta
@@ -497,8 +498,8 @@ def ordenar(lista, criterio, repeticiones, donde ):
     respuesta = lt.newList("SINGLE_LINKED")
     
     for x in range( repeticiones):
-        inicio = pos = lt.getElement(lista,donde)
-        superior = inicio[criterio]
+        inicio = lt.getElement(lista,donde)
+        superior = int(inicio[criterio])
         a = 0
         elim = 0
         while a < lt.size(lista):

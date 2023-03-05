@@ -276,7 +276,8 @@ if __name__ == "__main__":
             if int(inputs) == 1:
                 print("Cargando información de los archivos ....\n")
                 control = new_controller("ARRAY_LIST")
-                load_data(control,"Salida_agregados_renta_juridicos_AG-5pct.csv")
+                archivo = menu_archivo()
+                load_data(control,archivo)
                 sort_data_result = controller.sort(control, 1)
                 print_3_primeros_y_ultimos(sort_data_result[0])
                 print(sort_data_result[1])
