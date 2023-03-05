@@ -398,7 +398,7 @@ def organizar (data_structs, tipo ,categoria,tamanio):
         variable = lt.getElement(data_structs[tipo],i)
         momento = variable[categoria]
         if variable[categoria] not in dic.keys():
-            dic[momento] = lt.newList(datastructure="SINGLE_LINKED")
+            dic[momento] = lt.newList(datastructure="ARRAY_LIST")
             lt.addLast(dic[momento], variable )
         elif variable[categoria] in dic.keys():
             lt.addLast(dic[momento], variable  )
