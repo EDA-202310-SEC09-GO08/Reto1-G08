@@ -424,12 +424,12 @@ def req_6(data_structs, anio):
     Función que soluciona el requerimiento 6
     """
     tamanio_data_struct = data_size(data_structs)
-    dic_anios = crear_diccionario (data_structs, 'Data' ,'Año',tamanio_data_struct)
+    dic_anios = crear_diccionario (data_structs, 'data' ,'Año',tamanio_data_struct)
     array_del_anio = dic_anios[anio]
 
     ###crea diccionario de arrays por ector del año específico
 
-    dic_sector = crear_diccionario
+    dic_sector = crear_diccionario(a)
     
     
 
@@ -566,6 +566,25 @@ def crear_diccionario (data_structs, tipo ,categoria,tamanio):
         
         i +=1
     return dic
+
+### Crea diccionario a partir de TAD lista(ARRAY o LINKED), no DataStructs:
+def crear_diccionario (TAD ,categoria,tamanio):
+    
+    i =0
+    dic = {}
+    
+    while i < tamanio:
+        variable = lt.getElement(TAD,i)
+        momento = variable[categoria]
+        if variable[categoria] not in dic.keys():
+            dic[momento] = lt.newList(datastructure="ARRAY_LIST")
+            lt.addLast(dic[momento], variable )
+        elif variable[categoria] in dic.keys():
+            lt.addLast(dic[momento], variable  )
+        
+        i +=1
+    return dic
+
 
 #ordenar la lista en orden
 def ordenar(lista, criterio, repeticiones, donde ):
