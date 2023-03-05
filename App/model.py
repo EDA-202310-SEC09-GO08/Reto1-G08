@@ -271,14 +271,14 @@ def agregar_lista_de_6_a_subsector(subsector, lista_de_actividades_un_anio):
         
         
         
-        lista_6_activ_por_anio = lt.newList(datastructure='ARRAY_LIST')
+        lista_6_activ_por_anio = []
         
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,1))
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,2))
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,3))
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,(tamanio-2)))
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,(tamanio-1)))
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,(tamanio)))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,1))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,2))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,3))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,(tamanio-2)))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,(tamanio-1)))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,(tamanio)))
 
         subsector['Primeras y últimas 3 actividades en contribuir']= lista_6_activ_por_anio
         return subsector
@@ -298,9 +298,10 @@ def req_3(data_structs):
     """
     Función que soluciona el requerimiento 3
     """
+    tamanio_data_structs = data_size(data_structs)
+    dic_anios = crear_diccionario_anios(data_structs, "data","Año", tamanio_data_structs)
    
-   
-    # TODO: Realizar el requerimiento 3
+    
     
 
 
