@@ -195,36 +195,6 @@ def req_1(data_structs):
     # TODO: Realizar el requerimiento 1
     pass
 
-#encuentra el mayor dentro de una lista
-def encontrar_mayor(lista, nommbre):
-    
-    i =0
-    tamanio = lt.size(lista)
-    
-    while i < tamanio:
-        exacto = lt.getElement(lista,i)
-        if int(exacto[nommbre])>i:
-            respuesta = exacto
-        i+=1
-    return respuesta
-
-#organiza la informacion en diccionarios con la llave como el año
-def organizar (data_structs, tipo ,categoria,tamanio):
-    
-    i =0
-    dic = {}
-    
-    while i < tamanio:
-        variable = lt.getElement(data_structs[tipo],i)
-        momento = variable[categoria]
-        if variable[categoria] not in dic.keys():
-            dic[momento] = lt.newList(datastructure="SINGLE_LINKED")
-            lt.addLast(dic[momento], variable )
-        elif variable[categoria] in dic.keys():
-            lt.addLast(dic[momento], variable  )
-        
-        i +=1
-    return dic
 
 
 def req_2(data_structs):
@@ -249,26 +219,7 @@ def req_2(data_structs):
     final = lt.iterator(respuesta)
     return (final)
 
-def ordenar(lista, criterio):
-    #organiza por años de menor a mayor
-    respuesta = lt.newList("ARRAY_LIST")
-    for x in range( lt.size(lista)):
-
-        superior = 0
-        a = 0
-        elim = 0
-        while a < lt.size(lista):
-            pos = lt.getElement(lista,a)
-            if  int(pos[criterio])>superior:
-                superior = int(pos[criterio])
-                elim = a
-                dict = pos
-            a+=1
-            
-        lt.addFirst(respuesta, dict)
-        lt.deleteElement(lista, elim)
-
-    return respuesta 
+ 
     
 
     # TODO: Realizar el requerimiento 2
@@ -281,20 +232,6 @@ def req_3(data_structs):
     """
     # TODO: Realizar el requerimiento 3
     pass
-
-def suma_variable(dic, suma):
-    tamanio = lt.size(dic)
-    i = 0
-    valor = 0
-
-    while i < tamanio:
-        pos = lt.getElement(dic, i)
-        valor += int(pos[suma])
-        i+=1
-    
-    
-    
-    return valor
 
 
 def req_4(data_structs):
@@ -338,16 +275,6 @@ def req_5(data_struct):
 
                 
     print (organizado)
-
-        
-
-
-
-           
-                
-       
-
-
 
     # TODO: Realizar el requerimiento 5
     pass
@@ -438,3 +365,71 @@ def sort(data_structs, tipo):
         lista =merg.sort(sub_list, sort_criteria)
     
     return lista
+
+#encontrar el mayor en una lista 
+def encontrar_mayor(lista, nommbre):
+    
+    i =0
+    tamanio = lt.size(lista)
+    
+    while i < tamanio:
+        exacto = lt.getElement(lista,i)
+        if int(exacto[nommbre])>i:
+            respuesta = exacto
+        i+=1
+    return respuesta
+
+#organiza la informacion en diccionarios con la llave como el año
+def organizar (data_structs, tipo ,categoria,tamanio):
+    
+    i =0
+    dic = {}
+    
+    while i < tamanio:
+        variable = lt.getElement(data_structs[tipo],i)
+        momento = variable[categoria]
+        if variable[categoria] not in dic.keys():
+            dic[momento] = lt.newList(datastructure="SINGLE_LINKED")
+            lt.addLast(dic[momento], variable )
+        elif variable[categoria] in dic.keys():
+            lt.addLast(dic[momento], variable  )
+        
+        i +=1
+    return dic
+
+#ordenar la lista en orden
+def ordenar(lista, criterio):
+    #organiza por años de menor a mayor
+    respuesta = lt.newList("ARRAY_LIST")
+    for x in range( lt.size(lista)):
+
+        superior = 0
+        a = 0
+        elim = 0
+        while a < lt.size(lista):
+            pos = lt.getElement(lista,a)
+            if  int(pos[criterio])>superior:
+                superior = int(pos[criterio])
+                elim = a
+                dict = pos
+            a+=1
+            
+        lt.addFirst(respuesta, dict)
+        lt.deleteElement(lista, elim)
+
+    return respuesta 
+
+#suma la variable dentro de una lista con un criterio expecifico
+def suma_variable(dic, suma):
+    tamanio = lt.size(dic)
+    i = 0
+    valor = 0
+
+    while i < tamanio:
+        pos = lt.getElement(dic, i)
+        valor += int(pos[suma])
+        i+=1
+    
+    
+    
+    return valor
