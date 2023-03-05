@@ -220,7 +220,7 @@ def print_req_3(control):
     # TODO: Imprimir el resultado del requerimiento 3
     respuesta =controller.req_3(control)['elements']
     df = pd.DataFrame(respuesta)
-    df_fil = df[['Año','Total retenciones']]
+    df_fil = df[['Año','Nombre subsector económico','Total retenciones']]
     print(df_fil)
 
 

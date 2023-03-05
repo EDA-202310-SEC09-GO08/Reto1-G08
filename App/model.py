@@ -538,6 +538,7 @@ def encontrar_menor(lista, criterio):
         exacto = lt.getElement(lista,i)
         if exacto[criterio]<menor:
             respuesta = exacto
+            menor = exacto[criterio]
         i+=1
     return respuesta
 
