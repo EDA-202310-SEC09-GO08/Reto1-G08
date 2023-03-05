@@ -428,8 +428,8 @@ def req_6(data_structs, anio):
     array_del_anio = dic_anios[anio]
 
     ###crea diccionario de arrays por ector del año específico
-
-    dic_sector = crear_diccionario(a)
+    tamanio_array_del_anio = lt.size(array_del_anio)
+    dic_sector = crear_diccionario()
     
     
 
