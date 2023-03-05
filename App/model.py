@@ -266,6 +266,13 @@ def crear_lista_subsectores_por_anio(lista_actividades):
     return lista_subsects
 
 def agregar_lista_de_6_a_subsector(subsector, lista_de_actividades_un_anio):
+        
+        codigo_subsect = subsector['Código subsector económico']
+        #### Crear sublista del año solo de 1 subsector
+        lista_acotada_anio_y_subsector =[]
+        for actividad in lista_de_actividades_un_anio:
+
+
 
         tamanio = lt.size(lista_de_actividades_un_anio)
         
