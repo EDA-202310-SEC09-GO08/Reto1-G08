@@ -193,7 +193,7 @@ def req_1(data_structs):
     Función que soluciona el requerimiento 1
     """
     tamanio = data_size(data_structs)
-    anios = crear_diccionario_anios(data_structs, "data","Año", tamanio)
+    anios = crear_diccionario(data_structs, "data","Año", tamanio)
    
     busca = "Total saldo a favor"
     # crea una lista con el mayor de cada año
@@ -214,7 +214,7 @@ def req_2(data_structs):
     Función que soluciona el requerimiento 2
     """
     tamanio = data_size(data_structs)
-    anios = crear_diccionario_anios(data_structs, "data","Año", tamanio)
+    anios = crear_diccionario(data_structs, "data","Año", tamanio)
     
    
     # crea una lista con el mayor de cada año
@@ -339,7 +339,7 @@ def req_3(data_structs):
     """
     lista_dicts_menores_anios = lt.newList('ARRAY_LIST')
     tamanio_data_structs = data_size(data_structs)
-    dic_anios = crear_diccionario_anios(data_structs, "data","Año", tamanio_data_structs)
+    dic_anios = crear_diccionario(data_structs, "data","Año", tamanio_data_structs)
     for lista_actividades_un_anio_dado in dic_anios.values():
 
       
@@ -377,7 +377,7 @@ def req_5(data_struct):
     """
     codigos= ["Descuentos tributarios", "Total ingresos netos", "Total costos y gastos", "Total saldo a pagar", "Total saldo a favor" ]
     tamanio = data_size(data_struct)
-    anios = crear_diccionario_anios(data_struct,"data", "Año", tamanio)
+    anios = crear_diccionario(data_struct,"data", "Año", tamanio)
     organizado = {}
     extremos = {}
     respuesta = {}
@@ -398,7 +398,7 @@ def req_5(data_struct):
 
         size = lt.size(anios[fecha])
 
-        sub_sector = crear_diccionario_anios(anios,fecha, "Código subsector económico", size )
+        sub_sector = crear_diccionario(anios,fecha, "Código subsector económico", size )
         organizado[fecha] = sub_sector
         
         for sector in organizado[fecha].keys():
@@ -424,8 +424,12 @@ def req_6(data_structs, anio):
     Función que soluciona el requerimiento 6
     """
     tamanio_data_struct = data_size(data_structs)
-    dic_anios = crear_diccionario_anios (data_structs, 'Data' ,'Año',tamanio_data_struct)
+    dic_anios = crear_diccionario (data_structs, 'Data' ,'Año',tamanio_data_struct)
     array_del_anio = dic_anios[anio]
+
+    ###crea diccionario de arrays por ector del año específico
+
+    dic_sector = crear_diccionario
     
     
 
@@ -546,7 +550,7 @@ def encontrar_menor(lista, criterio):
     return respuesta
 
 #organiza la informacion en diccionarios con la llave como el año
-def crear_diccionario_anios (data_structs, tipo ,categoria,tamanio):
+def crear_diccionario (data_structs, tipo ,categoria,tamanio):
     
     i =0
     dic = {}
