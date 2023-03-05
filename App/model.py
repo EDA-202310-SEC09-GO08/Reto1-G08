@@ -419,12 +419,15 @@ def req_5(data_struct):
     pass
 
 
-def req_6(data_structs):
+def req_6(data_structs, anio):
     """
     Función que soluciona el requerimiento 6
     """
-    # TODO: Realizar el requerimiento 6
-    pass
+    tamanio_data_struct = data_size(data_structs)
+    dic_anios = crear_diccionario_anios (data_structs, 'Data' ,'Año',tamanio_data_struct)
+    array_del_anio = dic_anios[anio]
+    
+    
 
 
 def req_7(data_structs):
