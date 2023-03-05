@@ -209,59 +209,66 @@ def encontrar_mayor(lista, nommbre):
     return respuesta
 
 #organiza la informacion en diccionarios con la llave como el año
-def organizar_anio (data_structs, categoria):
-    tamanio = data_size(data_structs)
+def organizar (data_structs, tipo ,categoria,tamanio):
+    
     i =0
-    anios = {}
+    dic = {}
+    
     while i < tamanio:
-        variable = lt.getElement(data_structs["data"],i)
+        variable = lt.getElement(data_structs[tipo],i)
         momento = variable[categoria]
-        if variable[categoria] not in anios.keys():
-            anios[momento] = lt.newList(datastructure="SINGLE_LINKED")
-            lt.addLast(anios[momento], variable )
-        elif variable[categoria] in anios.keys():
-            lt.addLast(anios[momento], variable  )
+        if variable[categoria] not in dic.keys():
+            dic[momento] = lt.newList(datastructure="SINGLE_LINKED")
+            lt.addLast(dic[momento], variable )
+        elif variable[categoria] in dic.keys():
+            lt.addLast(dic[momento], variable  )
         
         i +=1
-    return anios
+    return dic
 
 
 def req_2(data_structs):
     """
     Función que soluciona el requerimiento 2
     """
-    anios = organizar_anio(data_structs, "Año")
+    tamanio = lt.size(data_structs)
+    anios = organizar(data_structs, "data","Año", tamanio)
     
    
     # crea una lista con el mayor de cada año
     busca = "Total saldo a favor"
-    
+
     mayor = lt.newList(datastructure="ARRAY_LIST")
     for fecha in anios.keys():
         alto = encontrar_mayor(anios[fecha], busca)
         lt.addLast(mayor, alto)
     
+    
+    respuesta = ordenar(mayor, "Año")
+    
+    final = lt.iterator(respuesta)
+    return (final)
+
+def ordenar(lista, criterio):
     #organiza por años de menor a mayor
     respuesta = lt.newList("ARRAY_LIST")
-    for x in range( lt.size(mayor)):
+    for x in range( lt.size(lista)):
 
         superior = 0
         a = 0
         elim = 0
-        while a < lt.size(mayor):
-            pos = lt.getElement(mayor,a)
-            if  int(pos["Año"])>superior:
-                superior = int(pos["Año"])
+        while a < lt.size(lista):
+            pos = lt.getElement(lista,a)
+            if  int(pos[criterio])>superior:
+                superior = int(pos[criterio])
                 elim = a
                 dict = pos
             a+=1
+            
         lt.addFirst(respuesta, dict)
-        lt.deleteElement(mayor, elim)
-    final = lt.iterator(respuesta)
-    return final
+        lt.deleteElement(lista, elim)
 
-
-    
+    return respuesta 
     
 
     # TODO: Realizar el requerimiento 2
@@ -275,6 +282,20 @@ def req_3(data_structs):
     # TODO: Realizar el requerimiento 3
     pass
 
+def suma_variable(dic, suma):
+    tamanio = lt.size(dic)
+    i = 0
+    valor = 0
+
+    while i < tamanio:
+        pos = lt.getElement(dic, i)
+        valor += int(pos[suma])
+        i+=1
+    
+    
+    
+    return valor
+
 
 def req_4(data_structs):
     """
@@ -284,10 +305,50 @@ def req_4(data_structs):
     pass
 
 
-def req_5(data_structs):
+def req_5(data_struct):
     """
     Función que soluciona el requerimiento 5
     """
+    codigos= ["Descuentos tributarios", "Total ingresos netos", "Total costos y gastos", "Total saldo a pagar", "Total saldo a favor" ]
+    tamanio = data_size(data_struct)
+    anios = organizar(data_struct,"data", "Año", tamanio)
+    organizado = {}
+    extremos = {}
+    respuesta = {}
+    
+    for fecha in anios.keys():
+
+        orden = ordenar(anios[fecha], "Descuentos tributarios" )
+        extremos[fecha] = orden
+
+        size = lt.size(anios[fecha])
+
+        sub_sector = organizar(anios,fecha, "Código subsector económico", size )
+        organizado[fecha] = sub_sector
+        
+        for sector in organizado[fecha].keys():
+            respuesta = {}
+            
+            for codigo in codigos:
+            
+                suma = suma_variable(organizado[fecha][sector],codigo )
+                respuesta[codigo] = suma
+                
+            organizado[fecha][sector] = respuesta
+
+                
+    print (organizado)
+
+        
+
+
+
+           
+                
+       
+
+
+
     # TODO: Realizar el requerimiento 5
     pass
 
