@@ -568,7 +568,7 @@ def crear_diccionario (data_structs, tipo ,categoria,tamanio):
     return dic
 
 ### Crea diccionario a partir de TAD lista(ARRAY o LINKED), no DataStructs:
-def crear_diccionario (TAD ,categoria,tamanio):
+def crear_diccionario_de_TAD (TAD ,categoria,tamanio):
     
     i =0
     dic = {}
