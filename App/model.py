@@ -70,7 +70,7 @@ def add_data(data_structs, data):
     d = new_data(data["Año"], data["Código actividad económica"], data["Nombre actividad económica"],
                 data["Código sector económico"],data["Nombre sector económico"],data["Código subsector económico"],
                 data["Nombre subsector económico"],data["Total ingresos netos"],data["Total costos y gastos"], data["Total saldo a pagar"],
-                data['Total saldo a favor'])
+                data['Total saldo a favor'], data['Total retenciones'])
     lt.addLast(data_structs["data"], d)
 
     return data_structs
@@ -285,14 +285,14 @@ def agregar_lista_de_6_a_subsector(subsector, lista_de_actividades_un_anio):
         
         
         
-        lista_6_activ_por_anio = lt.newList(datastructure='ARRAY_LIST')
+        lista_6_activ_por_anio = []
         
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,1))
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,2))
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,3))
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,(tamanio-2)))
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,(tamanio-1)))
-        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,(tamanio)))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,1))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,2))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,3))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,(tamanio-2)))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,(tamanio-1)))
+        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,(tamanio)))
 
         subsector['Primeras y últimas 3 actividades en contribuir']= lista_6_activ_por_anio
         return subsector
