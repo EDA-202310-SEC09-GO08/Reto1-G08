@@ -449,10 +449,10 @@ def encontrar_mayor(lista, nommbre):
     
     i =0
     tamanio = lt.size(lista)
-    
+    respuesta = 0
     while i < tamanio:
         exacto = lt.getElement(lista,i)
-        if int(exacto[nommbre])>i:
+        if int(exacto[nommbre])>respuesta:
             respuesta = exacto
         i+=1
     return respuesta
