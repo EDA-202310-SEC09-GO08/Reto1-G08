@@ -192,8 +192,20 @@ def req_1(data_structs):
     """
     Función que soluciona el requerimiento 1
     """
-    # TODO: Realizar el requerimiento 1
-    pass
+    tamanio = data_size(data_structs)
+    anios = crear_diccionario_anios(data_structs, "data","Año", tamanio)
+   
+    busca = "Total saldo a favor"
+    # crea una lista con el mayor de cada año
+    mayor = lt.newList(datastructure="ARRAY_LIST")
+    for fecha in anios.keys():
+        alto = encontrar_mayor(anios[fecha], busca)
+        lt.addLast(mayor, alto)
+    
+    repeticiones = lt.size(mayor)
+    respuesta = ordenar(mayor, "Año", repeticiones, 0)
+    final = lt.iterator(respuesta)
+    return (final)
 
 
 
