@@ -282,14 +282,23 @@ def agregar_lista_de_6_a_subsector(subsector, lista_de_actividades_un_anio):
         ### vuelve array en objeto iterable
         lista_de_actividades_un_anio_1 = lt.iterator(lista_de_actividades_un_anio)
         codigo_subsect = subsector['Código subsector económico']
+       
+       
+       
         #### Crear sublista del año solo de 1 subsecto Array
         lista_acotada_de_ACTIVIDADES_anio_y_subsector = lt.newList('ARRAY_LIST')
-        print(lt.size(lista_de_actividades_un_anio))
-        print(codigo_subsect)
+        #print(lt.size(lista_de_actividades_un_anio))
+        #print(codigo_subsect)
+       
+       
+       
+       
         ### Agrega a la lista acotada los elementos filtrados por subsector
         for actividad in lista_de_actividades_un_anio_1:
            # print(type(actividad))
            # print(actividad['Código subsector económico'])
+
+           ##Compara que sea del subsector dado
             if codigo_subsect == actividad['Código subsector económico']:
                 lt.addLast(lista_acotada_de_ACTIVIDADES_anio_y_subsector,actividad)
                 
@@ -297,7 +306,7 @@ def agregar_lista_de_6_a_subsector(subsector, lista_de_actividades_un_anio):
         quk.sort(lista_acotada_de_ACTIVIDADES_anio_y_subsector,sort_criteria_retenciones)
         #print(lista_acotada_de_ACTIVIDADES_anio_y_subsector)
         tamanio = lt.size(lista_acotada_de_ACTIVIDADES_anio_y_subsector)
-        
+        print(tamanio)
         #### Crea lista PYTHON de 6 actividades relevantes 
         lista_6_activ_por_anio = []
 
@@ -320,6 +329,7 @@ def agregar_lista_de_6_a_subsector(subsector, lista_de_actividades_un_anio):
                 i+=1
         ### Añade la lista como elemento al dict subsect
         subsector['Primeras y últimas 3 actividades en contribuir']= lista_6_activ_por_anio
+        print(len(lista_6_activ_por_anio))
         return subsector
 
 
@@ -418,6 +428,10 @@ def req_5(data_struct):
     # TODO: Realizar el requerimiento 5
     pass
 
+### Crea TAD ARRAY de 
+
+    
+
 
 def req_6(data_structs, anio):
     """
@@ -427,9 +441,21 @@ def req_6(data_structs, anio):
     dic_anios = crear_diccionario (data_structs, 'data' ,'Año',tamanio_data_struct)
     array_del_anio = dic_anios[anio]
 
-    ###crea diccionario de arrays por ector del año específico
+    ###crea diccionario de arrays por sector del año específico
     tamanio_array_del_anio = lt.size(array_del_anio)
-    dic_sector = crear_diccionario()
+    dic_sector = crear_diccionario_de_TAD(array_del_anio,'Código sector económico',tamanio_array_del_anio)
+
+
+#### Crea lista vacía de actividad de mayores ingresos netos por sector
+    lista_de_mayores_por_sector = lt.newList('ARRAY_LIST')
+
+
+    for lista_por_sector in dic_sector.values():
+        mayor_actividad = encontrar_mayor(lista_por_sector)
+        lt.addLast(lista_de_mayores_por_sector,mayor_actividad)
+
+
+
     
     
 
@@ -525,11 +551,12 @@ def encontrar_mayor(lista, criterio):
     
     i =0
     tamanio = lt.size(lista)
-    alto = 0
+    mayor = 0
+    respuesta ={}
     while i < tamanio:
         exacto = lt.getElement(lista,i)
-        if int(exacto[criterio])>int(alto):
-            alto = exacto[criterio]
+        if exacto[criterio]>mayor:
+            mayor = exacto[criterio]
             respuesta = exacto
         i+=1
     return respuesta

@@ -219,9 +219,16 @@ def print_req_3(control):
     """
     # TODO: Imprimir el resultado del requerimiento 3
     respuesta =controller.req_3(control)['elements']
+    #print(respuesta[5])
+    res_esp_2019 = respuesta[1]['Primeras y últimas 3 actividades en contribuir']
+    #print(type(res_esp_2016))
+    #print(res_esp_2016)
+    df_2019 = pd.DataFrame(res_esp_2019)
     df = pd.DataFrame(respuesta)
     df_fil = df[['Año','Nombre subsector económico','Total retenciones']]
-    print(df_fil)
+    df_filt_2019 = df_2019[['Código actividad económica','Nombre actividad económica']]
+    #print(df_fil)
+    print(df_filt_2019)
 
 
 def print_req_4(control):
