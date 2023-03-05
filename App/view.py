@@ -29,6 +29,7 @@ from DISClib.ADT import queue as qu
 assert cf
 import traceback
 from tabulate import tabulate
+import pandas as pd
 
 
 
@@ -217,7 +218,10 @@ def print_req_3(control):
         Función que imprime la solución del Requerimiento 3 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 3
-    print(controller.req_3(control))
+    respuesta =controller.req_3(control)['elements']
+    df = pd.DataFrame(respuesta)
+    df_fil = df[['Año','Total retenciones']]
+    print(df_fil)
 
 
 def print_req_4(control):
