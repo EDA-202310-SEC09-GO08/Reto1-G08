@@ -201,7 +201,7 @@ def req_2(data_structs):
     """
     Función que soluciona el requerimiento 2
     """
-    tamanio = lt.size(data_structs)
+    tamanio = data_size(data_structs)
     anios = organizar(data_structs, "data","Año", tamanio)
     
    
@@ -213,8 +213,8 @@ def req_2(data_structs):
         alto = encontrar_mayor(anios[fecha], busca)
         lt.addLast(mayor, alto)
     
-    
-    respuesta = ordenar(mayor, "Año")
+    repeticiones = lt.size(mayor)
+    respuesta = ordenar(mayor, "Año", repeticiones, 0)
     
     final = lt.iterator(respuesta)
     return (final)
@@ -254,8 +254,17 @@ def req_5(data_struct):
     respuesta = {}
     
     for fecha in anios.keys():
+        repeticiones = lt.size(anios[fecha])
+        if repeticiones <=6:
+            orden = ordenar(anios[fecha], "Descuentos tributarios", repeticiones, 0 )
 
-        orden = ordenar(anios[fecha], "Descuentos tributarios" )
+        else:
+            orden = []
+            orden.append(ordenar(anios[fecha], "Descuentos tributarios", 3, 0 ))
+            comienza = lt.size(anios[fecha])-3
+            orden.append(ordenar(anios[fecha], "Descuentos tributarios", 3, comienza ))
+
+
         extremos[fecha] = orden
 
         size = lt.size(anios[fecha])
@@ -398,17 +407,18 @@ def organizar (data_structs, tipo ,categoria,tamanio):
     return dic
 
 #ordenar la lista en orden
-def ordenar(lista, criterio):
+def ordenar(lista, criterio, repeticiones, donde ):
     #organiza por años de menor a mayor
-    respuesta = lt.newList("ARRAY_LIST")
-    for x in range( lt.size(lista)):
-
-        superior = 0
+    respuesta = lt.newList("SINGLE_LINKED")
+    
+    for x in range( repeticiones):
+        inicio = pos = lt.getElement(lista,donde)
+        superior = inicio[criterio]
         a = 0
         elim = 0
         while a < lt.size(lista):
             pos = lt.getElement(lista,a)
-            if  int(pos[criterio])>superior:
+            if  int(pos[criterio])>int(superior):
                 superior = int(pos[criterio])
                 elim = a
                 dict = pos
