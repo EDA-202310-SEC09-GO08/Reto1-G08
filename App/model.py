@@ -69,8 +69,17 @@ def add_data(data_structs, data):
     """
     d = new_data(data["Año"], data["Código actividad económica"], data["Nombre actividad económica"],
                 data["Código sector económico"],data["Nombre sector económico"],data["Código subsector económico"],
-                data["Nombre subsector económico"],data["Total ingresos netos"],data["Total costos y gastos"], data["Total saldo a pagar"],
-                data['Total saldo a favor'], data['Total retenciones'])
+                data["Nombre subsector económico"],data["Costos y gastos nómina"], data["Aportes seguridad"], data["Aportes a entidades"], data["Efectivo y equivalentes"],
+                data["Inversiones e instrumentos"], data["Cuentas y otros por cobrar"], data["Inventarios"], data["Propiedades"], data["Otros activos"], 
+                data["Total patrimonio bruto"],data["Pasivos"], data["Total patrimonio líquido"], data["Ingresos ordinarios"], data["Ingresos financieros"], data["Otros ingresos"],
+                data["Total ingresos brutos"], data["Devoluciones, rebajas"], data["Ingresos no renta"], data["Total ingresos netos"],data["Costos"],
+                data["Gastos administración"], data["Gastos distribución"], data["Gastos financieros"], data["Otros gastos"], data["Total costos y gastos"], 
+                data["Renta líquida ordinaria"], data["Pérdida líquida"], data["Compensaciones"], data["Renta líquida"], data["Renta presuntiva"], data["Renta exenta"], 
+                data["Rentas gravables"], data["Renta líquida gravable"], data["Ingresos ganancias ocasionales"], data["Costos ganancias ocasionales"],
+                data["Ganancias ocasionales no gravadas"], data["Ganancias ocasionales gravables"], data["Impuesto RLG"], data["Descuentos tributarios"], 
+                data["Impuesto neto de renta"], data["Impuesto ganancias ocasionales"], data["Total Impuesto a cargo"], data["Anticipo renta año anterior"],
+                data["Saldo a favor año anterior"], data["Autorretenciones"], data["Otras retenciones"], data["Total retenciones"], data["Anticipo renta siguiente año"],
+                data["Saldo a pagar por impuesto"], data["Sanciones"], data["Total saldo a pagar"],data['Total saldo a favor'])
     lt.addLast(data_structs["data"], d)
 
     return data_structs
@@ -78,11 +87,24 @@ def add_data(data_structs, data):
 
 # Funciones para creacion de datos
 
-def new_data(anio, cod_acti, nom_acti, cod_sector, nom_sector, cod_subsec, nom_subsec, total_netos, total_c_g, total_s_pagar, total_favor):
+def new_data(anio, cod_acti, nom_acti, cod_sector, nom_sector, cod_subsec, nom_subsec, costos_gastos_nom, apor_seguridad, apor_entidades, efec_equivalentes,inv_instru, 
+             cuentas_cob, inventario, propiedades, otros_act, total_patrim_bruto, pasivos, total_patrim_liquido, ingresos_ordin, ingresos_finan, ingresos_otr, total_ingresos_brut,
+             devoluciones_rebaj, ingresos_no_renta, total_netos, costos, gastos_ad, gastos_dist, gastos_finan, gastos_otr, total_c_g, renta_liq_ord, perdida_liq, compensaciones, 
+             renta_liq, renta_presu, renta_exen, renta_grava, renta_liq_grava, ingreso_ganan_oca, costos_ganan_oca, ganan_oca_no_grava, ganan_oca_grava, impuesto_rlg, 
+             descuentos_trib, imp_net_rent, imp_ganan_oca, total_imp_carg, antic_anio_ant, saldo_afav_ant, autoreten, otras_reten, total_reten, anti_rent_sig, 
+             saldo_paga_imp, sanciones, total_s_pagar, total_favor):
     
     data = {'Año': 0, "Código actividad económica": "","Nombre actividad económica": "","Código sector económico": "","Nombre sector económico": "",
-    "Código subsector económico": "","Nombre subsector económico": "","Total ingresos netos": "","Total costos y gastos": "","Total saldo a pagar": "",
-    "Total saldo a favor": ''}
+    "Código subsector económico": "","Nombre subsector económico": "", "Costos y gastos nómina": "", "Aportes seguridad": "", "Aportes a entidades": "", "Efectivo y equivalentes": "",
+    "Inversiones e instrumentos":"", "Cuentas y otros por cobrar":"", "Inventarios": "", "Propiedades": "", "Otros activos":"", "Total patrimonio bruto":"", "Pasivos":"", 
+    "Total patrimonio líquido":"", "Ingresos ordinarios":"", "Ingresos financieros":"", "Otros ingresos": "", "Total ingresos brutos":"", "Devoluciones, rebajas":"", 
+    "Ingresos no renta":"","Total ingresos netos": "",  "Costos":"", "Gastos administración":"", "Gastos distribución":"", "Gastos financieros":"", "Otros gastos":"",
+    "Total costos y gastos": "", "Renta líquida ordinaria":"","Pérdida líquida":"",  "Compensaciones":"", "Renta líquida":"","Renta presuntiva":"",  "Renta exenta":"",
+    "Rentas gravables":"", "Renta líquida gravable":"", "Ingresos ganancias ocasionales":"", "Costos ganancias ocasionales":"", "Ganancias ocasionales no gravadas":"", 
+    "Ganancias ocasionales gravables":"", "Impuesto RLG":"", "Descuentos tributarios":"", "Impuesto neto de renta":"", "Impuesto ganancias ocasionales":"", 
+    "Total Impuesto a cargo":"", "Anticipo renta año anterior":"", "Saldo a favor año anterior":"", "Autorretenciones":"", "Otras retenciones":"", "Total retenciones":"",
+    "Anticipo renta siguiente año":"", "Saldo a pagar por impuesto":"", "Sanciones":"", "Total saldo a pagar": "","Total saldo a favor": ''}
+
     data["Año"] = anio
     data["Código actividad económica"] = cod_acti
     data["Nombre actividad económica"] = nom_acti
@@ -142,7 +164,6 @@ def new_data(anio, cod_acti, nom_acti, cod_sector, nom_sector, cod_subsec, nom_s
     data["Sanciones"] = sanciones
     data["Total saldo a pagar"] = total_s_pagar
     data["Total saldo a favor"] = total_favor
-    data['Total retenciones'] =total_reten
 
     return data
 
@@ -174,58 +195,22 @@ def req_1(data_structs):
     # TODO: Realizar el requerimiento 1
     pass
 
-def encontrar_mayor(lista):
-    #encuentra el mayor dentro de una lista
-    i =0
-    tamanio = lt.size(lista)
-    
-    while i < tamanio:
-        exacto = lt.getElement(lista,i)
-        if int(exacto["Total saldo a favor"])>i:
-            respuesta = exacto
-        i+=1
-    return respuesta
 
 
-
-
-
-
-def crear_lista_con_mayor(dict_anios, factor):
- # crea una lista con el mayor de cada año segun factor
-    lista_de_mayores = lt.newList(datastructure="ARRAY_LIST")
-    for fecha in dict_anios.keys():
-        mayor_por_anio = encontrar_mayor(dict_anios[fecha],factor)
-        lt.addLast(lista_de_mayores, mayor_por_anio)
-
-    return lista_de_mayores
-
-
-
-
-
-
-def crear_diccionario(data_structs):
+def req_2(data_structs):
+    """
+    Función que soluciona el requerimiento 2
+    """
     tamanio = data_size(data_structs)
-    i =0
-    anios = {}
-    #organiza la informacion en diccionarios con la llave como el año
-    while i < tamanio:
-        variable = lt.getElement(data_structs["data"],i)
-        momento = variable["Año"]
-        if variable["Año"] not in anios.keys():
-            anios[momento] = lt.newList(datastructure="SINGLE_LINKED")
-            lt.addLast(anios[momento], variable )
-        elif variable["Año"] in anios.keys():
-            lt.addLast(anios[momento], variable  )
-        
-        i +=1
+    anios = organizar(data_structs, "data","Año", tamanio)
+    
+   
     # crea una lista con el mayor de cada año
     busca = "Total saldo a favor"
 
     mayor = lt.newList(datastructure="ARRAY_LIST")
     for fecha in anios.keys():
-        alto = encontrar_mayor(anios[fecha])
+        alto = encontrar_mayor(anios[fecha], busca)
         lt.addLast(mayor, alto)
     
     repeticiones = lt.size(mayor)
@@ -237,6 +222,7 @@ def crear_diccionario(data_structs):
  
     
 
+    # TODO: Realizar el requerimiento 2
     
     
 def crear_lista_subsectores_por_anio(lista_actividades):
@@ -285,14 +271,14 @@ def agregar_lista_de_6_a_subsector(subsector, lista_de_actividades_un_anio):
         
         
         
-        lista_6_activ_por_anio = []
+        lista_6_activ_por_anio = lt.newList(datastructure='ARRAY_LIST')
         
-        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,1))
-        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,2))
-        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,3))
-        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,(tamanio-2)))
-        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,(tamanio-1)))
-        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,(tamanio)))
+        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,1))
+        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,2))
+        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,3))
+        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,(tamanio-2)))
+        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,(tamanio-1)))
+        lt.addLast(lista_6_activ_por_anio,lt.getElement(lista_de_actividades_un_anio,(tamanio)))
 
         subsector['Primeras y últimas 3 actividades en contribuir']= lista_6_activ_por_anio
         return subsector
@@ -312,33 +298,9 @@ def req_3(data_structs):
     """
     Función que soluciona el requerimiento 3
     """
-    ### Crea diccionario por años
-    
-    dic_por_anios = crear_diccionario(data_structs)
+    # TODO: Realizar el requerimiento 3
+    pass
 
-    
-    lista_menores_por_anio =lt.newList(datastructure='ARRAY_LIST')
-    
-    
-
-    for anio in dic_por_anios.keys():
-
-        
-
-        ### llama la lista de impuestos por año y la ordena 
-        lista_impuestos_por_anio = quk.sort(dic_por_anios[anio],sort_criteria_retenciones)
-        
-       
-        lista_subsects = crear_lista_subsectores_por_anio(lista_impuestos_por_anio)
-        menor =encontrar_menor(lista_subsects,'Total retenciones')
-
-        agregar_lista_de_6_a_subsector(menor,lista_impuestos_por_anio)
-        lt.addLast(lista_menores_por_anio,menor)
-    lista_menores_por_anio = quk.sort(lista_menores_por_anio, sort_criteria)   
-    
-    return lista_menores_por_anio
-
-    
 
 def req_4(data_structs):
     """
@@ -446,25 +408,16 @@ def sort_criteria(impuesto_1, impuesto_2):
     Returns:
         _type_: _description_
     """
-   
+    
     if impuesto_1['Año']!= impuesto_2['Año']:
-            cod_1 = impuesto_1['Año'].split()[0]
-            cod_2 = impuesto_2['Año'].split()[0]
-            return(float(impuesto_1['Año'])> float(impuesto_2['Año']))
+        cod_1 = impuesto_1['Año'].split()[0]
+        cod_2 = impuesto_2['Año'].split()[0]
+        return(float(impuesto_1['Año'])> float(impuesto_2['Año']))
     
     else:
-            cod_1 = impuesto_1['Código actividad económica'].split()[0].split('/')[0]
-            cod_2 = impuesto_2['Código actividad económica'].split()[0].split('/')[0]
-            return(float(cod_1)>float(cod_2))
-    
-
-def sort_criteria_retenciones(impuesto1,impuesto2):
-    cod_1 = impuesto1['Total retenciones'].split()[0].split('/')[0]
-    cod_2 = impuesto2['Total retenciones'].split()[0].split('/')[0]
-    return(float(cod_1)>float(cod_2))
-
-    
-    
+        cod_1 = impuesto_1['Código actividad económica'].split()[0].split('/')[0]
+        cod_2 = impuesto_2['Código actividad económica'].split()[0].split('/')[0]
+        return(float(cod_1)>float(cod_2))
     
 
 
