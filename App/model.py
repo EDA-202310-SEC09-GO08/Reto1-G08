@@ -69,8 +69,17 @@ def add_data(data_structs, data):
     """
     d = new_data(data["Año"], data["Código actividad económica"], data["Nombre actividad económica"],
                 data["Código sector económico"],data["Nombre sector económico"],data["Código subsector económico"],
-                data["Nombre subsector económico"],data["Total ingresos netos"],data["Total costos y gastos"], data["Total saldo a pagar"],
-                data['Total saldo a favor'])
+                data["Nombre subsector económico"],data["Costos y gastos nómina"], data["Aportes seguridad"], data["Aportes a entidades"], data["Efectivo y equivalentes"],
+                data["Inversiones e instrumentos"], data["Cuentas y otros por cobrar"], data["Inventarios"], data["Propiedades"], data["Otros activos"], 
+                data["Total patrimonio bruto"],data["Pasivos"], data["Total patrimonio líquido"], data["Ingresos ordinarios"], data["Ingresos financieros"], data["Otros ingresos"],
+                data["Total ingresos brutos"], data["Devoluciones, rebajas"], data["Ingresos no renta"], data["Total ingresos netos"],data["Costos"],
+                data["Gastos administración"], data["Gastos distribución"], data["Gastos financieros"], data["Otros gastos"], data["Total costos y gastos"], 
+                data["Renta líquida ordinaria"], data["Pérdida líquida"], data["Compensaciones"], data["Renta líquida"], data["Renta presuntiva"], data["Renta exenta"], 
+                data["Rentas gravables"], data["Renta líquida gravable"], data["Ingresos ganancias ocasionales"], data["Costos ganancias ocasionales"],
+                data["Ganancias ocasionales no gravadas"], data["Ganancias ocasionales gravables"], data["Impuesto RLG"], data["Descuentos tributarios"], 
+                data["Impuesto neto de renta"], data["Impuesto ganancias ocasionales"], data["Total Impuesto a cargo"], data["Anticipo renta año anterior"],
+                data["Saldo a favor año anterior"], data["Autorretenciones"], data["Otras retenciones"], data["Total retenciones"], data["Anticipo renta siguiente año"],
+                data["Saldo a pagar por impuesto"], data["Sanciones"], data["Total saldo a pagar"],data['Total saldo a favor'])
     lt.addLast(data_structs["data"], d)
 
     return data_structs
@@ -78,11 +87,24 @@ def add_data(data_structs, data):
 
 # Funciones para creacion de datos
 
-def new_data(anio, cod_acti, nom_acti, cod_sector, nom_sector, cod_subsec, nom_subsec, total_netos, total_c_g, total_s_pagar, total_favor):
+def new_data(anio, cod_acti, nom_acti, cod_sector, nom_sector, cod_subsec, nom_subsec, costos_gastos_nom, apor_seguridad, apor_entidades, efec_equivalentes,inv_instru, 
+             cuentas_cob, inventario, propiedades, otros_act, total_patrim_bruto, pasivos, total_patrim_liquido, ingresos_ordin, ingresos_finan, ingresos_otr, total_ingresos_brut,
+             devoluciones_rebaj, ingresos_no_renta, total_netos, costos, gastos_ad, gastos_dist, gastos_finan, gastos_otr, total_c_g, renta_liq_ord, perdida_liq, compensaciones, 
+             renta_liq, renta_presu, renta_exen, renta_grava, renta_liq_grava, ingreso_ganan_oca, costos_ganan_oca, ganan_oca_no_grava, ganan_oca_grava, impuesto_rlg, 
+             descuentos_trib, imp_net_rent, imp_ganan_oca, total_imp_carg, antic_anio_ant, saldo_afav_ant, autoreten, otras_reten, total_reten, anti_rent_sig, 
+             saldo_paga_imp, sanciones, total_s_pagar, total_favor):
     
     data = {'Año': 0, "Código actividad económica": "","Nombre actividad económica": "","Código sector económico": "","Nombre sector económico": "",
-    "Código subsector económico": "","Nombre subsector económico": "","Total ingresos netos": "","Total costos y gastos": "","Total saldo a pagar": "",
-    "Total saldo a favor": ''}
+    "Código subsector económico": "","Nombre subsector económico": "", "Costos y gastos nómina": "", "Aportes seguridad": "", "Aportes a entidades": "", "Efectivo y equivalentes": "",
+    "Inversiones e instrumentos":"", "Cuentas y otros por cobrar":"", "Inventarios": "", "Propiedades": "", "Otros activos":"", "Total patrimonio bruto":"", "Pasivos":"", 
+    "Total patrimonio líquido":"", "Ingresos ordinarios":"", "Ingresos financieros":"", "Otros ingresos": "", "Total ingresos brutos":"", "Devoluciones, rebajas":"", 
+    "Ingresos no renta":"","Total ingresos netos": "",  "Costos":"", "Gastos administración":"", "Gastos distribución":"", "Gastos financieros":"", "Otros gastos":"",
+    "Total costos y gastos": "", "Renta líquida ordinaria":"","Pérdida líquida":"",  "Compensaciones":"", "Renta líquida":"","Renta presuntiva":"",  "Renta exenta":"",
+    "Rentas gravables":"", "Renta líquida gravable":"", "Ingresos ganancias ocasionales":"", "Costos ganancias ocasionales":"", "Ganancias ocasionales no gravadas":"", 
+    "Ganancias ocasionales gravables":"", "Impuesto RLG":"", "Descuentos tributarios":"", "Impuesto neto de renta":"", "Impuesto ganancias ocasionales":"", 
+    "Total Impuesto a cargo":"", "Anticipo renta año anterior":"", "Saldo a favor año anterior":"", "Autorretenciones":"", "Otras retenciones":"", "Total retenciones":"",
+    "Anticipo renta siguiente año":"", "Saldo a pagar por impuesto":"", "Sanciones":"", "Total saldo a pagar": "","Total saldo a favor": ''}
+
     data["Año"] = anio
     data["Código actividad económica"] = cod_acti
     data["Nombre actividad económica"] = nom_acti
@@ -90,8 +112,56 @@ def new_data(anio, cod_acti, nom_acti, cod_sector, nom_sector, cod_subsec, nom_s
     data["Nombre sector económico"] = nom_sector
     data["Código subsector económico"] = cod_subsec
     data["Nombre subsector económico"] = nom_subsec
+    data["Costos y gastos nómina"] = costos_gastos_nom
+    data["Aportes seguridad"] = apor_seguridad
+    data["Aportes a entidades"] = apor_entidades
+    data["Efectivo y equivalentes"] = efec_equivalentes
+    data["Inversiones e instrumentos"] = inv_instru
+    data["Cuentas y otros por cobrar"] = cuentas_cob
+    data["Inventarios"] = inventario
+    data["Propiedades"] = propiedades
+    data["Otros activos"] = otros_act
+    data["Total patrimonio bruto"] = total_patrim_bruto
+    data["Pasivos"] = pasivos
+    data["Total patrimonio líquido"] = total_patrim_liquido
+    data["Ingresos ordinarios"] = ingresos_ordin
+    data["Ingresos financieros"] = ingresos_finan
+    data["Otros ingresos"] = ingresos_otr
+    data["Total ingresos brutos"] = total_ingresos_brut
+    data["Devoluciones, rebajas"] =devoluciones_rebaj
+    data["Ingresos no renta"] = ingresos_no_renta
     data["Total ingresos netos"] = total_netos
+    data["Costos"] = costos
+    data["Gastos administración"] = gastos_ad
+    data["Gastos distribución"] = gastos_dist
+    data["Gastos financieros"] = gastos_finan
+    data["Otros gastos"] = gastos_otr
     data["Total costos y gastos"] = total_c_g
+    data["Renta líquida ordinaria"] = renta_liq_ord
+    data["Pérdida líquida"] = perdida_liq
+    data["Compensaciones"] = compensaciones
+    data["Renta líquida"] = renta_liq
+    data["Renta presuntiva"] = renta_presu
+    data["Renta exenta"] = renta_exen
+    data["Rentas gravables"] = renta_grava
+    data["Renta líquida gravable"] = renta_liq_grava
+    data["Ingresos ganancias ocasionales"] = ingreso_ganan_oca
+    data["Costos ganancias ocasionales"] = costos_ganan_oca
+    data["Ganancias ocasionales no gravadas"] = ganan_oca_no_grava
+    data["Ganancias ocasionales gravables"] = ganan_oca_grava
+    data["Impuesto RLG"] = impuesto_rlg
+    data["Descuentos tributarios"] = descuentos_trib
+    data["Impuesto neto de renta"]= imp_net_rent
+    data["Impuesto ganancias ocasionales"] = imp_ganan_oca
+    data["Total Impuesto a cargo"] = total_imp_carg
+    data["Anticipo renta año anterior"] = antic_anio_ant
+    data["Saldo a favor año anterior"] = saldo_afav_ant
+    data["Autorretenciones"] = autoreten
+    data["Otras retenciones"] = otras_reten
+    data["Total retenciones"] = total_reten
+    data["Anticipo renta siguiente año"] = anti_rent_sig
+    data["Saldo a pagar por impuesto"] = saldo_paga_imp
+    data["Sanciones"] = sanciones
     data["Total saldo a pagar"] = total_s_pagar
     data["Total saldo a favor"] = total_favor
 
@@ -177,7 +247,8 @@ def req_2(data_structs):
             a+=1
         lt.addFirst(respuesta, dict)
         lt.deleteElement(mayor, elim)
-    return respuesta
+    final = lt.iterator(respuesta)
+    return final
 
 
     
