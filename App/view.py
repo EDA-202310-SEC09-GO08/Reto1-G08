@@ -278,7 +278,7 @@ if __name__ == "__main__":
                 control = new_controller("ARRAY_LIST")
                 archivo = menu_archivo()
                 load_data(control,archivo)
-                sort_data_result = controller.sort(control, 1)
+                sort_data_result = controller.sort(control, 5)
                 print_3_primeros_y_ultimos(sort_data_result[0])
                 print(sort_data_result[1])
             

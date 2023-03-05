@@ -267,31 +267,46 @@ def crear_lista_subsectores_por_anio(lista_actividades):
 
 def agregar_lista_de_6_a_subsector(subsector, lista_de_actividades_un_anio):
         
+        ### vuelve array en objeto iterable
+        lista_de_actividades_un_anio_1 = lt.iterator(lista_de_actividades_un_anio)
         codigo_subsect = subsector['Código subsector económico']
-        #### Crear sublista del año solo de 1 subsector
-        lista_acotada_de_ACTIVIDADES_anio_y_subsector =[]
-
+        #### Crear sublista del año solo de 1 subsecto Array
+        lista_acotada_de_ACTIVIDADES_anio_y_subsector = lt.newList('ARRAY_LIST')
+        print(lt.size(lista_de_actividades_un_anio))
+        print(codigo_subsect)
         ### Agrega a la lista acotada los elementos filtrados por subsector
-        for actividad in lista_de_actividades_un_anio:
+        for actividad in lista_de_actividades_un_anio_1:
+           # print(type(actividad))
+           # print(actividad['Código subsector económico'])
             if codigo_subsect == actividad['Código subsector económico']:
-                lista_acotada_de_ACTIVIDADES_anio_y_subsector.append(actividad)
-
+                lt.addLast(lista_acotada_de_ACTIVIDADES_anio_y_subsector,actividad)
+                
         ### Ordena lista acotada por RETENCION
         quk.sort(lista_acotada_de_ACTIVIDADES_anio_y_subsector,sort_criteria_retenciones)
-
-        tamanio = len(lista_acotada_de_ACTIVIDADES_anio_y_subsector)
+        #print(lista_acotada_de_ACTIVIDADES_anio_y_subsector)
+        tamanio = lt.size(lista_acotada_de_ACTIVIDADES_anio_y_subsector)
         
-        
-        #### Crea lista de 6 actividades relevantes
+        #### Crea lista PYTHON de 6 actividades relevantes 
         lista_6_activ_por_anio = []
-        
-        lista_6_activ_por_anio.append(lista_acotada_de_ACTIVIDADES_anio_y_subsector[0])
-        lista_6_activ_por_anio.append(lista_acotada_de_ACTIVIDADES_anio_y_subsector[1])
-        lista_6_activ_por_anio.append(lista_acotada_de_ACTIVIDADES_anio_y_subsector[2])
-        lista_6_activ_por_anio.append(lista_acotada_de_ACTIVIDADES_anio_y_subsector[tamanio])
-        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,(tamanio-1)))
-        lista_6_activ_por_anio.append(lt.getElement(lista_de_actividades_un_anio,(tamanio)))
 
+        ### Condición para prevenir error out of range
+        if tamanio>=6:
+        
+        
+            
+        
+            lista_6_activ_por_anio.append(lt.getElement(lista_acotada_de_ACTIVIDADES_anio_y_subsector,1))
+            lista_6_activ_por_anio.append(lt.getElement(lista_acotada_de_ACTIVIDADES_anio_y_subsector,2))
+            lista_6_activ_por_anio.append(lt.getElement(lista_acotada_de_ACTIVIDADES_anio_y_subsector,3))
+            lista_6_activ_por_anio.append(lt.getElement(lista_acotada_de_ACTIVIDADES_anio_y_subsector,tamanio-2))
+            lista_6_activ_por_anio.append(lt.getElement(lista_acotada_de_ACTIVIDADES_anio_y_subsector,tamanio-1))
+            lista_6_activ_por_anio.append(lt.getElement(lista_acotada_de_ACTIVIDADES_anio_y_subsector,tamanio))
+        else:
+            i =1
+            while i<=tamanio:
+                lista_6_activ_por_anio.append(lt.getElement(lista_acotada_de_ACTIVIDADES_anio_y_subsector,i))
+                i+=1
+        ### Añade la lista como elemento al dict subsect
         subsector['Primeras y últimas 3 actividades en contribuir']= lista_6_activ_por_anio
         return subsector
 
@@ -310,13 +325,12 @@ def req_3(data_structs):
     """
     Función que soluciona el requerimiento 3
     """
-    lista_dicts_menores_anios =[]
+    lista_dicts_menores_anios = lt.newList('ARRAY_LIST')
     tamanio_data_structs = data_size(data_structs)
     dic_anios = crear_diccionario_anios(data_structs, "data","Año", tamanio_data_structs)
-    for lista_actividades_un_anio_dado in dic_anios:
+    for lista_actividades_un_anio_dado in dic_anios.values():
 
-        ###ordena lista actividades un anio dado por retenciones
-        quk.sort(lista_actividades_un_anio_dado,sort_criteria_retenciones)
+      
 
         ####crea lista subsectkores patra el año dado
         lista_subsects_un_anio_dado = crear_lista_subsectores_por_anio(lista_actividades_un_anio_dado)
@@ -324,7 +338,7 @@ def req_3(data_structs):
         ##encuentra menor subsect por retenciones
         menor = encontrar_menor(lista_subsects_un_anio_dado, 'Total retenciones')
         agregar_lista_de_6_a_subsector(menor,lista_actividades_un_anio_dado)
-        lista_dicts_menores_anios.append(menor)
+        lt.addLast(lista_dicts_menores_anios,menor)
 
     quk.sort(lista_dicts_menores_anios,sort_criteria)
     return lista_dicts_menores_anios
