@@ -70,7 +70,7 @@ def add_data(data_structs, data):
     d = new_data(data["Año"], data["Código actividad económica"], data["Nombre actividad económica"],
                 data["Código sector económico"],data["Nombre sector económico"],data["Código subsector económico"],
                 data["Nombre subsector económico"],data["Total ingresos netos"],data["Total costos y gastos"], data["Total saldo a pagar"],
-                data['Total saldo a favor'],data['Total retenciones'])
+                data['Total saldo a favor'])
     lt.addLast(data_structs["data"], d)
 
     return data_structs
@@ -78,11 +78,11 @@ def add_data(data_structs, data):
 
 # Funciones para creacion de datos
 
-def new_data(anio, cod_acti, nom_acti, cod_sector, nom_sector, cod_subsec, nom_subsec, total_netos, total_c_g, total_s_pagar, total_favor, total_reten):
+def new_data(anio, cod_acti, nom_acti, cod_sector, nom_sector, cod_subsec, nom_subsec, total_netos, total_c_g, total_s_pagar, total_favor):
     
     data = {'Año': 0, "Código actividad económica": "","Nombre actividad económica": "","Código sector económico": "","Nombre sector económico": "",
     "Código subsector económico": "","Nombre subsector económico": "","Total ingresos netos": "","Total costos y gastos": "","Total saldo a pagar": "",
-    "Total saldo a favor": '', 'Total retenciones':''}
+    "Total saldo a favor": ''}
     data["Año"] = anio
     data["Código actividad económica"] = cod_acti
     data["Nombre actividad económica"] = nom_acti
@@ -90,8 +90,56 @@ def new_data(anio, cod_acti, nom_acti, cod_sector, nom_sector, cod_subsec, nom_s
     data["Nombre sector económico"] = nom_sector
     data["Código subsector económico"] = cod_subsec
     data["Nombre subsector económico"] = nom_subsec
+    data["Costos y gastos nómina"] = costos_gastos_nom
+    data["Aportes seguridad"] = apor_seguridad
+    data["Aportes a entidades"] = apor_entidades
+    data["Efectivo y equivalentes"] = efec_equivalentes
+    data["Inversiones e instrumentos"] = inv_instru
+    data["Cuentas y otros por cobrar"] = cuentas_cob
+    data["Inventarios"] = inventario
+    data["Propiedades"] = propiedades
+    data["Otros activos"] = otros_act
+    data["Total patrimonio bruto"] = total_patrim_bruto
+    data["Pasivos"] = pasivos
+    data["Total patrimonio líquido"] = total_patrim_liquido
+    data["Ingresos ordinarios"] = ingresos_ordin
+    data["Ingresos financieros"] = ingresos_finan
+    data["Otros ingresos"] = ingresos_otr
+    data["Total ingresos brutos"] = total_ingresos_brut
+    data["Devoluciones, rebajas"] =devoluciones_rebaj
+    data["Ingresos no renta"] = ingresos_no_renta
     data["Total ingresos netos"] = total_netos
+    data["Costos"] = costos
+    data["Gastos administración"] = gastos_ad
+    data["Gastos distribución"] = gastos_dist
+    data["Gastos financieros"] = gastos_finan
+    data["Otros gastos"] = gastos_otr
     data["Total costos y gastos"] = total_c_g
+    data["Renta líquida ordinaria"] = renta_liq_ord
+    data["Pérdida líquida"] = perdida_liq
+    data["Compensaciones"] = compensaciones
+    data["Renta líquida"] = renta_liq
+    data["Renta presuntiva"] = renta_presu
+    data["Renta exenta"] = renta_exen
+    data["Rentas gravables"] = renta_grava
+    data["Renta líquida gravable"] = renta_liq_grava
+    data["Ingresos ganancias ocasionales"] = ingreso_ganan_oca
+    data["Costos ganancias ocasionales"] = costos_ganan_oca
+    data["Ganancias ocasionales no gravadas"] = ganan_oca_no_grava
+    data["Ganancias ocasionales gravables"] = ganan_oca_grava
+    data["Impuesto RLG"] = impuesto_rlg
+    data["Descuentos tributarios"] = descuentos_trib
+    data["Impuesto neto de renta"]= imp_net_rent
+    data["Impuesto ganancias ocasionales"] = imp_ganan_oca
+    data["Total Impuesto a cargo"] = total_imp_carg
+    data["Anticipo renta año anterior"] = antic_anio_ant
+    data["Saldo a favor año anterior"] = saldo_afav_ant
+    data["Autorretenciones"] = autoreten
+    data["Otras retenciones"] = otras_reten
+    data["Total retenciones"] = total_reten
+    data["Anticipo renta siguiente año"] = anti_rent_sig
+    data["Saldo a pagar por impuesto"] = saldo_paga_imp
+    data["Sanciones"] = sanciones
     data["Total saldo a pagar"] = total_s_pagar
     data["Total saldo a favor"] = total_favor
     data['Total retenciones'] =total_reten
@@ -126,38 +174,16 @@ def req_1(data_structs):
     # TODO: Realizar el requerimiento 1
     pass
 
-def encontrar_mayor(lista,factor):
+def encontrar_mayor(lista):
     #encuentra el mayor dentro de una lista
     i =0
     tamanio = lt.size(lista)
     
     while i < tamanio:
         exacto = lt.getElement(lista,i)
-        if int(exacto[factor])>i:
+        if int(exacto["Total saldo a favor"])>i:
             respuesta = exacto
         i+=1
-
-
-    
-    return respuesta
-
-def encontrar_menor(lista,factor):
-    #encuentra el mayor dentro de una lista
-    i =0
-    tamanio = lt.size(lista)
-    
-    menor_num = 99999999
-    respuesta ={}
-    while i < tamanio:
-        exacto = lt.getElement(lista,i)
-        
-        if float(exacto[factor])<menor_num:
-            respuesta = exacto
-            menor_num = float(exacto[factor])
-        i+=1
-
-
-    
     return respuesta
 
 
@@ -183,54 +209,32 @@ def crear_diccionario(data_structs):
     tamanio = data_size(data_structs)
     i =0
     anios = {}
-    #organiza la informacion en diccionario con la llave como el año
+    #organiza la informacion en diccionarios con la llave como el año
     while i < tamanio:
         variable = lt.getElement(data_structs["data"],i)
         momento = variable["Año"]
         if variable["Año"] not in anios.keys():
-            anios[momento] = lt.newList(datastructure="ARRAY_LIST")
+            anios[momento] = lt.newList(datastructure="SINGLE_LINKED")
             lt.addLast(anios[momento], variable )
         elif variable["Año"] in anios.keys():
             lt.addLast(anios[momento], variable  )
         
         i +=1
-    return(anios)
-
-def req_2(data_structs):
-
-    """
-    Función que soluciona el requerimiento 2
-    """
-    tamanio = data_size(data_structs)
-    
-    anios = crear_diccionario(data_structs)
-    
     # crea una lista con el mayor de cada año
+    busca = "Total saldo a favor"
+
     mayor = lt.newList(datastructure="ARRAY_LIST")
     for fecha in anios.keys():
-        alto = encontrar_mayor(anios[fecha],'Total saldo a favor')
+        alto = encontrar_mayor(anios[fecha])
         lt.addLast(mayor, alto)
     
-    #organiza por años de menor a mayor
-    respuesta = lt.newList("ARRAY_LIST")
-    for x in range( lt.size(mayor)):
-
-        superior = 0
-        a = 0
-        elim = 0
-        while a < lt.size(mayor):
-            pos = lt.getElement(mayor,a)
-            if  int(pos["Año"])>superior:
-                superior = int(pos["Año"])
-                elim = a
-                dict = pos
-            a+=1
-        lt.addFirst(respuesta, dict)
-        lt.deleteElement(mayor, elim)
-    return respuesta
-
-
+    repeticiones = lt.size(mayor)
+    respuesta = ordenar(mayor, "Año", repeticiones, 0)
     
+    final = lt.iterator(respuesta)
+    return (final)
+
+ 
     
 
     
@@ -344,10 +348,50 @@ def req_4(data_structs):
     pass
 
 
-def req_5(data_structs):
+def req_5(data_struct):
     """
     Función que soluciona el requerimiento 5
     """
+    codigos= ["Descuentos tributarios", "Total ingresos netos", "Total costos y gastos", "Total saldo a pagar", "Total saldo a favor" ]
+    tamanio = data_size(data_struct)
+    anios = organizar(data_struct,"data", "Año", tamanio)
+    organizado = {}
+    extremos = {}
+    respuesta = {}
+    
+    for fecha in anios.keys():
+        repeticiones = lt.size(anios[fecha])
+        if repeticiones <=6:
+            orden = ordenar(anios[fecha], "Descuentos tributarios", repeticiones, 0 )
+
+        else:
+            orden = []
+            orden.append(ordenar(anios[fecha], "Descuentos tributarios", 3, 0 ))
+            comienza = lt.size(anios[fecha])-3
+            orden.append(ordenar(anios[fecha], "Descuentos tributarios", 3, comienza ))
+
+
+        extremos[fecha] = orden
+
+        size = lt.size(anios[fecha])
+
+        sub_sector = organizar(anios,fecha, "Código subsector económico", size )
+        organizado[fecha] = sub_sector
+        
+        for sector in organizado[fecha].keys():
+            respuesta = {}
+            
+            for codigo in codigos:
+            
+                suma = suma_variable(organizado[fecha][sector],codigo )
+                respuesta[codigo] = suma
+                
+            organizado[fecha][sector] = respuesta
+
+                
+    print (organizado)
+    
+
     # TODO: Realizar el requerimiento 5
     pass
 
@@ -446,3 +490,72 @@ def sort(data_structs, tipo):
         lista =merg.sort(sub_list, sort_criteria)
     
     return lista
+
+#encontrar el mayor en una lista 
+def encontrar_mayor(lista, nommbre):
+    
+    i =0
+    tamanio = lt.size(lista)
+    
+    while i < tamanio:
+        exacto = lt.getElement(lista,i)
+        if int(exacto[nommbre])>i:
+            respuesta = exacto
+        i+=1
+    return respuesta
+
+#organiza la informacion en diccionarios con la llave como el año
+def organizar (data_structs, tipo ,categoria,tamanio):
+    
+    i =0
+    dic = {}
+    
+    while i < tamanio:
+        variable = lt.getElement(data_structs[tipo],i)
+        momento = variable[categoria]
+        if variable[categoria] not in dic.keys():
+            dic[momento] = lt.newList(datastructure="ARRAY_LIST")
+            lt.addLast(dic[momento], variable )
+        elif variable[categoria] in dic.keys():
+            lt.addLast(dic[momento], variable  )
+        
+        i +=1
+    return dic
+
+#ordenar la lista en orden
+def ordenar(lista, criterio, repeticiones, donde ):
+    #organiza por años de menor a mayor
+    respuesta = lt.newList("SINGLE_LINKED")
+    
+    for x in range( repeticiones):
+        inicio = pos = lt.getElement(lista,donde)
+        superior = inicio[criterio]
+        a = 0
+        elim = 0
+        while a < lt.size(lista):
+            pos = lt.getElement(lista,a)
+            if  int(pos[criterio])>int(superior):
+                superior = int(pos[criterio])
+                elim = a
+                dict = pos
+            a+=1
+            
+        lt.addFirst(respuesta, dict)
+        lt.deleteElement(lista, elim)
+
+    return respuesta 
+
+#suma la variable dentro de una lista con un criterio expecifico
+def suma_variable(dic, suma):
+    tamanio = lt.size(dic)
+    i = 0
+    valor = 0
+
+    while i < tamanio:
+        pos = lt.getElement(dic, i)
+        valor += int(pos[suma])
+        i+=1
+    
+    
+    
+    return valor

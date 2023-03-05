@@ -60,7 +60,7 @@ def print_menu():
     print("8- Listar el TOP (N) de las actividades económicas con el menor total de costos y gastos para un periodo de tiempo")
     print("9-  Listar el TOP (N) de actividades económicas de cada subsector con los mayores totales de impuestos a cargo para un periodo de tiempo ")
     print("10- Obtener dato dado un ID")
-    print("11- funcion laboratorio 4")
+    print("11- Carga, con tipo de ordenamientos")
 
     print("0- Salir")
 
@@ -90,13 +90,13 @@ def print_3_primeros_y_ultimos(lista, sample=3):
             i+=1 
     return losimp 
 
-def segundo_menu():
+def menu_tipo_lista():
     print("Ahora que tipo de lista deseas ")
     print("1- ARRAY_LIST")
     print("2- SINGLE_LINKED")
 
 
-def tercer_menu():
+def menu_tipo_ordenamiento():
     print("Ahora que tipo de ordenamiento deseas ")
     print("1- insertion sort")
     print("2- selection sort")
@@ -105,7 +105,7 @@ def tercer_menu():
     print("5- merge sort")
 
 
-def cuarto_menu():
+def menu_nombre_archivo():
     print("Que porcentage de datos ")
     print("1-1%")
     print("2-5%")
@@ -116,8 +116,8 @@ def cuarto_menu():
     print("7-100%")
 
 #los tipos de ordenamiento 
-def menu2():
-     tercer_menu()
+def menu_ordenamiento():
+     menu_tipo_ordenamiento()
      ordenamiento = input('Seleccione una opción para continuar\n')
      try: 
         if int(ordenamiento) == 1:
@@ -142,8 +142,8 @@ def menu2():
     
      
 # los nombres de los datos
-def menu3():
-    cuarto_menu()
+def menu_archivo():
+    menu_nombre_archivo()
     porcentaje = input('Seleccione una opción para continuar\n')
     try:
         if int(porcentaje) == 2:
@@ -173,30 +173,7 @@ def menu3():
             traceback.print_exc()
 
 
-def correr_todo(tipo, organizacion, tamaño):
-    if tipo == 1:
-        control = new_controller("ARRAY_LIST")
-    elif tipo == 2:
-        control = new_controller("SINGLE_LINKED")
 
-    load_data(control, tamaño)
-    if organizacion == "insertion":
-        final = controller.sort(control, 1)
-         
- 
-    elif organizacion == "selection":
-        final = controller.sort(control, 2)
-
-    elif organizacion == "shell":
-        final = controller.sort(control, 3)
-    
-    elif organizacion == "quick":
-        final = controller.sort(control, 4)
-    
-    elif organizacion == "merge":
-        final = controller.sort(control, 5)
-
-    return final
 
 
 def load_data(control, archivo):
@@ -227,7 +204,11 @@ def print_req_2(control):
         Función que imprime la solución del Requerimiento 2 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 2
-    print(controller.req_2(control))
+    respuesta = (controller.req_2(control))
+    print(tabulate(respuesta, headers="keys", tablefmt= "grid"))
+#,"Año", "Código actividad económica", "Nombre actividad económica", "Código sector económico", "Nombre sector económico", 
+# "Código subsector económico", "Nombre subsector económico", "Total ingresos netos","Total costos y gastos", "Total saldo a pagar", 
+# 'Total saldo a favor'
 
 
 def print_req_3(control):
@@ -295,8 +276,8 @@ if __name__ == "__main__":
             if int(inputs) == 1:
                 print("Cargando información de los archivos ....\n")
                 control = new_controller("ARRAY_LIST")
-                load_data(control,"Salida_agregados_renta_juridicos_AG-large.csv")
-                sort_data_result = controller.sort(control, 5)
+                load_data(control,"Salida_agregados_renta_juridicos_AG-5pct.csv")
+                sort_data_result = controller.sort(control, 1)
                 print_3_primeros_y_ultimos(sort_data_result[0])
                 print(sort_data_result[1])
             
@@ -330,23 +311,23 @@ if __name__ == "__main__":
                 print_data(control, id)
             
             elif int(inputs) == 11:
-                segundo_menu()
+                menu_tipo_lista()
                 opcion = input('Seleccione una opción para continuar\n')
                 try:
                     if int(opcion) == 1:
                         tipo = 1
-                        orden  = menu2()
-                        tamaño = menu3()
-                        sort_data_result = correr_todo(tipo,orden,tamaño)
+                        orden  = menu_ordenamiento()
+                        tamaño = menu_archivo()
+                        sort_data_result = controller.correr_todo(tipo,orden,tamaño)
                         ordenado =print_3_primeros_y_ultimos(sort_data_result[0])
                         print(tabulate(ordenado, headers="keys"))
                         print(sort_data_result[1])
                         print(sort_data_result[2])
                     elif int(opcion) == 2:
                         tipo = 2
-                        orden  = menu2()
-                        tamaño = menu3()
-                        sort_data_result = correr_todo(tipo,orden,tamaño)
+                        orden  = menu_ordenamiento()
+                        tamaño = menu_archivo()
+                        sort_data_result = controller.correr_todo(tipo,orden,tamaño)
                         ordenado =print_3_primeros_y_ultimos(sort_data_result[0])
                         print(tabulate(ordenado, headers="keys"))
                         print(sort_data_result[1])

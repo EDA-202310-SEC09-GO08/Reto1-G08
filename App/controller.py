@@ -193,3 +193,28 @@ def delta_time(start, end):
     """
     elapsed = float(end - start)
     return elapsed
+
+def correr_todo(tipo, organizacion, tamaño):
+    if tipo == 1:
+        control = new_controller("ARRAY_LIST")
+    elif tipo == 2:
+        control = new_controller("SINGLE_LINKED")
+
+    load_data(control, tamaño)
+    if organizacion == "insertion":
+        final = sort(control, 1)
+         
+ 
+    elif organizacion == "selection":
+        final = sort(control, 2)
+
+    elif organizacion == "shell":
+        final = sort(control, 3)
+    
+    elif organizacion == "quick":
+        final = sort(control, 4)
+    
+    elif organizacion == "merge":
+        final = sort(control, 5)
+
+    return final
