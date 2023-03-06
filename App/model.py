@@ -325,7 +325,7 @@ def agregar_lista_de_6_a_subsector(subsector, lista_de_actividades_un_anio):
         quk.sort(lista_acotada_de_ACTIVIDADES_anio_y_subsector,sort_criteria_retenciones)
         #print(lista_acotada_de_ACTIVIDADES_anio_y_subsector)
         tamanio = lt.size(lista_acotada_de_ACTIVIDADES_anio_y_subsector)
-        print(tamanio)
+        #print(tamanio)
         #### Crea lista PYTHON de 6 actividades relevantes 
         lista_6_activ_por_anio = []
 
@@ -519,6 +519,51 @@ def crear_lista_sectores_por_un_anio(lista_actividades):
         lt.addLast(lista_sects,dic_secs[llave])
 
     return lista_sects
+
+
+def crear_lista_subsectores_totalizados_por_sector(dic_subsects):
+    
+    ### Primero crear diccionario
+
+    dic_totalizado_subsect = {}
+
+    for llave_subsector in dic_subsects:
+
+        array_subsec = dic_subsects[llave_subsector]
+        array_subsect_iterable = lt.iterator(array_subsec)
+        tamanio_array = lt.size(array_subsec)
+
+        i =1
+        while i<=tamanio_array:
+
+
+                ###Accede diccionario de actividad
+            actividad = lt.getElement(i)
+
+
+
+
+            if actividad['Código subsector económico'] not in dic_totalizado_subsect:
+
+                dic_totalizado_subsect['Código subsector económico'] =  actividad['Código subsector económico']
+                dic_totalizado_subsect['Nombre subsector económico'] =  actividad['Nombre subsector económico']
+                dic_totalizado_subsect['Total ingresos netos'] =  float(actividad['Total ingresos netos'])
+                dic_totalizado_subsect['Total costos y gastos'] =  float(actividad['Total costos y gastos'])
+                dic_totalizado_subsect['Total saldo a favor'] =  float(actividad['Total saldo a favor'])
+                dic_totalizado_subsect['Total saldo a pagar'] =  float(actividad['Total saldo a pagar'])
+
+
+                
+
+
+
+
+
+         
+
+        ### Crea subsector si no existe
+
+       
 
 
 
