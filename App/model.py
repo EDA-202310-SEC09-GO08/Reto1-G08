@@ -194,20 +194,39 @@ def req_1(data_structs):
     """
     tamanio = data_size(data_structs)
     anios = crear_diccionario(data_structs, "data","Año", tamanio)
-   
-    busca = "Total saldo a favor"
-    # crea una lista con el mayor de cada año
+    #Crea un diccionario con los los años en sus llaves
+    busca = "Total saldo a pagar"
     mayor = lt.newList(datastructure="ARRAY_LIST")
+    #Se crea una lista donde se almacenan los datos de 
     for fecha in anios.keys():
         alto = encontrar_mayor(anios[fecha], busca)
         lt.addLast(mayor, alto)
     
     repeticiones = lt.size(mayor)
     respuesta = ordenar(mayor, "Año", repeticiones, 0)
-    final = lt.iterator(respuesta)
+    respuesta_filtrada = respuesta_filtrada_req1
+    
+    final = lt.iterator(respuesta_filtrada)
     return (final)
-
-
+                
+def respuesta_filtrada_req1(respuesta):
+    respuesta_filtrada = lt.newList(datastructure="ARRAY_LIST")
+    for elem in lt.iterator(respuesta):
+        dic = {
+            "Año": elem["Año"],
+            "Código actividad económica": elem["Código Actividad Económica"],
+            "Nombre actividad económica": elem["Nombre Actividad Económica"],
+            "Código sector económico": elem["Código Sector Económico"],
+            "Nombre sector económico": elem["Nombre Sector Económico"],
+            "Código subsector económico": elem["Código Subsector Económico"],
+            "Nombre subsector económico": elem["Nombre Subsector Económico"],
+            "Total ingresos netos": elem["Total Ingresos Netos"],
+            "Total costos y gastos": elem["Total Costos y Gastos"],
+            "Total saldo para pagar": elem["Total Saldo a Pagar"],
+            "Total saldo a favor": elem["Total Saldo a Favor"]
+        }
+        lt.addLast(respuesta_filtrada, dic)
+    return respuesta_filtrada
 
 def req_2(data_structs):
     """
@@ -228,8 +247,8 @@ def req_2(data_structs):
     repeticiones = lt.size(mayor)
     respuesta = ordenar(mayor, "Año", repeticiones, 0)
     
-    final = lt.iterator(respuesta)
-    return (final)
+    
+    return (respuesta)
 
  
     
@@ -392,13 +411,17 @@ def req_5(data_struct):
     extremos = {}
     respuesta = {}
     
+    x = []
+   
+    
     for fecha in anios.keys():
+        orden = []
         repeticiones = lt.size(anios[fecha])
         if repeticiones <=6:
-            orden = ordenar(anios[fecha], "Descuentos tributarios", repeticiones, 0 )
+            orden.append(ordenar(anios[fecha], "Descuentos tributarios", repeticiones, 0 ))
 
         else:
-            orden = []
+            
             orden.append(ordenar(anios[fecha], "Descuentos tributarios", 3, 0 ))
             comienza = lt.size(anios[fecha])-3
             orden.append(ordenar(anios[fecha], "Descuentos tributarios", 3, comienza ))
@@ -409,24 +432,50 @@ def req_5(data_struct):
         size = lt.size(anios[fecha])
 
         sub_sector = crear_diccionario(anios,fecha, "Código subsector económico", size )
-        organizado[fecha] = sub_sector
         
+        organizado[fecha] = sub_sector
+        zona = lt.newList()
         for sector in organizado[fecha].keys():
-            respuesta = {}
             
+            respuesta = {"Código sector económico": organizado[fecha][sector]["elements"][0]["Código sector económico"],
+                         "Nombre sector económico": organizado[fecha][sector]["elements"][0]["Nombre sector económico"],
+                         "Nombre subsector económico": organizado[fecha][sector]["elements"][0]["Nombre subsector económico"]}
+            
+
             for codigo in codigos:
             
                 suma = suma_variable(organizado[fecha][sector],codigo )
+                
                 respuesta[codigo] = suma
-                
+            
             organizado[fecha][sector] = respuesta
+            
+            final = dic(fecha,organizado[fecha][sector]["Código sector económico"], organizado[fecha][sector]["Nombre sector económico"],
+                        
+                        sector, organizado[fecha][sector]["Nombre subsector económico"],organizado[fecha][sector]["Descuentos tributarios"],
+                        organizado[fecha][sector]["Total ingresos netos"],organizado[fecha][sector]["Total costos y gastos"],
+                        organizado[fecha][sector]["Total saldo a pagar"],organizado[fecha][sector]["Total saldo a favor"] )
+            lt.addLast(zona,final)
+        x.append(zona)
+    i = 0
+    es = []
+    while i < len(x):
+        toca = encontrar_mayor(x[i],"Total descuentos tributarios del subsector economico" )
+        es.append(toca)
+        i+=1
 
-                
-    print (organizado)
     
+    
+    return(es, extremos)
+
+def dic(anio, cod_sec, nom_sec, cod_subsec, nom_subsec, des, ing_net, cos_gas, pag, fav):
+    dic ={"Año":anio,"Nombre sector económico": nom_sec, "Código subsector económico": cod_sec, "Código subsector económico": cod_subsec,
+           "Nombre subsector económico": nom_subsec, "Total descuentos tributarios del subsector economico":des,
+            "Total ingresos netos del subsector económico": ing_net,"Total costos y gastos del subsector ecnomico": cos_gas, 
+            "Total saldo a pagar del subsector económico": pag, "Total saldo a favor subsector económico" : fav}
 
     # TODO: Realizar el requerimiento 5
-    pass
+    return dic
 
 ### Crea TAD ARRAY de 
 
@@ -665,11 +714,12 @@ def ordenar(lista, criterio, repeticiones, donde ):
     for x in range( repeticiones):
         inicio = lt.getElement(lista,donde)
         superior = int(inicio[criterio])
+        dict = inicio
         a = 0
         elim = 0
         while a < lt.size(lista):
             pos = lt.getElement(lista,a)
-            if  int(pos[criterio])>int(superior):
+            if  int(pos[criterio])>int(superior) and int(pos[criterio]) != int(superior):
                 superior = int(pos[criterio])
                 elim = a
                 dict = pos
