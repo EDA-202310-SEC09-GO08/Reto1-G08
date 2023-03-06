@@ -594,7 +594,7 @@ def req_6(data_structs, anio):
     dic_subsectores = crear_diccionario_de_TAD(array_del_anio, 'Código subsector económico', tamanio_array_anio )
 
     ### LLama la lista de sectores por anio
-    lista_sectores_del_anio = crear_lista_sectores_por_anio(array_del_anio)
+    
 
 
 
