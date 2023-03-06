@@ -406,6 +406,7 @@ def req_5(data_struct):
     """
     codigos= ["Descuentos tributarios", "Total ingresos netos", "Total costos y gastos", "Total saldo a pagar", "Total saldo a favor" ]
     tamanio = data_size(data_struct)
+    
     anios = crear_diccionario(data_struct,"data", "Año", tamanio)
     organizado = {}
     extremos = {}

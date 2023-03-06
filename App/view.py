@@ -252,7 +252,7 @@ def print_req_5(control):
     organizado = respuesta[0]
     extremos = (respuesta[1])
     
-    print(organizado)
+    print(tabulate(organizado, headers="keys"))
 
 
 
