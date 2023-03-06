@@ -194,20 +194,39 @@ def req_1(data_structs):
     """
     tamanio = data_size(data_structs)
     anios = crear_diccionario(data_structs, "data","Año", tamanio)
-   
-    busca = "Total saldo a favor"
-    # crea una lista con el mayor de cada año
+    #Crea un diccionario con los los años en sus llaves
+    busca = "Total saldo a pagar"
     mayor = lt.newList(datastructure="ARRAY_LIST")
+    #Se crea una lista donde se almacenan los datos de 
     for fecha in anios.keys():
         alto = encontrar_mayor(anios[fecha], busca)
         lt.addLast(mayor, alto)
     
     repeticiones = lt.size(mayor)
     respuesta = ordenar(mayor, "Año", repeticiones, 0)
-    final = lt.iterator(respuesta)
+    respuesta_filtrada = respuesta_filtrada_req1
+    
+    final = lt.iterator(respuesta_filtrada)
     return (final)
-
-
+                
+def respuesta_filtrada_req1(respuesta):
+    respuesta_filtrada = lt.newList(datastructure="ARRAY_LIST")
+    for elem in lt.iterator(respuesta):
+        dic = {
+            "Año": elem["Año"],
+            "Código actividad económica": elem["Código Actividad Económica"],
+            "Nombre actividad económica": elem["Nombre Actividad Económica"],
+            "Código sector económico": elem["Código Sector Económico"],
+            "Nombre sector económico": elem["Nombre Sector Económico"],
+            "Código subsector económico": elem["Código Subsector Económico"],
+            "Nombre subsector económico": elem["Nombre Subsector Económico"],
+            "Total ingresos netos": elem["Total Ingresos Netos"],
+            "Total costos y gastos": elem["Total Costos y Gastos"],
+            "Total saldo para pagar": elem["Total Saldo a Pagar"],
+            "Total saldo a favor": elem["Total Saldo a Favor"]
+        }
+        lt.addLast(respuesta_filtrada, dic)
+    return respuesta_filtrada
 
 def req_2(data_structs):
     """
