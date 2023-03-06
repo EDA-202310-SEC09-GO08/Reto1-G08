@@ -410,7 +410,7 @@ def req_5(data_struct):
     organizado = {}
     extremos = {}
     respuesta = {}
-    zona = []
+    
     x = []
    
     
@@ -434,7 +434,7 @@ def req_5(data_struct):
         sub_sector = crear_diccionario(anios,fecha, "Código subsector económico", size )
         
         organizado[fecha] = sub_sector
-        zona = []
+        zona = lt.newList()
         for sector in organizado[fecha].keys():
             
             respuesta = {"Código sector económico": organizado[fecha][sector]["elements"][0]["Código sector económico"],
@@ -455,31 +455,19 @@ def req_5(data_struct):
                         sector, organizado[fecha][sector]["Nombre subsector económico"],organizado[fecha][sector]["Descuentos tributarios"],
                         organizado[fecha][sector]["Total ingresos netos"],organizado[fecha][sector]["Total costos y gastos"],
                         organizado[fecha][sector]["Total saldo a pagar"],organizado[fecha][sector]["Total saldo a favor"] )
-            zona.append(final)
+            lt.addLast(zona,final)
         x.append(zona)
     i = 0
     es = []
     while i < len(x):
-        toca = mayor(x[i])
+        toca = encontrar_mayor(x[i],"Total descuentos tributarios del subsector economico" )
         es.append(toca)
         i+=1
 
     
     
     return(es, extremos)
-    
-def mayor(lista):
 
-    a = 0 
-    mas = 0
-    res = lista[0]
-    while a < len(lista):
-        if lista[a]["Total descuentos tributarios del subsector economico"] > mas:
-            mas = lista[a]["Total descuentos tributarios del subsector economico"]
-            res = lista[a]
-        a+=1
-        
-    return res
 def dic(anio, cod_sec, nom_sec, cod_subsec, nom_subsec, des, ing_net, cos_gas, pag, fav):
     dic ={"Año":anio,"Nombre sector económico": nom_sec, "Código subsector económico": cod_sec, "Código subsector económico": cod_subsec,
            "Nombre subsector económico": nom_subsec, "Total descuentos tributarios del subsector economico":des,
