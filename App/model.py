@@ -746,10 +746,46 @@ def encontrar_mayor_con_condicion(lista, criterio, condicion):
     respuesta ={}
     while i < tamanio:
         exacto = lt.getElement(lista,i)
+
+        if exacto['Código sector económico'] ==  condicion:
         
-        if float(exacto[criterio])>float(mayor):
-            mayor = exacto[criterio]
-            respuesta = exacto
+             if float(exacto[criterio])>float(mayor):
+                mayor = exacto[criterio]
+                respuesta = exacto
+        i+=1
+    return respuesta
+
+def encontrar_mayor_con_condicion(lista, criterio, condicion):
+    
+    i =0
+    tamanio = lt.size(lista)
+    mayor = 0
+    respuesta ={}
+    while i < tamanio:
+        exacto = lt.getElement(lista,i)
+
+        if exacto['Código sector económico'] ==  condicion:
+        
+             if float(exacto[criterio])>float(mayor):
+                mayor = exacto[criterio]
+                respuesta = exacto
+        i+=1
+    return respuesta
+
+def encontrar_menor_con_condicion(lista, criterio, condicion):
+    
+    i =0
+    tamanio = lt.size(lista)
+    menor = 9999999999999
+    respuesta ={}
+    while i < tamanio:
+        exacto = lt.getElement(lista,i)
+
+        if exacto['Código sector económico'] ==  condicion:
+        
+             if float(exacto[criterio])<float(menor):
+                menor = exacto[criterio]
+                respuesta = exacto
         i+=1
     return respuesta
 
