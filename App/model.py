@@ -247,8 +247,8 @@ def req_2(data_structs):
     repeticiones = lt.size(mayor)
     respuesta = ordenar(mayor, "Año", repeticiones, 0)
     
-    final = lt.iterator(respuesta)
-    return (final)
+    
+    return (respuesta)
 
  
     
@@ -410,14 +410,16 @@ def req_5(data_struct):
     organizado = {}
     extremos = {}
     respuesta = {}
+    zona = {}
     
     for fecha in anios.keys():
+        orden = []
         repeticiones = lt.size(anios[fecha])
         if repeticiones <=6:
-            orden = ordenar(anios[fecha], "Descuentos tributarios", repeticiones, 0 )
+            orden.append(ordenar(anios[fecha], "Descuentos tributarios", repeticiones, 0 ))
 
         else:
-            orden = []
+            
             orden.append(ordenar(anios[fecha], "Descuentos tributarios", 3, 0 ))
             comienza = lt.size(anios[fecha])-3
             orden.append(ordenar(anios[fecha], "Descuentos tributarios", 3, comienza ))
@@ -428,20 +430,22 @@ def req_5(data_struct):
         size = lt.size(anios[fecha])
 
         sub_sector = crear_diccionario(anios,fecha, "Código subsector económico", size )
-        organizado[fecha] = sub_sector
+        zona["Código subsector económico"] = sub_sector
+        organizado[fecha] = zona
         
-        for sector in organizado[fecha].keys():
+        for sector in organizado[fecha]["Código subsector económico"].keys():
             respuesta = {}
             
             for codigo in codigos:
             
-                suma = suma_variable(organizado[fecha][sector],codigo )
+                suma = suma_variable(organizado[fecha]["Código subsector económico"][sector],codigo )
                 respuesta[codigo] = suma
                 
-            organizado[fecha][sector] = respuesta
+            organizado[fecha]["Código subsector económico"][sector] = respuesta
 
                 
-    print (organizado)
+    
+    return(organizado, extremos)
     
 
     # TODO: Realizar el requerimiento 5
@@ -574,7 +578,7 @@ def encontrar_mayor(lista, criterio):
     respuesta ={}
     while i < tamanio:
         exacto = lt.getElement(lista,i)
-        if exacto[criterio]>mayor:
+        if int(exacto[criterio])>int(mayor):
             mayor = exacto[criterio]
             respuesta = exacto
         i+=1
@@ -640,11 +644,12 @@ def ordenar(lista, criterio, repeticiones, donde ):
     for x in range( repeticiones):
         inicio = lt.getElement(lista,donde)
         superior = int(inicio[criterio])
+        dict = inicio
         a = 0
         elim = 0
         while a < lt.size(lista):
             pos = lt.getElement(lista,a)
-            if  int(pos[criterio])>int(superior):
+            if  int(pos[criterio])>int(superior) and int(pos[criterio]) != int(superior):
                 superior = int(pos[criterio])
                 elim = a
                 dict = pos
