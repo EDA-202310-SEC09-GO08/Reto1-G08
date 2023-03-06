@@ -251,8 +251,8 @@ def print_req_5(control):
     respuesta = (controller.req_5(control))
     organizado = respuesta[0]
     extremos = (respuesta[1])
-    final = pd.DataFrame(organizado)
-    print(final)
+    
+    print(organizado)
 
 
 

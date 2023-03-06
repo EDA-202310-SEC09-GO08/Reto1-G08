@@ -410,7 +410,9 @@ def req_5(data_struct):
     organizado = {}
     extremos = {}
     respuesta = {}
-    zona = {}
+    zona = []
+    x = []
+   
     
     for fecha in anios.keys():
         orden = []
@@ -430,26 +432,62 @@ def req_5(data_struct):
         size = lt.size(anios[fecha])
 
         sub_sector = crear_diccionario(anios,fecha, "Código subsector económico", size )
-        zona["Código subsector económico"] = sub_sector
-        organizado[fecha] = zona
         
-        for sector in organizado[fecha]["Código subsector económico"].keys():
-            respuesta = {}
+        organizado[fecha] = sub_sector
+        zona = []
+        for sector in organizado[fecha].keys():
             
+            respuesta = {"Código sector económico": organizado[fecha][sector]["elements"][0]["Código sector económico"],
+                         "Nombre sector económico": organizado[fecha][sector]["elements"][0]["Nombre sector económico"],
+                         "Nombre subsector económico": organizado[fecha][sector]["elements"][0]["Nombre subsector económico"]}
+            
+
             for codigo in codigos:
             
-                suma = suma_variable(organizado[fecha]["Código subsector económico"][sector],codigo )
+                suma = suma_variable(organizado[fecha][sector],codigo )
+                
                 respuesta[codigo] = suma
-                
-            organizado[fecha]["Código subsector económico"][sector] = respuesta
+            
+            organizado[fecha][sector] = respuesta
+            
+            final = dic(fecha,organizado[fecha][sector]["Código sector económico"], organizado[fecha][sector]["Nombre sector económico"],
+                        
+                        sector, organizado[fecha][sector]["Nombre subsector económico"],organizado[fecha][sector]["Descuentos tributarios"],
+                        organizado[fecha][sector]["Total ingresos netos"],organizado[fecha][sector]["Total costos y gastos"],
+                        organizado[fecha][sector]["Total saldo a pagar"],organizado[fecha][sector]["Total saldo a favor"] )
+            zona.append(final)
+        x.append(zona)
+    i = 0
+    es = []
+    while i < len(x):
+        toca = mayor(x[i])
+        es.append(toca)
+        i+=1
 
-                
     
-    return(organizado, extremos)
     
+    return(es, extremos)
+    
+def mayor(lista):
+
+    a = 0 
+    mas = 0
+    res = lista[0]
+    while a < len(lista):
+        if lista[a]["Total descuentos tributarios del subsector economico"] > mas:
+            mas = lista[a]["Total descuentos tributarios del subsector economico"]
+            res = lista[a]
+        a+=1
+        
+    return res
+def dic(anio, cod_sec, nom_sec, cod_subsec, nom_subsec, des, ing_net, cos_gas, pag, fav):
+    dic ={"Año":anio,"Nombre sector económico": nom_sec, "Código subsector económico": cod_sec, "Código subsector económico": cod_subsec,
+           "Nombre subsector económico": nom_subsec, "Total descuentos tributarios del subsector economico":des,
+            "Total ingresos netos del subsector económico": ing_net,"Total costos y gastos del subsector ecnomico": cos_gas, 
+            "Total saldo a pagar del subsector económico": pag, "Total saldo a favor subsector económico" : fav}
 
     # TODO: Realizar el requerimiento 5
-    pass
+    return dic
 
 ### Crea TAD ARRAY de 
 
