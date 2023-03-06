@@ -483,7 +483,7 @@ def dic(anio, cod_sec, nom_sec, cod_subsec, nom_subsec, des, ing_net, cos_gas, p
 
 
 
-def crear_lista_subsectores_totalizados_por_sector(dic_subsects):
+def crear_lista_subsectores_totalizados_6(dic_subsects):
     
     ### Primero crear diccionario
 
@@ -531,7 +531,7 @@ def crear_lista_subsectores_totalizados_por_sector(dic_subsects):
 
 
 
-def crear_lista_sectores_totalizados_por_anio(lista_subects):
+def crear_lista_sectores_totalizados_por_anio(lista_subsects):
    
     dic_secs ={}
     ## primero crea diccionario
@@ -588,12 +588,29 @@ def req_6(data_structs, anio):
     dic_anios = crear_diccionario (data_structs, 'data' ,'Año',tamanio_data_struct)
     array_del_anio = dic_anios[anio]
     tamanio_array_anio = lt.size(array_del_anio)
-    #### por orden de ramas al tronco:
+
 
     #### Crear dic de actividades por subsector (llave subsector, valor array de actividades)
     dic_subsectores = crear_diccionario_de_TAD(array_del_anio, 'Código subsector económico', tamanio_array_anio )
 
-    ### LLama la lista de sectores por anio
+    ### crea lista totalizada de subsectores
+
+    lista_subsectores = crear_lista_subsectores_totalizados_6(dic_subsectores)
+
+
+    ### Crea lista de sectores más general
+
+    lista_sectores = crear_lista_sectores_totalizados_por_anio(lista_subsectores)
+
+    ### Encontray y añadir mayor y menos
+    for sector in lista_sectores:
+
+        mayor_sector =
+        menor_sector =
+
+        sector['subsector que más aportó'] = mayor_sector
+        sector['subsector que menos aportó'] = menor_sector
+
     
 
 
@@ -671,6 +688,12 @@ def sort_criteria_retenciones(a,b):
         cod_2 = b['Total retenciones'].split()[0].split('/')[0]
         return(float(cod_1)<float(cod_2))
 
+def sort_criteria_total_ingresos_netos(a,b):
+
+        cod_1 = a['Total ingresos netos'].split()[0].split('/')[0]
+        cod_2 = b['Total ingresos'].split()[0].split('/')[0]
+        return(float(cod_1)<float(cod_2))
+
 
 def sort(data_structs, tipo):
     if tipo == 1:
@@ -704,6 +727,21 @@ def encontrar_mayor(lista, criterio):
     respuesta ={}
     while i < tamanio:
         exacto = lt.getElement(lista,i)
+        if float(exacto[criterio])>float(mayor):
+            mayor = exacto[criterio]
+            respuesta = exacto
+        i+=1
+    return respuesta
+
+def encontrar_mayor_con_condicion(lista, criterio, condicion):
+    
+    i =0
+    tamanio = lt.size(lista)
+    mayor = 0
+    respuesta ={}
+    while i < tamanio:
+        exacto = lt.getElement(lista,i)
+        if exacto[criterio]
         if float(exacto[criterio])>float(mayor):
             mayor = exacto[criterio]
             respuesta = exacto
