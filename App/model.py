@@ -480,45 +480,7 @@ def dic(anio, cod_sec, nom_sec, cod_subsec, nom_subsec, des, ing_net, cos_gas, p
 ### Crea TAD ARRAY de 
 
     
-def crear_lista_sectores_por_un_anio(lista_actividades):
-   
-    dic_secs ={}
-    ## primero crea diccionario
-    lista_actividades = lt.iterator(lista_actividades)
-    
-    for impuesto in lista_actividades:
-        llave_sector_dado =impuesto['Código sector económico']
-        if llave_sector_dado not in dic_secs.keys():
-            
-            dict_sector_dado = {}
-           
-            dict_sector_dado['Código sector económico']=impuesto['Código sector económico']
-            dict_sector_dado['Nombre sector económico']=impuesto['Nombre sector económico']
-            
-            
-            
-            dict_sector_dado['Total ingresos netos']=float(impuesto['Total ingresos netos'])
-            dict_sector_dado['Total costos y gastos']=float(impuesto['Total costos y gastos'])
-            dict_sector_dado['Total saldo a pagar']=float(impuesto['Total saldo a pagar'])
-            dict_sector_dado['Total saldo a favor']=float(impuesto['Total saldo a favor'])
-            
 
-            dic_secs[llave_sector_dado]=dict_sector_dado
-        else:
-            ## Va contando los totales
-            dict_sector_dado =dic_secs[llave_sector_dado]
-           
-            dict_sector_dado['Total ingresos netos']+=float(impuesto['Total ingresos netos'])
-            dict_sector_dado['Total costos y gastos']+=float(impuesto['Total costos y gastos'])
-            dict_sector_dado['Total saldo a pagar']+=float(impuesto['Total saldo a pagar'])
-            dict_sector_dado['Total saldo a favor']+=float(impuesto['Total saldo a favor'])
-    
-     ### Lista Tad       
-    lista_sects=lt.newList(datastructure="ARRAY_LIST")
-    for llave in dic_secs.keys():
-        lt.addLast(lista_sects,dic_secs[llave])
-
-    return lista_sects
 
 
 def crear_lista_subsectores_totalizados_por_sector(dic_subsects):
@@ -569,11 +531,48 @@ def crear_lista_subsectores_totalizados_por_sector(dic_subsects):
 
 
 
+def crear_lista_sectores_totalizados_por_anio(lista_subects):
+   
+    dic_secs ={}
+    ## primero crea diccionario
+    lista_subsects = lt.iterator(lista_sects)
+    
+    for subsector in lista_subsects:
+        llave_sector_dado =subsector['Código sector económico']
+        
+        if subsector not in dic_secs.values():
+            
+            dict_sector_dado = {}
+
+            dict_sector_dado['Nombre sector económico']=subsector['Nombre sector económico']
+            dict_sector_dado['Código subsector económico']=subsector['Código subsector económico']
 
 
+            dict_sector_dado['Total ingresos netos']=float(subsector['Total ingresos netos'])
+            dict_sector_dado['Total costos y gastos']=float(subsector['Total costos y gastos'])
+            dict_sector_dado['Total saldo a pagar']=float(subsector['Total saldo a pagar'])
+            dict_sector_dado['Total saldo a favor']=float(subsector['Total saldo a favor'])
+           
+            ### Añade llave y valor primo a dic sector dado
+            dic_secs[llave_sector_dado]=dict_sector_dado
+        else:
+            ## Va contando los totales
+            dict_sector_dado =dic_secs[llave_sector_dado]
+            dict_sector_dado['Total retenciones']+=float(subsector['Total retenciones'])
+            dict_sector_dado['Total ingresos netos']+=float(subsector['Total ingresos netos'])
+            dict_sector_dado['Total costos y gastos']+=float(subsector['Total costos y gastos'])
+            dict_sector_dado['Total saldo a pagar']+=float(subsector['Total saldo a pagar'])
+            dict_sector_dado['Total saldo a favor']+=float(subsector['Total saldo a favor'])
+    
+     ### Lista Tad       
+    lista_sects=lt.newList(datastructure="ARRAY_LIST")
+    for llave in dic_secs.keys():
+        lt.addLast(lista_sects,dic_secs[llave])
+
+    return lista_sects
          
 
-        ### Crea subsector si no existe
+       
 
        
 
