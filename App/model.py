@@ -408,6 +408,11 @@ def req_5(data_struct):
     tamanio = data_size(data_struct)
     
     anios = crear_diccionario(data_struct,"data", "Año", tamanio)
+    anios_keys = anios.keys()
+    orden_keys = sorted(anios_keys)
+    orden_anios = {}
+    for key in orden_keys:
+        orden_anios[key] = anios[key]
     organizado = {}
     extremos = {}
     respuesta = {}
@@ -415,24 +420,24 @@ def req_5(data_struct):
     x = []
    
     
-    for fecha in anios.keys():
+    for fecha in orden_anios.keys():
         orden = []
         repeticiones = lt.size(anios[fecha])
         if repeticiones <=6:
-            orden.append(ordenar(anios[fecha], "Descuentos tributarios", repeticiones, 0 ))
+            orden.append(ordenar(orden_anios[fecha], "Descuentos tributarios", repeticiones, 0 ))
 
         else:
             
-            orden.append(ordenar(anios[fecha], "Descuentos tributarios", 3, 0 ))
+            orden.append(ordenar(orden_anios[fecha], "Descuentos tributarios", 3, 0 ))
             comienza = lt.size(anios[fecha])-3
-            orden.append(ordenar(anios[fecha], "Descuentos tributarios", 3, comienza ))
+            orden.append(ordenar(orden_anios[fecha], "Descuentos tributarios", 3, comienza ))
 
 
         extremos[fecha] = orden
 
-        size = lt.size(anios[fecha])
+        size = lt.size(orden_anios[fecha])
 
-        sub_sector = crear_diccionario(anios,fecha, "Código subsector económico", size )
+        sub_sector = crear_diccionario(orden_anios,fecha, "Código subsector económico", size )
         
         organizado[fecha] = sub_sector
         zona = lt.newList()
@@ -606,8 +611,7 @@ def req_6(data_structs, anio):
     ### Encontray y añadir mayor y menos
     for sector in lista_sectores:
 
-        mayor_sector =
-        menor_sector =
+        
 
         sector['subsector que más aportó'] = mayor_sector
         sector['subsector que menos aportó'] = menor_sector
@@ -742,7 +746,7 @@ def encontrar_mayor_con_condicion(lista, criterio, condicion):
     respuesta ={}
     while i < tamanio:
         exacto = lt.getElement(lista,i)
-        if exacto[criterio]
+        
         if float(exacto[criterio])>float(mayor):
             mayor = exacto[criterio]
             respuesta = exacto
