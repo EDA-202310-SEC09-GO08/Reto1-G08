@@ -527,10 +527,10 @@ def crear_lista_subsectores_totalizados_por_sector(dic_subsects):
 
     dic_totalizado_subsect = {}
 
-    for llave_subsector in dic_subsects:
+    for llave_subsector in dic_subsects.keys():
 
         array_subsec = dic_subsects[llave_subsector]
-        array_subsect_iterable = lt.iterator(array_subsec)
+        
         tamanio_array = lt.size(array_subsec)
 
         i =1
@@ -552,6 +552,18 @@ def crear_lista_subsectores_totalizados_por_sector(dic_subsects):
                 dic_totalizado_subsect['Total saldo a favor'] =  float(actividad['Total saldo a favor'])
                 dic_totalizado_subsect['Total saldo a pagar'] =  float(actividad['Total saldo a pagar'])
 
+            else:
+                dic_totalizado_subsect['Total ingresos netos'] +=  float(actividad['Total ingresos netos'])
+                dic_totalizado_subsect['Total costos y gastos'] +=  float(actividad['Total costos y gastos'])
+                dic_totalizado_subsect['Total saldo a favor'] +=  float(actividad['Total saldo a favor'])
+                dic_totalizado_subsect['Total saldo a pagar'] +=  float(actividad['Total saldo a pagar'])
+
+            
+    lista_subsects=lt.newList(datastructure="ARRAY_LIST")
+    for llave in dic_totalizado_subsect.keys():
+        lt.addLast(dic_subsects[llave])
+
+    return lista_subsects
 
                 
 
