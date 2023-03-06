@@ -431,6 +431,48 @@ def req_5(data_struct):
 ### Crea TAD ARRAY de 
 
     
+def crear_lista_sectores_por_un_anio(lista_actividades):
+   
+    dic_secs ={}
+    ## primero crea diccionario
+    lista_actividades = lt.iterator(lista_actividades)
+    
+    for impuesto in lista_actividades:
+        llave_sector_dado =impuesto['Código sector económico']
+        if llave_sector_dado not in dic_secs.keys():
+            
+            dict_sector_dado = {}
+           
+            dict_sector_dado['Código sector económico']=impuesto['Código sector económico']
+            dict_sector_dado['Nombre sector económico']=impuesto['Nombre sector económico']
+            
+            
+            
+            dict_sector_dado['Total ingresos netos']=float(impuesto['Total ingresos netos'])
+            dict_sector_dado['Total costos y gastos']=float(impuesto['Total costos y gastos'])
+            dict_sector_dado['Total saldo a pagar']=float(impuesto['Total saldo a pagar'])
+            dict_sector_dado['Total saldo a favor']=float(impuesto['Total saldo a favor'])
+            
+
+            dic_secs[llave_sector_dado]=dict_sector_dado
+        else:
+            ## Va contando los totales
+            dict_sector_dado =dic_secs[llave_sector_dado]
+           
+            dict_sector_dado['Total ingresos netos']+=float(impuesto['Total ingresos netos'])
+            dict_sector_dado['Total costos y gastos']+=float(impuesto['Total costos y gastos'])
+            dict_sector_dado['Total saldo a pagar']+=float(impuesto['Total saldo a pagar'])
+            dict_sector_dado['Total saldo a favor']+=float(impuesto['Total saldo a favor'])
+    
+     ### Lista Tad       
+    lista_sects=lt.newList(datastructure="ARRAY_LIST")
+    for llave in dic_secs.keys():
+        lt.addLast(lista_sects,dic_secs[llave])
+
+    return lista_sects
+
+
+
 
 
 def req_6(data_structs, anio):
@@ -440,19 +482,21 @@ def req_6(data_structs, anio):
     tamanio_data_struct = data_size(data_structs)
     dic_anios = crear_diccionario (data_structs, 'data' ,'Año',tamanio_data_struct)
     array_del_anio = dic_anios[anio]
+    tamanio_array_anio = lt.size(array_del_anio)
+    #### por orden de ramas al tronco:
 
-    ###crea diccionario de arrays por sector del año específico
-    tamanio_array_del_anio = lt.size(array_del_anio)
-    dic_sector = crear_diccionario_de_TAD(array_del_anio,'Código sector económico',tamanio_array_del_anio)
+    #### Crear dic de actividades por subsector (llave subsector, valor array de actividades)
+    dic_subsectores = crear_diccionario_de_TAD(array_del_anio, 'Código subsector económico', tamanio_array_anio )
+
+    ### LLama la lista de sectores por anio
+    lista_sectores_del_anio = crear_lista_sectores_por_anio(array_del_anio)
 
 
-#### Crea lista vacía de actividad de mayores ingresos netos por sector
-    lista_de_mayores_por_sector = lt.newList('ARRAY_LIST')
 
 
-    for lista_por_sector in dic_sector.values():
-        mayor_actividad = encontrar_mayor(lista_por_sector)
-        lt.addLast(lista_de_mayores_por_sector,mayor_actividad)
+
+
+
 
 
 
@@ -555,7 +599,7 @@ def encontrar_mayor(lista, criterio):
     respuesta ={}
     while i < tamanio:
         exacto = lt.getElement(lista,i)
-        if exacto[criterio]>mayor:
+        if float(exacto[criterio])>float(mayor):
             mayor = exacto[criterio]
             respuesta = exacto
         i+=1

@@ -229,7 +229,7 @@ def print_req_3(control):
     df = pd.DataFrame(respuesta)
     df_fil = df[['Año','Nombre subsector económico','Total retenciones']]
     df_filt_2019 = df_2019[['Código actividad económica','Nombre actividad económica']]
-    #print(df_fil)
+    print(df_fil)
     print(df_filt_2019)
 
 
