@@ -197,7 +197,7 @@ def print_req_1(control):
         Función que imprime la solución del Requerimiento 1 en consola
     """
     # TODO: Imprimir el re1sultado del requerimiento 1
-    respuesta = (controller.req_1(control))
+    respuesta = (controller.req_1(control)['elements'])
     print(tabulate(respuesta, headers="keys", tablefmt= "grid"))
 
 
@@ -206,13 +206,15 @@ def print_req_2(control):
         Función que imprime la solución del Requerimiento 2 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 2
+    
     respuesta = (controller.req_2(control))
-    df = pd.DataFrame(respuesta)
+    x=lt.iterator(respuesta)
+    df = pd.DataFrame(x)
     df_fil = df[['Año',"Código actividad económica", "Nombre actividad económica", "Código sector económico","Nombre sector económico",
                  "Código subsector económico", 'Nombre subsector económico', "Total ingresos netos", "Total costos y gastos",
                  "Total saldo a pagar", "Total saldo a favor"]]
     print(df_fil)
-
+    
 
 
 def print_req_3(control):
@@ -229,7 +231,7 @@ def print_req_3(control):
     df = pd.DataFrame(respuesta)
     df_fil = df[['Año','Nombre subsector económico','Total retenciones']]
     df_filt_2019 = df_2019[['Código actividad económica','Nombre actividad económica']]
-    #print(df_fil)
+    print(df_fil)
     print(df_filt_2019)
 
 
@@ -237,6 +239,7 @@ def print_req_4(control):
     """
         Función que imprime la solución del Requerimiento 4 en consola
     """
+    
     # TODO: Imprimir el resultado del requerimiento 4
     print(controller.req_4(control))
 
@@ -246,19 +249,54 @@ def print_req_5(control):
         Función que imprime la solución del Requerimiento 5 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 5
-    print(controller.req_5(control))
+    respuesta = (controller.req_5(control))
+    organizado = respuesta[0]
+    extremos = (respuesta[1])
     
+    print(tabulate(organizado, headers="keys"))
 
+
+
+
+    heads = ['Año',"Código actividad económica", "Nombre actividad económica", "Código sector económico","Nombre sector económico",
+                 "Código subsector económico", 'Nombre subsector económico', "Total ingresos netos", "Total costos y gastos",
+                 "Total saldo a pagar", "Total saldo a favor"]
+    for ext in extremos.keys():
+        size = len(extremos[ext])
+        if size != 1:
+            mayor = lt.iterator(extremos[ext][0])
+            print("The three economic activities that contributed the most in " + ext )
+            df = pd.DataFrame(mayor)
+            df_fil = df[heads]
+            print(df_fil)
+
+            menor = lt.iterator(extremos[ext][1])
+            print("The three economic activities that contributed the least in " + ext )
+            df = pd.DataFrame(menor)
+            df_fil = df[heads]
+            print(df_fil)
+
+        else:
+            tamanio = lt.size(extremos[ext][0])
+            normal = lt.iterator(extremos[ext][0])
+            print("There are only " + str(tamanio)+" economic activities in " + ext)
+            df = pd.DataFrame(normal)
+            df_fil = df[heads]
+            print(df_fil)
 
 def print_req_6(control):
     """
         Función que imprime la solución del Requerimiento 6 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 6
-    respuesta = (controller.req_6(control))
-    df = pd.DataFrame(respuesta)
-    df_fil = df[['Año','Nombre subsector económico','Total retenciones']]
-    print(df_fil)
+    anio =input('Ingrse año a buscar  ')
+    req_6 = controller.req_6(control,anio)
+    req_6_lista = req_6['elements']
+
+    df_sectores = pd.DataFrame(req_6_lista)
+    df_sectores_imprimir = df_sectores[['Nombre sector económico','Total ingresos netos']]
+
+    print(df_sectores_imprimir)
 
 
 def print_req_7(control):
