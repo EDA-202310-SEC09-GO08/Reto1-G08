@@ -40,6 +40,25 @@ se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
 
+######Filtra diccionarios por columnas a mostrar
+def filtrar_dic_con_por_llaves(dic, lista_de_columnas_aMostrar):
+    dic_filt ={}
+    for llave in lista_de_columnas_aMostrar:
+        dic_filt[llave]=dic[llave]
+
+    return dic_filt
+
+def filtrar_lista_dics_por_columnas(lista_dics,lista_columnas):
+    lista_filt = []
+
+    tamanio_lista = len(lista_dics)
+    i = 0
+
+    while i<tamanio_lista:
+        dic_filt_dado = filtrar_dic_con_por_llaves(lista_columnas)
+        lista_filt.append(dic_filt_dado)
+        i+=1
+    return lista_filt
 
 def new_controller(tipo):
     """
@@ -223,16 +242,22 @@ def print_req_3(control):
     # TODO: Imprimir el resultado del requerimiento 3
     req_3 = controller.req_3(control)
     respuesta =req_3[0]['elements']
+    
     #print(respuesta[5])
     res_esp_2019 = respuesta[1]['Primeras y últimas 3 actividades en contribuir']
+
+    tabulate_respuesta = tabulate(respuesta)
+    print(tabulate_respuesta)
+
+
     #print(type(res_esp_2016))
     #print(res_esp_2016)
-    df_2019 = pd.DataFrame(res_esp_2019)
-    df = pd.DataFrame(respuesta)
-    df_fil = df[['Año','Nombre subsector económico','Total retenciones']]
-    df_filt_2019 = df_2019[['Código actividad económica','Nombre actividad económica']]
-    print(df_fil)
-    print(df_filt_2019)
+    #df_2019 = pd.DataFrame(res_esp_2019)
+    #df = pd.DataFrame(respuesta)
+    #df_fil = df[['Año','Nombre subsector económico','Total retenciones']]
+    #df_filt_2019 = df_2019[['Código actividad económica','Nombre actividad económica']]
+    #print(df_fil)
+    #print(df_filt_2019)
     print('TAMAÑO:  ',req_3[1])
     print('TIEMPO:  ',req_3[2])
 
