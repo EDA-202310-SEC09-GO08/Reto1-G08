@@ -245,7 +245,8 @@ def print_req_3(control):
 
     respuesta =filtrar_lista_dics_por_columnas( req_3[0]['elements'],['Año','Código sector económico',
                                               'Nombre sector económico','Código subsector económico',
-                                          'Nombre subsector económico', 'Total retenciones'])
+                                          'Nombre subsector económico', 'Total retenciones',' Total ingresos netos',
+                                          'Total costos y gastos'])
 
     #res_esp_2019 = respuesta[1]['Primeras y últimas 3 actividades en contribuir']
 
