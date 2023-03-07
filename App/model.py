@@ -611,9 +611,24 @@ def req_6(data_structs, anio):
     ### Encontray y añadir mayor y menos
     for sector in lista_sectores:
 
-        
+        codigo_sector_dado = sector['Código sector económico']
 
-        sector['subsector que más aportó'] = mayor_sector
+        mayor_subsector_para_sector_dado = encontrar_mayor_con_condicion(lista_subsectores,'Total ingresos netos',codigo_sector_dado)
+
+        codigo_mayor_subsector = mayor_subsector_para_sector_dado['Código subsector económico']
+
+        lista_actividades_subsector_dado = dic_subsectores[codigo_mayor_subsector]
+
+        mayor_actividad_subsector = encontrar_mayor(lista_actividades_subsector_dado,'Total ingresos netos')
+
+        menor_actividad_subsector = encontrar_menor(lista_actividades_subsector_dado, 'Total ingresos netos')
+
+
+
+
+        menor_subsector_para_sector_dado = encontrar_menor_con_condicion(lista_subsectores, 'Total ingresos netos', codigo_sector_dado)
+
+        sector['subsector que más aportó'] = mayor_subsector_para_sector_dado
         sector['subsector que menos aportó'] = menor_sector
 
     
