@@ -390,14 +390,66 @@ def req_3(data_structs):
    
     
     
-
-
 def req_4(data_structs):
     """
     Función que soluciona el requerimiento 4
     """
-    # TODO: Realizar el requerimiento 4
-    pass
+    tamanio = data_size(data_structs)
+    anios = crear_diccionario(data_structs, "data","Año", tamanio)
+    #Crea un diccionario con los los años en sus llaves
+    busca = "Costos y gastos de nomina"
+    sumatoria = lt.newList(datastructure="ARRAY_LIST")
+    #Se crea una lista donde se almacena la sumatoria de cada año
+    for fecha in anios.keys():
+        for sector in fecha["Nombre sector económico"]:
+            sumatoria = sector
+        alto = encontrar_mayor(anios[fecha], busca)
+        lt.addLast(mayor, alto)
+        
+    
+    repeticiones = lt.size(mayor)
+    respuesta = ordenar(mayor, "Año", repeticiones, 0)
+    respuesta_filtrada = respuesta_filtrada_req4
+    
+    final = lt.iterator(respuesta_filtrada)
+    return (final)
+                
+def respuesta_filtrada_req4(respuesta):
+    respuesta_filtrada = lt.newList(datastructure="ARRAY_LIST")
+    for elem in lt.iterator(respuesta):
+        dic = {
+            "Año": elem["Año"],
+            "Código sector económico": elem["Código Sector Económico"],
+            "Nombre sector económico": elem["Nombre Sector Económico"],
+            "Código subsector económico": elem["Código Subsector Económico"],
+            "Nombre subsector económico": elem["Nombre Subsector Económico"],
+            """• Año.
+• Código sector económico.
+• Nombre sector económico.
+• Código subsector económico.
+• Nombre subsector económico.
+• El total de costos y gastos nómina del subsector económico.
+• El total ingresos netos del subsector económico.
+• El total costos y gastos del subsector económico.
+• El total saldo por pagar del subsector económico.
+• El total saldo a favor del subsector económico.
+• Las tres actividades económicas que menos aportaron y las tres actividades económicas que más
+aportaron al valor total de costos y gastos de nómina en cada año, en donde cada elemento contendrá
+la siguiente información:
+o Código actividad económica.
+o Nombre actividad económica.
+o El total costos y gastos nómina.
+o El total ingresos netos.
+o El total costos y gastos.
+o El total saldo por pagar.
+o El Total saldo a favor."""
+            "Total ingresos netos": elem["Total Ingresos Netos"],
+            "Total costos y gastos": elem["Total Costos y Gastos"],
+            "Total saldo para pagar": elem["Total Saldo a Pagar"],
+            "Total saldo a favor": elem["Total Saldo a Favor"]
+        }
+        lt.addLast(respuesta_filtrada, dic)
+    return respuesta_filtrada
 
 
 def req_5(data_struct):
