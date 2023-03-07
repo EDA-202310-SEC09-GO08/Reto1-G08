@@ -171,12 +171,12 @@ def req_6(control,anio):
     return req_3, tamanio, delta_t
 
 
-def req_7(control):
+def req_7(control, numero , anio_in, anio_fin):
     """
     Retorna el resultado del requerimiento 7
     """
     # TODO: Modificar el requerimiento 7
-    req_7 = model.req_7(control["model"])
+    req_7 = model.req_7(control["model"], numero, anio_in, anio_fin)
     return req_7
 
 

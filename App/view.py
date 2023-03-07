@@ -305,7 +305,7 @@ def print_req_5(control):
     organizado = respuesta[0]
     extremos = (respuesta[1])
     
-    print(tabulate(organizado, headers="keys"))
+    print(tabulate(organizado, headers="keys", tablefmt="grid", maxcolwidths=15, maxheadercolwidths=15  ))
 
 
 
@@ -361,7 +361,10 @@ def print_req_7(control):
         Función que imprime la solución del Requerimiento 7 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 7
-    print(controller.req_7(control))
+    anio_in = input("Ingrese el año inial " )
+    anio_fin = input("Ingrese el año final ")
+    numero = input("Numero de actividades a identificar ")
+    print(controller.req_7(control, numero, anio_in, anio_fin))
 
 
 def print_req_8(control):
