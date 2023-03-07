@@ -55,7 +55,7 @@ def filtrar_lista_dics_por_columnas(lista_dics,lista_columnas):
     i = 0
 
     while i<tamanio_lista:
-        dic_filt_dado = filtrar_dic_con_por_llaves(lista_columnas)
+        dic_filt_dado = filtrar_dic_con_por_llaves(lista_dics[i],lista_columnas)
         lista_filt.append(dic_filt_dado)
         i+=1
     return lista_filt
@@ -241,12 +241,15 @@ def print_req_3(control):
     """
     # TODO: Imprimir el resultado del requerimiento 3
     req_3 = controller.req_3(control)
-    respuesta =req_3[0]['elements']
-    
-    #print(respuesta[5])
-    res_esp_2019 = respuesta[1]['Primeras y últimas 3 actividades en contribuir']
 
-    tabulate_respuesta = tabulate(respuesta)
+
+    respuesta =filtrar_lista_dics_por_columnas( req_3[0]['elements'],['Año','Código sector económico',
+                                              'Nombre sector económico','Código subsector económico',
+                                          'Nombre subsector económico', 'Total retenciones'])
+
+    #res_esp_2019 = respuesta[1]['Primeras y últimas 3 actividades en contribuir']
+
+    tabulate_respuesta = tabulate(respuesta, headers='keys', maxcolwidths =[10]*6, maxheadercolwidths=[10]*6)
     print(tabulate_respuesta)
 
 
@@ -258,8 +261,8 @@ def print_req_3(control):
     #df_filt_2019 = df_2019[['Código actividad económica','Nombre actividad económica']]
     #print(df_fil)
     #print(df_filt_2019)
-    print('TAMAÑO:  ',req_3[1])
-    print('TIEMPO:  ',req_3[2])
+    #print('TAMAÑO:  ',req_3[1])
+    #print('TIEMPO:  ',req_3[2])
 
 
 
