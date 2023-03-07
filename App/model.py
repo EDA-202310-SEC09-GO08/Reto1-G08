@@ -613,6 +613,8 @@ def req_6(data_structs, anio):
 
         codigo_sector_dado = sector['Código sector económico']
 
+        ###Proceso con mayor
+
         mayor_subsector_para_sector_dado = encontrar_mayor_con_condicion(lista_subsectores,'Total ingresos netos',codigo_sector_dado)
 
         codigo_mayor_subsector = mayor_subsector_para_sector_dado['Código subsector económico']
@@ -636,7 +638,7 @@ def req_6(data_structs, anio):
 
 
 
-
+    ##### Proceso con menor
 
         menor_subsector_para_sector_dado = encontrar_menor_con_condicion(lista_subsectores, 'Total ingresos netos', codigo_sector_dado)
         
@@ -648,12 +650,16 @@ def req_6(data_structs, anio):
 
         menor_actividad_menor_subsector = encontrar_menor(lista_actividades_subsector_menor,'Total ingresos netos')
 
+        ## Añadir mayor y menor actividad a menor subsector
+
+        menor_subsector_para_sector_dado['Actividad que más contribuyó']=mayor_actividad_menor_subsector
+
+        menor_subsector_para_sector_dado['Actividad que menos contribuyó']= menor_actividad_menor_subsector
 
 
 
-
-        sector['subsector que más aportó'] = mayor_subsector_para_sector_dado
-        sector['subsector que menos aportó'] = menor_sector
+        ### Añadir menor subsector a sector dado
+        sector['subsector que menos aportó'] = menor_subsector_para_sector_dado
 
     
 
