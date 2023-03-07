@@ -661,6 +661,9 @@ def req_6(data_structs, anio):
         ### Añadir menor subsector a sector dado
         sector['subsector que menos aportó'] = menor_subsector_para_sector_dado
 
+
+    return lista_sectores
+
     
 
 
