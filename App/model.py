@@ -541,7 +541,7 @@ def crear_lista_sectores_totalizados_por_anio(lista_subsects):
    
     dic_secs ={}
     ## primero crea diccionario
-    lista_subsects = lt.iterator(lista_sects)
+    lista_subsects = lt.iterator(lista_subsects)
     
     for subsector in lista_subsects:
         llave_sector_dado =subsector['Código sector económico']
@@ -551,7 +551,7 @@ def crear_lista_sectores_totalizados_por_anio(lista_subsects):
             dict_sector_dado = {}
 
             dict_sector_dado['Nombre sector económico']=subsector['Nombre sector económico']
-            dict_sector_dado['Código subsector económico']=subsector['Código subsector económico']
+            dict_sector_dado['Código sector económico']=subsector['Código sector económico']
 
 
             dict_sector_dado['Total ingresos netos']=float(subsector['Total ingresos netos'])
@@ -608,9 +608,11 @@ def req_6(data_structs, anio):
 
     lista_sectores = crear_lista_sectores_totalizados_por_anio(lista_subsectores)
 
+    print(lista_sectores)
+    
     ### Encontray y añadir mayor y menos
-    for sector in lista_sectores:
-
+    for sector in lt.iterator(lista_sectores):
+        
         codigo_sector_dado = sector['Código sector económico']
 
         ###Proceso con mayor
@@ -846,7 +848,7 @@ def encontrar_menor(lista, criterio):
     menor = 9999999999999
     while i <= tamanio:
         exacto = lt.getElement(lista,i)
-        if exacto[criterio]<menor:
+        if float(exacto[criterio])<float(menor):
             respuesta = exacto
             menor = exacto[criterio]
         i+=1

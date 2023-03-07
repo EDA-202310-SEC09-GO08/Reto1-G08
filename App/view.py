@@ -239,6 +239,7 @@ def print_req_4(control):
     """
         Función que imprime la solución del Requerimiento 4 en consola
     """
+    
     # TODO: Imprimir el resultado del requerimiento 4
     print(controller.req_4(control))
 
@@ -288,10 +289,14 @@ def print_req_6(control):
         Función que imprime la solución del Requerimiento 6 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 6
-    respuesta = (controller.req_6(control))
-    df = pd.DataFrame(respuesta)
-    df_fil = df[['Año','Nombre subsector económico','Total retenciones']]
-    print(df_fil)
+    anio =input('Ingrse año a buscar  ')
+    req_6 = controller.req_6(control,anio)
+    req_6_lista = req_6['elements']
+
+    df_sectores = pd.DataFrame(req_6_lista)
+    df_sectores_imprimir = df_sectores[['Nombre sector económico','Total ingresos netos']]
+
+    print(df_sectores_imprimir)
 
 
 def print_req_7(control):
