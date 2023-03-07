@@ -41,7 +41,6 @@ operación solicitada
 """
 
 
-
 def new_controller(tipo):
     """
         Se crea una instancia del controlador
