@@ -247,16 +247,31 @@ def print_req_3(control):
     # TODO: Imprimir el resultado del requerimiento 3
     req_3 = controller.req_3(control)
 
+    respuesta = req_3[0]['elements']
 
-    respuesta =filtrar_lista_dics_por_columnas( req_3[0]['elements'],['Año','Código sector económico',
+    respuesta_filtrada =filtrar_lista_dics_por_columnas( respuesta,['Año','Código sector económico',
                                               'Nombre sector económico','Código subsector económico',
-                                          'Nombre subsector económico', 'Total retenciones',' Total ingresos netos',
-                                          'Total costos y gastos'])
+                                          'Nombre subsector económico', 'Total retenciones','Total ingresos netos',
+                                          'Total costos y gastos','Total saldo a pagar','Total saldo a favor'])
 
     #res_esp_2019 = respuesta[1]['Primeras y últimas 3 actividades en contribuir']
 
-    tabulate_respuesta = tabulate(respuesta, headers='keys', maxcolwidths =[10]*6, maxheadercolwidths=[10]*6)
+    tabulate_respuesta = tabulate(respuesta_filtrada, headers='keys', maxcolwidths =[10]*6, maxheadercolwidths=[10]*6)
     print(tabulate_respuesta)
+    i=0
+    tamanio_lista = len(respuesta)
+    while i<tamanio_lista:
+
+        anio_subsect = respuesta[i]['Año']
+        lista_por_subsec = filtrar_lista_dics_por_columnas(respuesta[i]['Primeras y últimas 3 actividades en contribuir'],['Código actividad económica',
+                                                            'Nombre actividad económica','Total retenciones','Total ingresos netos',
+                                          'Total costos y gastos','Total saldo a pagar','Total saldo a favor'])
+        
+        lista_subsect_tabulete = tabulate(lista_por_subsec,headers='keys', maxcolwidths =[10]*7, maxheadercolwidths=[10]*7)
+        print('Actividades que más y menos contribuyeron al subsector para ',anio_subsect)
+        print(lista_subsect_tabulete)
+
+        i+=1
 
 
     #print(type(res_esp_2016))
