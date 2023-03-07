@@ -222,7 +222,8 @@ def print_req_3(control):
         Función que imprime la solución del Requerimiento 3 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 3
-    respuesta =controller.req_3(control)['elements']
+    req_3 = controller.req_3(control)
+    respuesta =req_3[0]['elements']
     #print(respuesta[5])
     res_esp_2019 = respuesta[1]['Primeras y últimas 3 actividades en contribuir']
     #print(type(res_esp_2016))
@@ -233,6 +234,9 @@ def print_req_3(control):
     df_filt_2019 = df_2019[['Código actividad económica','Nombre actividad económica']]
     print(df_fil)
     print(df_filt_2019)
+    print('TAMAÑO:  ',req_3[1])
+    print('TIEMPO:  ',req_3[2])
+
 
 
 def print_req_4(control):
@@ -291,12 +295,17 @@ def print_req_6(control):
     # TODO: Imprimir el resultado del requerimiento 6
     anio =input('Ingrse año a buscar  ')
     req_6 = controller.req_6(control,anio)
-    req_6_lista = req_6['elements']
+    req_6_lista = req_6[0]['elements']
+    req_6_tamanio = req_6[1]
+    req_6_time = req_6[2]
 
     df_sectores = pd.DataFrame(req_6_lista)
     df_sectores_imprimir = df_sectores[['Nombre sector económico','Total ingresos netos']]
 
+    
     print(df_sectores_imprimir)
+    print('TAMAÑO: ',req_6_tamanio)
+    print('TIEMPO: ', req_6_time)
 
 
 def print_req_7(control):

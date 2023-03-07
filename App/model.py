@@ -348,7 +348,7 @@ def agregar_lista_de_6_a_subsector(subsector, lista_de_actividades_un_anio):
                 i+=1
         ### Añade la lista como elemento al dict subsect
         subsector['Primeras y últimas 3 actividades en contribuir']= lista_6_activ_por_anio
-        print(len(lista_6_activ_por_anio))
+        #print(len(lista_6_activ_por_anio))
         return subsector
 
 
@@ -608,7 +608,7 @@ def req_6(data_structs, anio):
 
     lista_sectores = crear_lista_sectores_totalizados_por_anio(lista_subsectores)
 
-    print(lista_sectores)
+    
     
     ### Encontray y añadir mayor y menos
     for sector in lt.iterator(lista_sectores):

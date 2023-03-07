@@ -129,8 +129,14 @@ def req_3(control):
     Retorna el resultado del requerimiento 3
     """
     # TODO: Modificar el requerimiento 3
+    start_time = get_time()
     req_3 = model.req_3(control["model"])
-    return req_3
+    end_time = get_time()
+    delta_t = delta_time(start_time,end_time)
+   
+    tamanio = data_size(control)
+
+    return req_3, tamanio, delta_t
 
 
 def req_4(control,anio):
@@ -156,8 +162,13 @@ def req_6(control,anio):
     Retorna el resultado del requerimiento 6
     """
     # TODO: Modificar el requerimiento 6
-    req_6 = model.req_6(control["model"],anio)
-    return req_6
+    start_time = get_time()
+    req_3 = model.req_6(control["model"],anio)
+    end_time = get_time()
+    delta_t = delta_time(start_time,end_time)
+    tamanio = data_size(control)
+
+    return req_3, tamanio, delta_t
 
 
 def req_7(control):
