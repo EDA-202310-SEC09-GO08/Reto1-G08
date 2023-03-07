@@ -194,11 +194,16 @@ def print_data(control, id):
 
 def print_req_1(control):
     """
-        Función que imprime la solución del Requerimiento 1 en consola
+    Función que imprime la solución del Requerimiento 1 en consola
     """
-    # TODO: Imprimir el re1sultado del requerimiento 1
-    respuesta = (controller.req_1(control)['elements'])
+    # Obtener el generador de la respuesta
+    respuesta_gen = controller.req_1(control)['elements']
+    # Convertir el generador a una lista
+    respuesta = list(respuesta_gen)
+    # Imprimir la lista formateada
     print(tabulate(respuesta, headers="keys", tablefmt= "grid"))
+    # Retornar la lista
+    return respuesta
 
 
 def print_req_2(control):

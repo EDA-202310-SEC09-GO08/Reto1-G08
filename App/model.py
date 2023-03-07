@@ -204,7 +204,7 @@ def req_1(data_structs):
     
     repeticiones = lt.size(mayor)
     respuesta = ordenar(mayor, "Año", repeticiones, 0)
-    respuesta_filtrada = respuesta_filtrada_req1
+    respuesta_filtrada = respuesta_filtrada_req1(respuesta)
     
     final = lt.iterator(respuesta_filtrada)
     return (final)
@@ -214,16 +214,16 @@ def respuesta_filtrada_req1(respuesta):
     for elem in lt.iterator(respuesta):
         dic = {
             "Año": elem["Año"],
-            "Código actividad económica": elem["Código Actividad Económica"],
-            "Nombre actividad económica": elem["Nombre Actividad Económica"],
-            "Código sector económico": elem["Código Sector Económico"],
-            "Nombre sector económico": elem["Nombre Sector Económico"],
-            "Código subsector económico": elem["Código Subsector Económico"],
-            "Nombre subsector económico": elem["Nombre Subsector Económico"],
-            "Total ingresos netos": elem["Total Ingresos Netos"],
-            "Total costos y gastos": elem["Total Costos y Gastos"],
-            "Total saldo para pagar": elem["Total Saldo a Pagar"],
-            "Total saldo a favor": elem["Total Saldo a Favor"]
+            "Código actividad económica": elem["Código actividad económica"],
+            "Nombre actividad económica": elem["Nombre actividad económica"],
+            "Código sector económico": elem["Código sector económico"],
+            "Nombre sector económico": elem["Nombre sector económico"],
+            "Código subsector económico": elem["Código subsector económico"],
+            "Nombre subsector económico": elem["Nombre subsector económico"],
+            "Total ingresos netos": elem["Total ingresos netos"],
+            "Total costos y gastos": elem["Total costos y gastos"],
+            "Total saldo para pagar": elem["Total saldo a pagar"],
+            "Total saldo a favor": elem["Total saldo a favor"]
         }
         lt.addLast(respuesta_filtrada, dic)
     return respuesta_filtrada
