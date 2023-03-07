@@ -348,7 +348,7 @@ def agregar_lista_de_6_a_subsector(subsector, lista_de_actividades_un_anio):
                 i+=1
         ### Añade la lista como elemento al dict subsect
         subsector['Primeras y últimas 3 actividades en contribuir']= lista_6_activ_por_anio
-        print(len(lista_6_activ_por_anio))
+        #print(len(lista_6_activ_por_anio))
         return subsector
 
 
@@ -452,6 +452,7 @@ o El Total saldo a favor."""
     return respuesta_filtrada
 
 
+
 def req_5(data_struct):
     """
     Función que soluciona el requerimiento 5
@@ -460,11 +461,7 @@ def req_5(data_struct):
     tamanio = data_size(data_struct)
     
     anios = crear_diccionario(data_struct,"data", "Año", tamanio)
-    anios_keys = anios.keys()
-    orden_keys = sorted(anios_keys)
-    orden_anios = {}
-    for key in orden_keys:
-        orden_anios[key] = anios[key]
+    orden_anios = ordenar_dic(anios)
     organizado = {}
     extremos = {}
     respuesta = {}
@@ -660,7 +657,7 @@ def req_6(data_structs, anio):
 
     lista_sectores = crear_lista_sectores_totalizados_por_anio(lista_subsectores)
 
-    print(lista_sectores)
+    
     
     ### Encontray y añadir mayor y menos
     for sector in lt.iterator(lista_sectores):
@@ -966,7 +963,13 @@ def ordenar(lista, criterio, repeticiones, donde ):
         lt.deleteElement(lista, elim)
 
     return respuesta 
-
+def ordenar_dic(dic):
+    dic_keys = dic.keys()
+    keys = sorted(dic_keys)
+    orden_keys = {}
+    for key in keys:
+        orden_keys[key] = dic[key]
+    return orden_keys
 #suma la variable dentro de una lista con un criterio expecifico
 def suma_variable(dic, suma):
     tamanio = lt.size(dic)
