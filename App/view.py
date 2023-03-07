@@ -282,8 +282,8 @@ def print_req_3(control):
     #df_filt_2019 = df_2019[['Código actividad económica','Nombre actividad económica']]
     #print(df_fil)
     #print(df_filt_2019)
-    #print('TAMAÑO:  ',req_3[1])
-    #print('TIEMPO:  ',req_3[2])
+    print('TAMAÑO:  ',req_3[1])
+    print('TIEMPO:  ',req_3[2])
 
 
 
@@ -347,11 +347,21 @@ def print_req_6(control):
     req_6_tamanio = req_6[1]
     req_6_time = req_6[2]
 
-    df_sectores = pd.DataFrame(req_6_lista)
-    df_sectores_imprimir = df_sectores[['Nombre sector económico','Total ingresos netos']]
+    respuesta_filtrada =filtrar_lista_dics_por_columnas( req_6_lista,['Código sector económico',
+                                              'Nombre sector económico','Total ingresos netos',
+                                          'Total costos y gastos','Total saldo a pagar','Total saldo a favor'])
+
+
+    tabulate_respuesta = tabulate(respuesta_filtrada, headers='keys', maxcolwidths =[10]*6, maxheadercolwidths=[10]*6)
+    print(tabulate_respuesta)
+      
+
+    #df_sectores = pd.DataFrame(req_6_lista)
+    #df_sectores_imprimir = df_sectores[['Nombre sector económico','Total ingresos netos']]
 
     
-    print(df_sectores_imprimir)
+    #print(df_sectores_imprimir)
+
     print('TAMAÑO: ',req_6_tamanio)
     print('TIEMPO: ', req_6_time)
 
