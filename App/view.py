@@ -352,8 +352,31 @@ def print_req_6(control):
                                           'Total costos y gastos','Total saldo a pagar','Total saldo a favor'])
 
 
-    tabulate_respuesta = tabulate(respuesta_filtrada, headers='keys', maxcolwidths =[10]*6, maxheadercolwidths=[10]*6)
+    tabulate_respuesta = tabulate(respuesta_filtrada, headers='keys', maxcolwidths =[15]*6, maxheadercolwidths=[15]*6)
     print(tabulate_respuesta)
+
+    tamanio_lista = len(req_6_lista)
+    while i< tamanio_lista:
+
+        sector=req_6_lista[i]
+        cod_sector = sector['Código sector económico']
+        nombre_sector = sector[i]['Nombre sector económico']
+
+        print('Para el sector ',nombre_sector,' , el subsector económico que más aportó es:')
+        subsector_mayor = sector['Subsector que más contribuyó']
+
+        subsector_mayor_filt = filtrar_dic_con_por_llaves(subsector_mayor,['Código subsector económico',
+                                              'Nombre subsector económico','Total ingresos netos',
+                                          'Total costos y gastos','Total saldo a pagar','Total saldo a favor'])
+        
+        subsect_mayor_tab = tabulate_respuesta = tabulate(subsect_mayor_tab, headers='keys', maxcolwidths =[15]*6, maxheadercolwidths=[15]*6)
+        print(subsect_mayor_tab)
+        
+        print('Para el dicho subsector que más aporto, las actividades que más y menos aportaron respectivamente son:')
+        i+=1
+
+
+    
       
 
     #df_sectores = pd.DataFrame(req_6_lista)
