@@ -511,7 +511,7 @@ def crear_lista_subsectores_totalizados_6(dic_subsects):
 
 
 
-            if actividad['Código subsector económico'] not in dic_totalizado_subsect:
+            if actividad['Código subsector económico'] not in dic_totalizado_subsect.keys():
 
                 dic_totalizado_subsect['Código subsector económico'] =  actividad['Código subsector económico']
                 dic_totalizado_subsect['Nombre subsector económico'] =  actividad['Nombre subsector económico']
@@ -601,7 +601,7 @@ def req_6(data_structs, anio):
 
     ### crea lista totalizada de subsectores
 
-    lista_subsectores = crear_lista_subsectores_totalizados_6(dic_subsectores)
+    lista_subsectores = crear_lista_subsectores_por_anio(array_del_anio)
 
 
     ### Crea lista de sectores más general
