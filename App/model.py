@@ -750,10 +750,61 @@ def req_6(data_structs, anio):
     
 
 
-def req_7(data_structs):
+def req_7(data_structs, numero, anio_inicial, anio_final):
     """
     Función que soluciona el requerimiento 7
     """
+    tamanio = data_size(data_structs)
+    anios = crear_diccionario(data_structs,"data", "Año", tamanio)
+    orden_anios = ordenar_dic(anios)
+    
+    por_anio = lt.newList()
+    for fecha in orden_anios.keys():
+        
+        if int(fecha) >= int(anio_inicial) and int(fecha)<= int(anio_final):
+            
+            lt.addLast(por_anio, orden_anios[fecha])
+    i = 0
+    listas_org = lt.newList(datastructure="ARRAY_LIST")
+    while i<lt.size(por_anio):
+        inicial = lt.getElement(por_anio,i)
+        merg.sort(inicial, sort_criteria_total_costos)
+        lt.addLast(listas_org, inicial)
+
+        i +=1
+    e = 0
+    
+    final = lt.newList("SINGLE_LINKED")
+    while e < int(numero):
+        menor_primer = lt.newList(datastructure="ARRAY_LIST")
+    
+        for pos_lista in lt.iterator(listas_org):
+            prim = lt.firstElement(pos_lista)
+            lt.addLast(menor_primer, prim)
+        
+        men = encontrar_menor_pos(menor_primer, "Total costos y gastos")
+        lt.addLast(final, men[0])
+        elim = lt.getElement(listas_org, men[1])
+        lt.removeFirst(elim)
+        e+=1
+        
+    return final
+
+
+
+
+
+               
+
+
+
+
+
+    
+   
+    return final 
+    
+    
     # TODO: Realizar el requerimiento 7
     pass
 
@@ -818,6 +869,11 @@ def sort_criteria_total_ingresos_netos(a,b):
         cod_2 = b['Total ingresos'].split()[0].split('/')[0]
         return(float(cod_1)<float(cod_2))
 
+def sort_criteria_total_costos(a,b):
+
+        cod_1 = a["Total costos y gastos"].split()[0].split('/')[0]
+        cod_2 = b["Total costos y gastos"].split()[0].split('/')[0]
+        return(float(cod_1)<float(cod_2))
 
 def sort(data_structs, tipo):
     if tipo == 1:
@@ -922,6 +978,22 @@ def encontrar_menor(lista, criterio):
             menor = exacto[criterio]
         i+=1
     return respuesta
+
+def encontrar_menor_pos(lista, criterio):
+    
+    i =0
+    tamanio = lt.size(lista)
+    respuesta ={}
+    pos = 0
+    menor = 9999999999999
+    while i <= tamanio:
+        exacto = lt.getElement(lista,i)
+        if float(exacto[criterio])<float(menor):
+            respuesta = exacto
+            menor = exacto[criterio]
+            pos = i
+        i+=1
+    return respuesta, pos
 
 #organiza la informacion en diccionarios con la llave como el año
 def crear_diccionario (data_structs, tipo ,categoria,tamanio):
