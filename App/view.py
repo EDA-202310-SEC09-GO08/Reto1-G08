@@ -32,7 +32,22 @@ from tabulate import tabulate
 import pandas as pd
 
 
-
+def crear_diccionario_de_TAD (TAD ,categoria,tamanio):
+    
+    i =0
+    dic = {}
+    
+    while i < tamanio:
+        variable = lt.getElement(TAD,i)
+        momento = variable[categoria]
+        if variable[categoria] not in dic.keys():
+            dic[momento] = lt.newList(datastructure="ARRAY_LIST")
+            lt.addLast(dic[momento], variable )
+        elif variable[categoria] in dic.keys():
+            lt.addLast(dic[momento], variable  )
+        
+        i +=1
+    return dic
 """
 La vista se encarga de la interacción con el usuario
 Presenta el menu de opciones y por cada seleccion
@@ -103,24 +118,24 @@ def print_3_primeros_y_ultimos(lista, sample=3):
     losimp =[]
     
     if size<= sample*2:
-        print('Los',size,'primeros impuestos son:')
+        #print('Los',size,'primeros impuestos son:')
         for impuesto in lista_1:
             losimp.append(impuesto)
 
     else:
-        print('Los',sample, 'primeros impuestos son:')
+        #print('Los',sample, 'primeros y últimos impuestos son:')
         i=1
         while i <=sample:
             impuesto = lt.getElement(lista, i)
             losimp.append(impuesto)
             i+=1
-        print('los',sample, 'últimos libros ordenados son:')
+        
         i= size- sample +1
         while i <=size:
             impuesto = lt.getElement(lista, i)
             losimp.append(impuesto)
             i+=1 
-    return losimp 
+    return(losimp)
 
 def menu_tipo_lista():
     print("Ahora que tipo de lista deseas ")
@@ -507,8 +522,29 @@ if __name__ == "__main__":
                 archivo = menu_archivo()
                 load_data(control,archivo)
                 sort_data_result = controller.sort(control, 5)
-                print_3_primeros_y_ultimos(sort_data_result[0])
+
+
+                arraY_gen = control['model']['data']
+                
+                tamanio_arraygen = lt.size(arraY_gen)
+
+                dic_anios =crear_diccionario_de_TAD(arraY_gen,'Año',tamanio_arraygen)
+
+                i = 0
+
+                for anio in dic_anios.keys():
+                    array_por_anio = dic_anios[anio]
+                    print('Para ',anio, ', los primeros y últimos impuestos son:')
+                    lista_imprimir = print_3_primeros_y_ultimos(array_por_anio)
+                    lista_imprimirfilt = filtrar_lista_dics_por_columnas(lista_imprimir,['Año','Código actividad económica','Nombre actividad económica',
+                                                'Código sector económico','Nombre sector económico','Código subsector económico',
+                                              'Nombre subsector económico','Total ingresos netos',
+                                          'Total costos y gastos','Total saldo a pagar','Total saldo a favor'])
+                    lkista_tab = tabulate(lista_imprimirfilt, headers='keys', maxcolwidths =[12]*11, maxheadercolwidths=[12]*11)
+                    print(lkista_tab)
+                    
                 print(sort_data_result[1])
+                
             
                 
             elif int(inputs) == 2:
