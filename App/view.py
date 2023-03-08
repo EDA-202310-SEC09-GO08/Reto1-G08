@@ -227,23 +227,12 @@ def print_req_1(control):
     """
     Función que imprime la solución del Requerimiento 1 en consola
     """
-    respuesta = controller.req_1(control)
-    x = list(respuesta)
-    df = pd.DataFrame(x)
-    df_fil = df[['Año',"Código actividad económica", "Nombre actividad económica", "Código sector económico","Nombre sector económico",
+    respuesta = (controller.req_1(control))
+    res = filtrar_lista_dics_por(respuesta[0],['Año',"Código actividad económica", "Nombre actividad económica", "Código sector económico","Nombre sector económico",
                  "Código subsector económico", 'Nombre subsector económico', "Total ingresos netos", "Total costos y gastos",
-                 "Total saldo a pagar", "Total saldo a favor"]]
-    print(df_fil)
-
-    # Obtener el generador de la respuesta
-    respuesta_gen = controller.req_1(control)['elements']
-    # Convertir el generador a una lista
-    respuesta = list(respuesta_gen)
-    # Imprimir la lista formateada
-    print(tabulate(respuesta, headers="keys", tablefmt= "grid"))
-    
-    # Retornar la lista
-    return respuesta
+                 "Total saldo a pagar", "Total saldo a favor"] )
+    print(tabulate(res, headers="keys", tablefmt= "grid", maxcolwidths=15, maxheadercolwidths=15  ))
+    print(respuesta[1])
 
 
 def print_req_2(control):
