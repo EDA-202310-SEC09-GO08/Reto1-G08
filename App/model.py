@@ -193,7 +193,8 @@ def req_1(data_structs):
     Función que soluciona el requerimiento 1
     """
     tamanio = data_size(data_structs)
-    anios = crear_diccionario(data_structs, "data","Año", tamanio)
+    anios = crear_diccionario_req1(data_structs, "data","Año", tamanio)
+    #anios_filtrado = dict_filtrado(anios)
     #Crea un diccionario con los los años en sus llaves
     busca = "Total saldo a pagar"
     mayor = lt.newList(datastructure="ARRAY_LIST")
@@ -204,29 +205,48 @@ def req_1(data_structs):
     
     repeticiones = lt.size(mayor)
     respuesta = ordenar(mayor, "Año", repeticiones, 0)
-    respuesta_filtrada = respuesta_filtrada_req1(respuesta)
-    
-    final = lt.iterator(respuesta_filtrada)
+    final = lt.iterator(respuesta)
     return (final)
                 
-def respuesta_filtrada_req1(respuesta):
-    respuesta_filtrada = lt.newList(datastructure="ARRAY_LIST")
-    for elem in lt.iterator(respuesta):
-        dic = {
-            "Año": elem["Año"],
-            "Código actividad económica": elem["Código actividad económica"],
-            "Nombre actividad económica": elem["Nombre actividad económica"],
-            "Código sector económico": elem["Código sector económico"],
-            "Nombre sector económico": elem["Nombre sector económico"],
-            "Código subsector económico": elem["Código subsector económico"],
-            "Nombre subsector económico": elem["Nombre subsector económico"],
-            "Total ingresos netos": elem["Total ingresos netos"],
-            "Total costos y gastos": elem["Total costos y gastos"],
-            "Total saldo para pagar": elem["Total saldo a pagar"],
-            "Total saldo a favor": elem["Total saldo a favor"]
-        }
-        lt.addLast(respuesta_filtrada, dic)
-    return respuesta_filtrada
+def crear_diccionario_req1(data_structs, tipo ,categoria,tamanio):
+    
+    i =0
+    dic = {}
+    
+    while i < tamanio:
+        variable = lt.getElement(data_structs[tipo],i)
+        #variable = lt.newList("ARRAY_LIST")
+        #variable = lt.addLast(lt.getElement(data_structs[tipo],i))
+        #lt.deleteElement(variable, 1)
+        momento = variable[categoria]
+        if variable[categoria] not in dic.keys():
+            dic[momento] = lt.newList(datastructure="ARRAY_LIST")
+            lt.addLast(dic[momento], variable )
+        elif variable[categoria] in dic.keys():
+            lt.addLast(dic[momento], variable  )
+
+        i +=1
+    return dic
+
+"""def dict_filtrado(diccionario_anios):
+    dict_filtrado = {}
+    for anio in diccionario_anios:
+        parametros_filtrados = lt.newList(datastructure="ARRAY_LIST")
+        parametros_og = lt.newList(datastructure="ARRAY_LIST")
+        parametros_og = diccionario_anios[anio]
+        lt.addLast(parametros_filtrados, parametros_og["Año"])
+        lt.addLast(parametros_filtrados, parametros_og["Código actividad económica"])
+        lt.addLast(parametros_filtrados, parametros_og["Nombre actividad económica"])
+        lt.addLast(parametros_filtrados, parametros_og["Código sector económico"])
+        lt.addLast(parametros_filtrados, parametros_og["Nombre sector económico"])
+        lt.addLast(parametros_filtrados, parametros_og["Código subsector económico"])
+        lt.addLast(parametros_filtrados, parametros_og["Nombre subsector económico"])
+        lt.addLast(parametros_filtrados, parametros_og["Total ingresos netos"])
+        lt.addLast(parametros_filtrados, parametros_og["Total costos y gastos"])
+        lt.addLast(parametros_filtrados, parametros_og["Total saldo para pagar"])
+        lt.addLast(parametros_filtrados, parametros_og["Total saldo a favor"])
+        dict_filtrado[anio] = parametros_filtrados
+    return dict_filtrado"""
 
 def req_2(data_structs):
     """
@@ -744,16 +764,29 @@ def req_7(data_structs, numero, anio_inicial, anio_final):
         if int(fecha) >= int(anio_inicial) and int(fecha)<= int(anio_final):
             
             lt.addLast(por_anio, orden_anios[fecha])
-    i = 0
+    
+
+    
+    
+    
+    i = 1
+    
+                
+                 
+
+            
+    
     listas_org = lt.newList(datastructure="ARRAY_LIST")
-    while i<lt.size(por_anio):
+    while i<lt.size(por_anio)+1:
         inicial = lt.getElement(por_anio,i)
+
         merg.sort(inicial, sort_criteria_total_costos)
         lt.addLast(listas_org, inicial)
 
         i +=1
     e = 0
-    
+     
+
     final = lt.newList("SINGLE_LINKED")
     while e < int(numero):
         menor_primer = lt.newList(datastructure="ARRAY_LIST")
@@ -782,12 +815,7 @@ def req_7(data_structs, numero, anio_inicial, anio_final):
 
     
    
-    return final 
     
-    
-    # TODO: Realizar el requerimiento 7
-    pass
-
 
 def req_8(data_structs):
     """
