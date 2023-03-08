@@ -193,7 +193,7 @@ def req_1(data_structs):
     Función que soluciona el requerimiento 1
     """
     tamanio = data_size(data_structs)
-    anios = crear_diccionario_req1(data_structs, "data","Año", tamanio)
+    anios = crear_diccionario(data_structs, "data","Año", tamanio)
     #anios_filtrado = dict_filtrado(anios)
     #Crea un diccionario con los los años en sus llaves
     busca = "Total saldo a pagar"
@@ -205,29 +205,9 @@ def req_1(data_structs):
     
     repeticiones = lt.size(mayor)
     respuesta = ordenar(mayor, "Año", repeticiones, 0)
-    final = lt.iterator(respuesta)
-    return (final)
+
+    return (respuesta)
                 
-def crear_diccionario_req1(data_structs, tipo ,categoria,tamanio):
-    
-    i =0
-    dic = {}
-    
-    while i < tamanio:
-        variable = lt.getElement(data_structs[tipo],i)
-        #variable = lt.newList("ARRAY_LIST")
-        #variable = lt.addLast(lt.getElement(data_structs[tipo],i))
-        #lt.deleteElement(variable, 1)
-        momento = variable[categoria]
-        if variable[categoria] not in dic.keys():
-            dic[momento] = lt.newList(datastructure="ARRAY_LIST")
-            lt.addLast(dic[momento], variable )
-        elif variable[categoria] in dic.keys():
-            lt.addLast(dic[momento], variable  )
-
-        i +=1
-    return dic
-
 """def dict_filtrado(diccionario_anios):
     dict_filtrado = {}
     for anio in diccionario_anios:
