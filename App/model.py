@@ -744,16 +744,29 @@ def req_7(data_structs, numero, anio_inicial, anio_final):
         if int(fecha) >= int(anio_inicial) and int(fecha)<= int(anio_final):
             
             lt.addLast(por_anio, orden_anios[fecha])
-    i = 0
+    
+
+    
+    
+    
+    i = 1
+    
+                
+                 
+
+            
+    
     listas_org = lt.newList(datastructure="ARRAY_LIST")
-    while i<lt.size(por_anio):
+    while i<lt.size(por_anio)+1:
         inicial = lt.getElement(por_anio,i)
+
         merg.sort(inicial, sort_criteria_total_costos)
         lt.addLast(listas_org, inicial)
 
         i +=1
     e = 0
-    
+     
+
     final = lt.newList("SINGLE_LINKED")
     while e < int(numero):
         menor_primer = lt.newList(datastructure="ARRAY_LIST")
@@ -782,12 +795,7 @@ def req_7(data_structs, numero, anio_inicial, anio_final):
 
     
    
-    return final 
     
-    
-    # TODO: Realizar el requerimiento 7
-    pass
-
 
 def req_8(data_structs):
     """

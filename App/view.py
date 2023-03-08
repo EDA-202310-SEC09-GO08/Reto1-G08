@@ -60,6 +60,19 @@ def filtrar_lista_dics_por_columnas(lista_dics,lista_columnas):
         i+=1
     return lista_filt
 
+
+def filtrar_lista_dics_por(lista_dics,lista_columnas):
+    lista_filt = []
+
+    tamanio_lista = lt.size(lista_dics)
+    i = 0
+
+    while i<tamanio_lista:
+        a = lt.getElement(lista_dics,i)
+        dic_filt_dado = filtrar_dic_con_por_llaves(a,lista_columnas)
+        lista_filt.append(dic_filt_dado)
+        i+=1
+    return lista_filt
 def new_controller(tipo):
     """
         Se crea una instancia del controlador
@@ -220,6 +233,7 @@ def print_req_1(control):
     respuesta = list(respuesta_gen)
     # Imprimir la lista formateada
     print(tabulate(respuesta, headers="keys", tablefmt= "grid"))
+    
     # Retornar la lista
     return respuesta
 
@@ -231,12 +245,12 @@ def print_req_2(control):
     # TODO: Imprimir el resultado del requerimiento 2
     
     respuesta = (controller.req_2(control))
-    x=lt.iterator(respuesta)
-    df = pd.DataFrame(x)
-    df_fil = df[['Año',"Código actividad económica", "Nombre actividad económica", "Código sector económico","Nombre sector económico",
+    res = filtrar_lista_dics_por(respuesta[0],['Año',"Código actividad económica", "Nombre actividad económica", "Código sector económico","Nombre sector económico",
                  "Código subsector económico", 'Nombre subsector económico', "Total ingresos netos", "Total costos y gastos",
-                 "Total saldo a pagar", "Total saldo a favor"]]
-    print(df_fil)
+                 "Total saldo a pagar", "Total saldo a favor"] )
+    print(tabulate(res, headers="keys", tablefmt= "grid", maxcolwidths=15, maxheadercolwidths=15  ))
+    print(respuesta[1])
+   
     
 
 
@@ -302,8 +316,8 @@ def print_req_5(control):
     """
     # TODO: Imprimir el resultado del requerimiento 5
     respuesta = (controller.req_5(control))
-    organizado = respuesta[0]
-    extremos = (respuesta[1])
+    organizado = respuesta[0][0]
+    extremos = (respuesta[0][1])
     
     print(tabulate(organizado, headers="keys", tablefmt="grid", maxcolwidths=15, maxheadercolwidths=15  ))
 
@@ -316,26 +330,25 @@ def print_req_5(control):
     for ext in extremos.keys():
         size = len(extremos[ext])
         if size != 1:
-            mayor = lt.iterator(extremos[ext][0])
+            fin = filtrar_lista_dics_por(extremos[ext][0], heads)
             print("The three economic activities that contributed the most in " + ext )
-            df = pd.DataFrame(mayor)
-            df_fil = df[heads]
-            print(df_fil)
+            print(tabulate(fin, headers="keys", tablefmt= "grid", maxcolwidths=15, maxheadercolwidths=15  ))
+            
 
-            menor = lt.iterator(extremos[ext][1])
+           
             print("The three economic activities that contributed the least in " + ext )
-            df = pd.DataFrame(menor)
-            df_fil = df[heads]
-            print(df_fil)
+            fin = filtrar_lista_dics_por(extremos[ext][1], heads)
+            
+            print(tabulate(fin, headers="keys", tablefmt= "grid", maxcolwidths=15, maxheadercolwidths=15  ))
+            
 
         else:
             tamanio = lt.size(extremos[ext][0])
             normal = lt.iterator(extremos[ext][0])
             print("There are only " + str(tamanio)+" economic activities in " + ext)
-            df = pd.DataFrame(normal)
-            df_fil = df[heads]
-            print(df_fil)
-
+            fin = filtrar_lista_dics_por(extremos[ext][0], heads)
+            print(tabulate(fin, headers="keys", tablefmt= "grid", maxcolwidths=15, maxheadercolwidths=15  ))
+    print(respuesta[1])
 def print_req_6(control):
     """
         Función que imprime la solución del Requerimiento 6 en consola
@@ -397,7 +410,14 @@ def print_req_7(control):
     anio_in = input("Ingrese el año inial " )
     anio_fin = input("Ingrese el año final ")
     numero = input("Numero de actividades a identificar ")
-    print(controller.req_7(control, numero, anio_in, anio_fin))
+    respuesta = (controller.req_7(control, numero, anio_in, anio_fin))
+    
+    heads = ['Año',"Código actividad económica", "Nombre actividad económica", "Código sector económico","Nombre sector económico",
+                 "Código subsector económico", 'Nombre subsector económico', "Total ingresos netos", "Total costos y gastos",
+                 "Total saldo a pagar", "Total saldo a favor"]
+    fin = filtrar_lista_dics_por(respuesta[0], heads)
+    print(tabulate(fin, headers="keys", tablefmt= "grid", maxcolwidths=15, maxheadercolwidths=15  ))
+    print(respuesta[1])
 
 
 def print_req_8(control):
@@ -405,7 +425,9 @@ def print_req_8(control):
         Función que imprime la solución del Requerimiento 8 en consola
     """
     # TODO: Imprimir el resultado del requerimiento 8
-    print(controller.req_8(control))
+    print (controller.req_8(control))
+    
+    
 
 
 # Se crea el controlador asociado a la vista
