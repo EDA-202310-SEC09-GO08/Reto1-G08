@@ -111,8 +111,11 @@ def req_1(control):
     Retorna el resultado del requerimiento 1
     """
     # TODO: Modificar el requerimiento 1
+    start_time =get_time()
     req_1 = model.req_1(control["model"])
-    return req_1
+    end_time = get_time()
+    delta_t = delta_time(start_time,end_time)
+    return req_1, delta_t
 
 
 def req_2(control):

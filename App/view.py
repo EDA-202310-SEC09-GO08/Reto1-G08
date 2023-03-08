@@ -243,12 +243,11 @@ def print_req_1(control):
     Función que imprime la solución del Requerimiento 1 en consola
     """
     respuesta = (controller.req_1(control))
-    res = filtrar_lista_dics_por(respuesta,['Año',"Código actividad económica", "Nombre actividad económica", "Código sector económico","Nombre sector económico",
+    res = filtrar_lista_dics_por(respuesta[0],['Año',"Código actividad económica", "Nombre actividad económica", "Código sector económico","Nombre sector económico",
                  "Código subsector económico", 'Nombre subsector económico', "Total ingresos netos", "Total costos y gastos",
                  "Total saldo a pagar", "Total saldo a favor"] )
     print(tabulate(res, headers="keys", tablefmt= "grid", maxcolwidths=15, maxheadercolwidths=15  ))
-    #print(respuesta)
-
+    print(respuesta)
 
 def print_req_2(control):
     """

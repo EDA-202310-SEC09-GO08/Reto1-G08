@@ -198,7 +198,6 @@ def req_1(data_structs):
     #Crea un diccionario con los los años en sus llaves
     busca = "Total saldo a pagar"
     mayor = lt.newList(datastructure="ARRAY_LIST")
-    #Se crea una lista donde se almacenan los datos de 
     for fecha in anios.keys():
         alto = encontrar_mayor(anios[fecha], busca)
         lt.addLast(mayor, alto)
